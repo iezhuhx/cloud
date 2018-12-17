@@ -1,0 +1,16 @@
+#spring.cloud.config.server.svn.search-paths=cyb
+#spring.cloud.config.server.svn.basedir=/data
+spring:
+  cloud:
+    config:
+      server:
+        svn:
+          uri: https://192.168.16.113/svn/web/config-repo
+          username: chenyuanbao
+          password: 123
+          default-label: trunk
+          search-paths: {application}
+logging:
+  levels:
+    org.springframework.boot.env.PropertySourcesLoader: TRACE
+    org.springframework.cloud.config.server: DEBUG

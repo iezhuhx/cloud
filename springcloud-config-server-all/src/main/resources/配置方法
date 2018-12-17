@@ -1,0 +1,14 @@
+spring.application.name=config-server
+#本地文件存储
+spring.profiles.active=native
+spring.cloud.config.server.native.searchLocations=file:d:\\data\\config-repo
+
+#git存储(默认方式)
+spring.profiles.active=git
+spring.cloud.config.server.git.uri=https://github.com/iechenyb/config-repo
+
+#svn环境
+spring.profiles.active=subversion
+spring.cloud.config.server.svn.uri=http://localhost:1234/config-repo/trunk
+spring.cloud.config.server.svn.username=xxxx
+spring.cloud.config.server.svn.password=xxxx

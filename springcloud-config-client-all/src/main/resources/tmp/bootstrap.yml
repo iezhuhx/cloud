@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    config:
+      name: cyb
+      profile: dev
+      uri: http://localhost:7777
+      label: master
+server:
+  port: 7775

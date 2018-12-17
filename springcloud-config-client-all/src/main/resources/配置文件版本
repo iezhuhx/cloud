@@ -1,0 +1,62 @@
+https://github.com/hahaxiaowei/spring-cloud-demo/blob/master/spring-cloud-config-server/pom.xml
+ͨspring.cloud.config.server.git.uri https://github.com/spring-cloud-samples/config-repo
+
+### config server native
+spring.profiles.active=native
+spring.cloud.config.server.native.searchLocations=classpath:/config
+
+spring.profiles.active=native
+spring.cloud.config.server.native.searchLocations=file:E:\\Java\\Workspaces\\sts\\doc\\file\\config
+
+http://localhost:8888/{application}/{profile}/{label} http://localhost:8888/dmeo/development/trunk
+### config server svn
+spring.cloud.config.server.svn.uri=http://localhost:8888/dmeo/development/trunk
+spring.cloud.config.server.svn.username=xxx
+spring.cloud.config.server.svn.password=xxx
+spring.profiles.active=subversion
+
+ spring 为我们提供了大量的激活 profile 的方法，可以通过代码来激活，
+也可以通过系统环境变量、JVM参数、servlet上下文参数来定义 
+spring.profiles.active 参数激活 profile，这里我们通过定义 JVM 参数实现。
+1、ENV方式：
+ConfigurableEnvironment.setActiveProfiles("test")
+2、JVM参数方式:
+tomcat 中 catalina.bat（.sh中不用“set”） 添加JAVA_OPS。通过设置active选择不同配置文件
+set JAVA_OPTS="-Dspring.profiles.active=test"
+3 eclipse 中启动tomcat。项目右键 run as –> run configuration–>Arguments–> VM arguments中添加。local配置文件不必上传git追踪管理
+-Dspring.profiles.active="local"
+4、web.xml方式：
+
+<init-param>
+  <param-name>spring.profiles.active</param-name>
+  <param-value>production</param-value>
+</init-param>
+
+4、标注方式（junit单元测试非常实用）：
+@ActiveProfiles({"unittest","productprofile"})
+
+
+http://blog.csdn.net/rickiyeat/article/details/65022310
+https://github.com/Lovnx
+https://github.com/eacdy
+https://github.com/prontera 
+
+5 启动配置
+spring:
+  application:
+    name: cyb
+  profiles:
+    active: development
+    /**
+ * @author Administrator
+ *http://blog.csdn.net/gongxsh00/article/details/51292200\
+ *启动注意事项 -Dspring.profiles.active=test   test为文件后缀名，
+ *bootstrap.yml 中的spring:application:name=cyb,最终加载的文件为git/cyb-test.yml
+ * http://localhost:7776/my-client/master
+ *从git刷新配置信息 http://localhost:7776/refresh  仅仅支持post请求！
+ *不走消息总线的时候，需要通知各个客户端进行刷新。
+ */
+ /*new SpringApplicationBuilder
+		(ConfigClientApplication.class)
+		.web(true).profiles("dev")
+		.run(args);*/

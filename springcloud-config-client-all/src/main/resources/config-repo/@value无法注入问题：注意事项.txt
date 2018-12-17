@@ -1,0 +1,4 @@
+yml配置属性时
+如  from:local-pro  写法错误  
+必须改成如下写法
+from: local-pro   :后边必须有空格，否则无法通过@value注入属性值
