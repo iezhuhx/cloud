@@ -1,0 +1,28 @@
+server:
+  port: 8761
+spring:
+  application:
+    name:cloud-114
+  profiles:slaveA
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds:5
+    leaseExpireationDurationInSeconds:10
+  client:
+    registerWithEureka: false  
+    fetchRegistry: false       
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8762/eureka
+---
+server:
+  port: 8762
+spring:
+  application:
+    name:cloud-114
+  profiles:slaveB
+eureka:
+  client:
+    registerWithEureka: false  
+    fetchRegistry: false       
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka

@@ -1,0 +1,1 @@
+nohup ./catalina.sh > eureka.log
