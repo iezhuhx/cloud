@@ -1,0 +1,9 @@
+ 获取进程号
+ pid=ps -ef|grep java|grep zuul|awk '{print $2}'
+ 杀死进程
+ kill -9 pid
+ 休息2秒
+ sleep 2s
+ date;sleep 30s; date
+ 运行脚本
+ ./start0.sh 

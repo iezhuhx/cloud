@@ -1,0 +1,2 @@
+netstat -ano|findstr 8085
+taskkill /T /F /PID  28528

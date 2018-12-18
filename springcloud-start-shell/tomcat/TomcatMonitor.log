@@ -1,0 +1,98 @@
+[info] start monitor tomcat...[2018-01-31 11:19:01]
+[error]tomcat process not exist,prepare to restart...
+[info]/chenyb/apache-tomcat-7.0.52/bin/startup.sh,wait for a moment......
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 11:20:10]
+[error]tomcat process not exist,prepare to restart...
+[info]/chenyb/apache-tomcat-7.0.52/bin/startup.sh,wait for a moment......
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:17:01]
+[error]tomcat process not exist,prepare to restart...
+[info]/chenyb/apache-tomcat-7.0.52/bin/startup.sh,wait for a moment......
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:17:53]
+[info]current tomcat process ID is 3540
+[error]tomcat exception ......state is ,please look log file at /chenyb/apache-tomcat-7.0.52/TomcatMonitor.Info
+[error]page is wrong ,try to restart tomcat
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:20:01]
+[info]current tomcat process ID is 3638
+[error]tomcat exception ......state is 000,please look log file at /chenyb/apache-tomcat-7.0.52/TomcatMonitor.Info
+[error]page is wrong ,try to restart tomcat
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:20:19]
+[info]current tomcat process ID is 3818
+[error]tomcat exception ......state is 000,please look log file at /chenyb/apache-tomcat-7.0.52/TomcatMonitor.Info
+[error]page is wrong ,try to restart tomcat
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:29:50]
+[error]tomcat process not exist,prepare to restart...
+[info]/chenyb/apache-tomcat-7.0.52/bin/startup.sh,wait for a moment......
+Using CATALINA_BASE:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_HOME:   /chenyb/apache-tomcat-7.0.52
+Using CATALINA_TMPDIR: /chenyb/apache-tomcat-7.0.52/temp
+Using JRE_HOME:        /usr/jdk
+Using CLASSPATH:       /chenyb/apache-tomcat-7.0.52/bin/bootstrap.jar:/chenyb/apache-tomcat-7.0.52/bin/tomcat-juli.jar
+Tomcat started.
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:32:36]
+[info]current tomcat process ID is 4382
+Test web service url is http://localhost:80!
+[info]response code is 200,tomcat running is  normally......
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:32:44]
+[info]current tomcat process ID is 4382
+Test web service url is http://localhost:80!
+[info]response code is 200,tomcat running is  normally......
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:32:47]
+[info]current tomcat process ID is 4382
+Test web service url is http://localhost:80!
+[info]response code is 200,tomcat running is  normally......
+------------------------------
+[info] start monitor tomcat...[2018-01-31 12:32:48]
+[info]current tomcat process ID is 4382
+Test web service url is http://localhost:80!
+[info]response code is 200,tomcat running is  normally......
+------------------------------
+[info] start check tomcat...[2018-01-31 12:34:16]
+[info]current tomcat process ID is 4382
+Test web service url is http://localhost:80
+[info]response code is 200,tomcat running is  normally......
+------------------------------

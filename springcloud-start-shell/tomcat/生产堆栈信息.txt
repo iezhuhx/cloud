@@ -1,0 +1,6 @@
+#!/bin/bash
+pid=`jps |grep Boot|awk '{print $1}'`
+dateinfo=`date +%Y%d%m%H%M%S`
+jstack $pid  > dump-$dateinfo.log
+jmap -heap $pid > heap-$dateinfo.log
+grep java.lang.Thread.State dump-$dateinfo.log|awk '{print $2$3$4$5}' |sort|uniq -c > statics-$dateinfo.log

@@ -1,0 +1,4 @@
+#!/bin/sh
+/opt/tomcat/bin/shutdown.sh
+ sleep 3  #等3秒后执行下一条
+/opt/tomcat/bin/startup.sh
