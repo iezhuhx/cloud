@@ -1,0 +1,96 @@
+http {
+	upstream loadblance { 
+			server 192.168.108.224:8083 weight=1; 
+	} 
+	server {
+		  listen       8094; #监听端口
+		  server_name  localhost; #
+ 
+		  #charset koi8-r;
+ 
+		  #access_log  logs/host.access.log  main;
+ 
+		 #location / {
+			#  root   html;#文件根目录
+			 # index  index.html index.htm;#默认起始页
+		  #}
+		  location / {
+		  if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        #
+        # Custom headers and headers various browsers *should* be OK with but aren't
+        #
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+        #
+        # Tell client that this pre-flight info is valid for 20 days
+        #
+        add_header 'Access-Control-Max-Age' 1728000;
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Content-Length' 0;
+        return 204;
+     }
+     if ($request_method = 'POST') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+     }
+     if ($request_method = 'GET') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+     }
+		    #这个至关重要，表示代理的时候设置主机名(IP)和端口，不设置会无法转发请求，这里其实就是代理Nginx本机IP以及监听端口
+            #proxy_set_header Host $host:8094;
+            #这个是获取到请求客户端的真实IP而不是Nginx代理机器的IP
+            proxy_set_header X-Real-IP $remote_addr;
+            root   html;
+            index  index.html index.htm;
+			proxy_pass http://loadblance;
+			proxy_redirect default;
+			proxy_connect_timeout       1;
+			proxy_read_timeout          1;
+			proxy_send_timeout          1;
+    }
+		
+	location /apis {
+		 if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        #
+        # Custom headers and headers various browsers *should* be OK with but aren't
+        #
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+        #
+        # Tell client that this pre-flight info is valid for 20 days
+        #
+        add_header 'Access-Control-Max-Age' 1728000;
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Content-Length' 0;
+        return 204;
+     }
+     if ($request_method = 'POST') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+     }
+     if ($request_method = 'GET') {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+     }
+		 proxy_set_header X-Real-IP $remote_addr;
+		 #add_header Access-Control-Allow-Origin *;
+         #add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+         #add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+		 add_header Access-Control-Allow-Credentials true;
+         rewrite  ^.+apis/?(.*)$ /$1 break;
+         include  uwsgi_params;
+         proxy_pass   http://192.168.108.224:3002;
+		 proxy_redirect default;
+	   }
+	}
+}
+events {
+    worker_connections  1024;
+}

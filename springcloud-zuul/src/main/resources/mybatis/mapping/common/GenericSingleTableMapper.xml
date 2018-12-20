@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kiiik.pub.mybatis.mapper.GenericMybatisMapper">
+	<cache></cache>
+	<parameterMap type="com.kiiik.pub.mybatis.bean.EntityInfo" id="EntityInfo"></parameterMap>
+	<select id="queryDBEntity" parameterType="com.kiiik.pub.mybatis.bean.EntityInfo" flushCache="true"
+	resultType="java.util.HashMap">
+		select 
+		<foreach collection="cols" item="eachCol" separator=",">
+		   <choose>
+				<when test="eachCol.needTimestamp">
+					cast(UNIX_TIMESTAMP(`${eachCol.dbColName}`) as decimal(50)) as ${eachCol.entityColName}
+				</when>
+				<otherwise>
+					`${eachCol.dbColName}` as ${eachCol.entityColName}
+				</otherwise>
+			</choose>
+		</foreach>
+		from <if test="database!=null">${database}.</if>${tableName}
+		<where>
+			<foreach collection="cols" item="eachCol" separator="and">
+				<if test="eachCol.value!=null">
+						${eachCol.dbColName} = #{eachCol.value}
+				</if>
+			</foreach>	
+		</where>
+		<if test="orderCols!=null">
+		     order by 
+			<foreach collection="orderCols" item="eachCol" separator=",">
+				<if test="eachCol!=null">
+						${eachCol}
+				</if>
+			</foreach>
+		</if>
+		<!-- 排序  aaa asc,bbb desc -->
+	</select>
+	
+	<!-- 模糊查询 -->
+	<select id="queryDBEntityLike" parameterType="com.kiiik.pub.mybatis.bean.EntityInfo" flushCache="true"
+	resultType="java.util.HashMap">
+		select 
+		<foreach collection="cols" item="eachCol" separator=",">
+			 <choose>
+				<when test="eachCol.needTimestamp">
+					cast(UNIX_TIMESTAMP(`${eachCol.dbColName}`) as decimal(50)) as ${eachCol.entityColName}
+				</when>
+				<otherwise>
+					`${eachCol.dbColName}` as ${eachCol.entityColName}
+				</otherwise>
+			</choose>
+		</foreach>
+		from <if test="database!=null">${database}.</if>${tableName}
+		<where>
+			<foreach collection="cols" item="eachCol" separator="and">
+				<if test="eachCol.value!=null">
+						${eachCol.dbColName} like '%${eachCol.value}%'
+				</if>
+			</foreach>	
+		</where>
+		<if test="orderCols!=null">
+		     order by 
+			<foreach collection="orderCols" item="eachCol" separator=",">
+				<if test="eachCol!=null">
+						${eachCol}
+				</if>
+			</foreach>
+		</if>
+		<!-- 排序  aaa asc,bbb desc -->
+	</select>
+	
+    <select id="queryDBEntityComplex" resultType="java.util.HashMap" flushCache="true">
+		select 
+		<foreach collection="entityInfo.cols" item="eachCol" separator=",">
+			 <choose>
+				<when test="eachCol.needTimestamp">
+					cast(UNIX_TIMESTAMP(`${eachCol.dbColName}`) as decimal(50)) as ${eachCol.entityColName}
+				</when>
+				<otherwise>
+					`${eachCol.dbColName}` as ${eachCol.entityColName}
+				</otherwise>
+			</choose>
+		</foreach>
+		from <if test="entityInfo.database!=null">${entityInfo.database}.</if>${entityInfo.tableName}
+		<where>
+			<foreach collection="complexCond.nodes" item="node" separator=" ">
+				 <choose>
+					<when test='node.link=="col"'>${node.object}</when>
+					<when test='node.link=="and"'>and</when>
+					<when test='node.link=="or"'>or</when>
+					<when test='node.link=="("'>(</when>
+					<when test='node.link==")"'>)</when>
+					<when test='node.link=="eq"'>= #{node.object}</when>
+					<when test='node.link=="gt"'>&gt; #{node.object}</when>
+					<when test='node.link=="lt"'>&lt; #{node.object}</when>
+					<when test='node.link=="gte"'>&gt;= #{node.object}</when>
+					<when test='node.link=="lte"'>&lt;= #{node.object}</when>
+					<when test='node.link=="bw"'>like '${node.object}%'</when>
+					<when test='node.link=="bn"'>not like '${node.object}%'</when>
+					<when test='node.link=="ew"'>like '%${node.object}' </when>
+					<when test='node.link=="en"'>not like '%${node.object}'</when>
+					<when test='node.link=="cn"'>like '%${node.object}%'</when>
+					<when test='node.link=="nc"'>not like '%${node.object}%'</when>
+					<when test='node.link=="nu"'>is null</when>
+					<when test='node.link=="nn"'>is not null</when>
+					<when test='node.link=="in"'>
+						in 
+						<foreach collection="node.objects" item="in" open="(" close=")" separator=",">
+						#{in}
+						</foreach>
+					</when>
+					<when test='node.link=="ni"'>
+						not in 
+						<foreach collection="node.objects" item="in" open="(" close=")" separator=",">
+						#{in}
+						</foreach>
+					</when>
+				</choose>
+			</foreach>	
+		</where>
+	</select>
+	<!-- 根据具体的参数执行sql -->
+	<!-- <select id="executeSql"  parameterType="java.util.Map">
+	    ${sql}
+	</select> -->
+	
+	<insert id="insertDBEntity" parameterType="com.kiiik.pub.mybatis.bean.EntityInfo" flushCache="true" useGeneratedKeys="true" keyProperty="generatedKey">
+		insert into <if test="database!=null">${database}.</if>${tableName} 
+		<foreach collection="cols" item="eachCol" separator="," open="(" close=")">
+			`${eachCol.dbColName}`
+		</foreach>
+		values
+		<foreach collection="cols" item="eachCol" separator="," open="(" close=")" >
+			<choose>
+				<when test="eachCol.value==null and  eachCol.insertIfNull!=null">
+					${eachCol.insertIfNull}
+				</when>
+				<otherwise>
+					#{eachCol.value}
+				</otherwise>
+			</choose>
+		</foreach>
+	</insert>
+	
+	<insert id="insertDBEntityBatch" parameterType="java.util.List" flushCache="true">
+		<foreach collection="list" item="eachInfo" index="index" separator=",">
+			<if test=" index == 0 ">
+					insert into <if test="eachInfo.database!=null">${eachInfo.database}.</if>${eachInfo.tableName} 
+					<foreach collection="eachInfo.cols" item="eachCol" separator="," open="(" close=")">
+						`${eachCol.dbColName}`
+					</foreach>
+					values	
+			</if>
+			<foreach collection="eachInfo.cols" item="eachColumn" separator="," open="(" close=")" >
+				<choose>
+					<when test="eachColumn.value==null and  eachColumn.insertIfNull!=null">
+						${eachColumn.insertIfNull}
+					</when>
+					<otherwise>
+						#{eachColumn.value}
+					</otherwise>
+				</choose>
+			</foreach>
+		</foreach>
+	</insert>
+	<!-- 根据指定的value对象和条件对象更新数据 -->
+	<update id="updateDBEntity"  flushCache="true">
+			update <if test="value.database!=null">${value.database}.</if>${value.tableName} 
+			<set>
+				<foreach collection="value.cols" item="eachCol" separator=",">
+					<if test="eachCol.value!=null">
+						${eachCol.dbColName} = #{eachCol.value}
+					</if>
+				</foreach>
+			</set>				
+			<where>
+				<foreach collection="condition.cols" item="eachCol" separator="and">
+					<if test="eachCol.value!=null">
+						${eachCol.dbColName} = #{eachCol.value}
+					</if>
+				</foreach>
+			</where>
+	</update>
+	
+	<update id="updateDBEntityByKey" parameterType="com.kiiik.pub.mybatis.bean.EntityInfo" flushCache="true">
+			update <if test="database!=null">${database}.</if>${tableName} 
+			<set>
+				<foreach collection="cols" item="eachCol">
+					<if test="eachCol.value!=null and eachCol.isKeyColumn == false">
+						${eachCol.dbColName} = #{eachCol.value},				
+					</if>
+					<!-- <if test="eachCol.value==null and eachCol.updateIfNull!=null and eachCol.isKeyColumn == false">
+						${eachCol.dbColName} = ${eachCol.updateIfNull},
+					</if> -->
+				</foreach>
+			</set>
+				
+			<where>
+				<if test="keyCol.value==null"> 
+				1=0 and 
+				</if>
+				${keyCol.dbColName} = #{keyCol.value}
+			</where>
+	</update>
+	<delete id="deleteDBEntityByKey" parameterType="com.kiiik.pub.mybatis.bean.EntityInfo" >
+		delete from <if test="database!=null">${database}.</if>${tableName}
+		<where>
+			<if test="keyCol.value==null"> 
+				1=0 and 
+			</if>
+			${keyCol.dbColName} = #{keyCol.value}
+		</where>
+	</delete>
+	
+	<delete id="deleteDBEntityByKeyBatchs" >
+		delete from <if test="entityInfo.database!=null">${entityInfo.database}.</if>${entityInfo.tableName}
+		<where>
+			 id in (
+	        <foreach collection="ids" item="id" separator=",">
+	            #{id}
+	        </foreach>
+        )  
+		</where>
+	</delete>
+	
+	<delete id="deleteDBEntity" parameterType="com.kiiik.pub.mybatis.bean.EntityInfo" >
+		delete from <if test="database!=null">${database}.</if>${tableName}
+		<where>
+			<foreach collection="cols" item="eachCol" separator="and">
+				<if test="eachCol.value!=null">
+						${eachCol.dbColName} = #{eachCol.value}
+				</if>
+			</foreach>	
+		</where>
+	</delete>
+</mapper>

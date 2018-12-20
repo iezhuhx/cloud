@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<title>登录页面</title>
+<script th:inline="javascript">
+        /*<![CDATA[*/
+        var context = /*[[@{/}]]*/;
+        //alert(document.getElementById("contextPath").get);
+        /*]]>*/
+</script>
+</head>
+<body
+	th:with="aaa=${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()  + #httpServletRequest.getContextPath() + '/'} ">
+	<h2>自定义登录页面</h2><font color='red'><span th:text="${errmsg}"></span></font>
+	<hr />
+	<form action="/user/login" method="POST" name="f">
+		用户名<input type="text" name="username" /> <br /> 密码 <input
+			type="password" name="password" value="111111"/> <br /> <input type="submit"
+			value="登录" />
+		<hr />
+		<div th:text="${author}"></div>
+		<div th:text="${#httpServletRequest}"></div>
+		<a
+			th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()  + #httpServletRequest.getContextPath() + '/'} "
+			id="contextPath">aaa</a>
+		<div th:text="${aaa}"></div>
+	</form>
+</body>
+</html>

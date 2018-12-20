@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title sec:authentication="name">首页</title><!-- th:href="@{/index.css}" -->
+<script src="https://iechenyb.github.io/resume/pub/js/base64/Base64.js"></script>
+<script src="https://iechenyb.github.io/resume/pub/js/rsa/RSA.js"></script>
+<script src="https://iechenyb.github.io/resume/pub/js/rsa/BigInt.js"></script>
+<script src="https://iechenyb.github.io/resume/pub/js/rsa/Barrett.js"></script>
+<script src="https://iechenyb.github.io/resume/pub/js/md5/md5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body  th:with="basePath=${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()  + #httpServletRequest.getContextPath() + '/'} ">
+	
+	<div id="app-6">
+	<!-- 输入用户名和密码-->
+	m值：<input  th:value="${m}"  id="mv" style="width:100%"></input>
+	e值：<input  th:value="${e}"  id="ev" style="width:100%"></input>
+	<!-- 绑定m值：<input v-model="message" ></input> -->
+	<!--提交用户名和密码-->
+	请输入密码：<input type="text" value="" id="password"></input>
+	<!-- <input type="button" value="提交验证"></input> -->
+	<button v-on:click="greet">提交验证(验证失败时，尝试刷新公秘钥信息)</button>
+	</div>
+</body>
+<script type="text/javascript">
+var app6 = new Vue({
+	el : '#app-6',
+	data : {
+		message : '123' ,
+	},
+	methods : {
+		greet : function(event) {
+		    var base64 = new Base64();  
+			console.log($('#mv').val());
+ 			mVal=$('#mv').val();
+ 			eVal=$('#ev').val();
+ 			setMaxDigits(130);
+ 		  	key = new RSAKeyPair(eVal,"",mVal); 
+ 		  	var orignpsd = $('#password').val();
+ 		  	result = encryptedString(key, encodeURIComponent(md5(orignpsd)));
+ 		    console.log(result);
+ 		    axios.get("validatePasswordSTD?password="+base64.encode(result))
+           .then(function (response) {
+             console.log(response.data);
+			 alert(response.data.es);
+           })
+           .catch(function (error) {
+             console.log(error);
+         }); 
+ 		  	
+		}
+	}
+   });
+
+</script>
+</html>

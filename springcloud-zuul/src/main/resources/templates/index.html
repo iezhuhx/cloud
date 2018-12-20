@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title sec:authentication="name">首页</title>
+</head>
+<body th:with="basePath=${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()  + #httpServletRequest.getContextPath() + '/'} ">
+	<span sec:authorize="isAuthenticated()"> 欢迎<span
+		sec:authentication="name"></span>
+	</span>
+	<br />
+	<table border="1">
+		<thead>
+			<tr>
+				<td width="20%" colspan="2">当前用户操作</td>
+			</tr>
+			<tr>
+				<td width="20%">Zuul系统用户详情</td>
+				<td><a th:href="@{${basePath}+'user/infor'}" target="_blank">用户信息</a></td>
+			</tr>
+			<tr>
+				<td width="20%">退出系统</td>
+				<td><a th:href="@{${basePath}+'logout'}">退出</a></td>
+			</tr>
+			<tr>
+				<td width="20%">子系统用户信息</td>
+				<td><a th:href="@{${basePath}+'api1/rq?para=chenyb'}" target="_blank">用户详情</a></td>
+			</tr>
+			<tr>
+				<td width="20%">子系统功能首页</td>
+				<td><a th:href="@{${basePath}+'api1/api/index'}" target="_blank">子系统功能首页</a></td>
+			</tr>
+		</thead>
+	</table>
+	<br/>
+	<table border="1">
+		<thead>
+			<tr>
+				<td width="20%" colspan="2">子系统所有菜单</td>
+			</tr>
+			<tr>
+				<td width="20%">系统菜单</td>
+				<td>接口</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>增加数据</td>
+				<td><a target="_blank" th:href="@{${basePath}+'api1/api/add'}">增加数据</a></td>
+			</tr>
+			<tr>
+				<td>删除数据</td>
+				<td><a target="_blank" th:href="@{${basePath}+'api1/api/delete'}">删除数据</a></td>
+			</tr>
+			<tr>
+				<td>更新数据</td>
+				<td><a target="_blank" th:href="@{${basePath}+'api1/api/update'}">更新数据</a></td>
+			</tr>
+			<tr>
+				<td>查询数据</td>
+				<td><a target="_blank" th:href="@{${basePath}+'api1/api/query'}">查询数据</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<hr />
+	<table border="1" >
+		<thead>
+			<tr>
+				<td width="20%" colspan="2">当前用户菜单</td>
+			</tr>
+			<tr>
+				<td width="20%">系统菜单</td>
+				<td>接口</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>增加数据(role)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_ADD')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/add'}">增加数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>删除数据(role)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_DELETE')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/delete'}">删除数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>更新数据(url)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_UPDATE')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/update'}">更新数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>查询数据(url)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_QUERY')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/query'}">查询数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr />
+	<table border="1" >
+		<thead>
+			<tr>
+				<td width="20%" colspan="2">子系统请求菜单</td>
+			</tr>
+			<tr>
+				<td width="20%">系统菜单</td>
+				<td>接口</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>增加数据(role)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_ADD')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/add'}">增加数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>删除数据(role)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_DELETE')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/delete'}">删除数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>更新数据(url)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_UPDATE')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/update'}">更新数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>查询数据(url)</td>
+				<td>
+					<div sec:authorize="hasRole('ROLE_QUERY')">
+						<a target="_blank" th:href="@{${basePath}+'api1/api/query'}">查询数据</a>
+					</div>&nbsp;
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr/>
+	<h1>Spring Boot file upload example</h1>
+	<form method="POST" action="/api1/api/upload" enctype="multipart/form-data">
+	    <input type="file" name="file" /><br/><br/>
+	    <input type="submit" value="Submit" />
+	</form>
+</body>
+</html>
