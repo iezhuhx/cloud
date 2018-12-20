@@ -1,0 +1,12 @@
+package ${package}.${moduleName}.dao;
+import org.springframework.stereotype.Repository;
+/**
+ * 数据库访问层<br>
+ * 作者: ${author}<br>
+ * 邮件: ${email}<br>
+ * 日期: ${datetime}<br>
+ */
+@Repository
+public class ${className}Dao {
+	
+}

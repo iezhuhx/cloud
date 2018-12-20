@@ -1,0 +1,132 @@
+package ${package}.${moduleName}.controller;
+
+import java.util.Arrays;
+import java.util.Map;
+
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kiiik.pub.bean.ResultBean;
+import com.kiiik.pub.mybatis.bean.ComplexCondition;
+import com.kiiik.pub.mybatis.service.GenericService;
+import com.kiiik.web.system.po.TSysCompanyEntity;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import ${package}.${moduleName}.entity.${className}Entity;
+import ${package}.${moduleName}.service.${className}Service;
+import ${mainPath}.common.utils.PageUtils;
+import ${mainPath}.common.utils.R;
+
+
+
+/**
+ * ${comments}
+ *  复杂的业务判断逻辑在controller不建议，此版本不使用
+ * 作者 ${author}
+ * 邮件 ${email}
+ * 日期 ${datetime}
+ */
+@RestController
+@RequestMapping("${classname}")
+public class ${className}Controller {
+
+	Log log = LogFactory.getLog(${className}Controller.class);
+	/**
+	*通用的service接口
+	**/
+	@Autowired
+	GenericService genericService;
+	
+    @Autowired
+    private ${className}Service ${classname}Service;
+
+   
+     /**
+     * 
+     *作者 : ${author}<br>
+     *数据列表<br>
+     *创建时间: ${datetime}
+     *@param 
+     *@return
+     */
+    @SuppressWarnings("unchecked")
+    @GetMapping("/list")
+    @ApiOperation("列表信息")
+    public ResultBean<List<${className}Entity>> list(@RequestBody ${className}Entity entity){
+        return new ResultBean<List<${className}Entity>>().success();
+    }
+    
+    @SuppressWarnings("unchecked")
+	@GetMapping("listPage")
+	@ApiOperation("分页查询")
+	public ResultBean<List<${className}Entity>> listUsersPage(${className}Entity entity, Page page) {
+		List<${className}Entity> entitys = genericService.queryDBEntityList(entity, page.getPageNum(), page.getPageSize(), " id asc");
+		return new ResultBean<List<${className}Entity>>(entitys).success();
+	}
+    
+    /**
+     * 
+     *作者 : ${author}<br>
+     *新增记录<br>
+     *创建时间: ${datetime}
+     *@param 
+     *@return
+     */
+    @SuppressWarnings({ "unchecked"})
+	@PostMapping("add")
+	@ApiOperation("新增信息")
+	public ResultBean<String> add${className}Entity(@RequestBody ${className}Entity entity){
+		int count = genericService.insertDBEntity(company);
+		if(count>0){
+			return new ResultBean<String>().success("新增信息失败!");
+		}else{
+			return new ResultBean<String>().success("新增信息成功!");
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("update")
+	@ApiOperation("更新信息")
+	public ResultBean<String> upd${className}Entity(@RequestBody ${className}Entity entity){
+		int count = genericService.updateDBEntityByKey(entity);
+		if(count>0){
+			return new ResultBean<String>().success("更新信息失败!");
+		}else{
+			return new ResultBean<String>().success("更新信息成功!");
+		}
+		
+	}
+	
+	 /**
+     * 
+     *作者 : ${author}<br>
+     *根据主键删除记录<br>
+     *创建时间: ${datetime}
+     *@param 
+     *@return
+     */
+    @SuppressWarnings("unchecked")
+	@GetMapping("deleteById")
+	@ApiOperation("根据主键删除信息")
+	public ResultBean<String> del${className}Entity(Integer id){
+		${className}Entity entity = new ${className}Entity();
+		entity.setId(id);
+		int count = genericService.deleteDBEntityByKey(entity);
+		if(count>0){
+			return new ResultBean<String>().success("删除信息失败!");
+		}else{
+			return new ResultBean<String>().success("删除信息成功!");
+		}
+	}
+
+}

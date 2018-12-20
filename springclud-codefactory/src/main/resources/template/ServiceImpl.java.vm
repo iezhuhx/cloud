@@ -1,0 +1,98 @@
+package ${package}.${moduleName}.service.impl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.kiiik.pub.bean.ResultBean;
+import com.kiiik.pub.service.BaseService;
+import com.kiiik.pub.mybatis.dao.GenericDao;
+import ${package}.${moduleName}.dao.${className}Dao;
+import ${package}.${moduleName}.entity.${className}Entity;
+import ${package}.${moduleName}.service.${className}Service;
+
+/**
+ * 业务处理层<br>
+   ${comments}<br>
+ * 作者: ${author}<br>
+ * 邮件: ${email}<br>
+ * 日期: ${datetime}<br>
+ */
+@Service
+public class ${className}ServiceImpl extend BaseService  implements ${className}Service {
+	
+	//当前业务数据库服务接口
+	@Autowired
+	${className}Dao  ${classname}Dao;
+	
+    /**
+	 * 
+	 *作者 :  ${author}<br>
+	 *方法描述: 新增记录<br>
+	 *创建时间: ${datetime}<br>
+	 *@param 
+	 *@return
+	 */
+	 @SuppressWarnings("unchecked")
+	 public ResultBean<String> add${className}Entity(${className}Entity entity){
+	 	//去重逻辑 需要重写
+	 	${className}Entity tmp = new ${className}Entity();
+	 	tmp.setId(entity.getId());
+	 	if(!CollectionUtils.isEmpty(genericDao.queryDBEntityList(tmp))){
+			 return new ResultBean<String>().fail("***["+entity.getId()+"]已经存在!");
+		}
+	 	int count = genericDao.insertDBEntity(entity);
+		if(count==0){
+			return new ResultBean<String>().success("新增记录失败!");
+		}else{
+			return new ResultBean<String>().success("新增记录成功!");
+		}
+	 }
+	 
+	/**
+	 * 
+	 *作者 :  ${author}<br>
+	 *方法描述: 更新记录<br>
+	 *创建时间: ${datetime}
+	 *@param 
+	 *@return
+	 */
+	 @SuppressWarnings("unchecked")
+	 public ResultBean<String> upd${className}Entity(${className}Entity entity){
+	 	//去重逻辑 需要重写
+	 	${className}Entity tmp = null;
+		//校验名称是否重复
+		tmp = genericDao.queryDBEntitySingleComplex(${className}Entity.class, 
+					new ComplexCondition().col("id").notIn(entity.getId())
+					.and()
+					.col("anyColName").eq(entity.getId()));
+		if(tmp!=null){
+			return new ResultBean<String>().fail("***["+entity.getId()+"]已经存在!");
+		}
+	 	int count = genericDao.updateDBEntityByKey(entity);
+		if(count==0){
+			return new ResultBean<String>().success("更新记录失败!");
+		}else{
+			return new ResultBean<String>().success("更新记录成功!");
+		}
+	 }
+	 
+	/**
+	 * 
+	 *作者 :  ${author}<br>
+	 *方法描述: 删除记录<br>
+	 *创建时间: ${datetime}
+	 *@param 
+	 *@return
+	 */
+	 @SuppressWarnings("unchecked")
+	 public ResultBean<String> del${className}Entity(Integer id){
+	    ${className}Entity entity = new ${className}Entity();
+		entity.setId(id);
+		int count = genericDao.deleteDBEntityByKey(entity);
+		if(count==0){
+			return new ResultBean<String>().success("删除记录失败!");
+		}else{
+			return new ResultBean<String>().success("删除记录成功!");
+		}
+	 }
+ 
+}

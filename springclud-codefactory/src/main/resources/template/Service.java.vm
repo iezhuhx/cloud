@@ -1,0 +1,44 @@
+package ${package}.${moduleName}.service;
+
+import ${package}.${moduleName}.entity.${className}Entity;
+import com.kiiik.pub.bean.ResultBean;
+
+/**
+ * 服务接口定义<br>
+ * 作者: ${author}<br>
+ * 邮件: ${email}<br>
+ * 日期: ${datetime}<br>
+ */
+public interface ${className}Service  {
+
+/**
+ * 
+ *作者 :  ${author}<br>
+ *方法描述: 新增记录<br>
+ *创建时间: ${datetime}<br>
+ *@param 
+ *@return
+ */
+ ResultBean<String> add${className}Entity(${className}Entity entity);
+ 
+ /**
+ * 
+ *作者 :  ${author}<br>
+ *方法描述: 更新记录<br>
+ *创建时间: ${datetime}<br>
+ *@param 
+ *@return
+ */
+ ResultBean<String> upd${className}Entity(${className}Entity entity);
+ 
+ /**
+ * 
+ *作者 :  ${author}<br>
+ *方法描述: 根据主键删除记录<br>
+ *创建时间: ${datetime}<br>
+ *@param 
+ *@return
+ */
+ ResultBean<String> del${className}Entity(Integer id);
+}
+

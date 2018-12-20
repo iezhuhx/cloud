@@ -1,0 +1,48 @@
+package ${package}.${moduleName}.entity;
+
+import java.io.Serializable;
+import com.kiiik.pub.mybatis.annotation.DBEntity;
+import com.kiiik.pub.mybatis.annotation.DBColumn;
+import com.kiiik.pub.mybatis.annotation.KeyColumn;
+import io.swagger.annotations.ApiModelProperty;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+/**
+ * 数据库实体Bean<br>
+ * ${comments}<br>
+ * 作者: ${author}<br>
+ * 邮件: ${email}<br>
+ * 日期: ${datetime}<br>
+ */
+@DBEntity("${tableName}")
+public class ${className}Entity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@KeyColumn(useGeneratedKeys=true)
+	@DBColumn(value = "id",insertIfNull="default")
+	@ApiModelProperty(value="主键，请求时参数忽略")
+	private Integer id;
+	
+#foreach ($column in $columns)
+	#if($column.columnName != $pk.columnName)
+	
+	@DBColumn("$column.columnName")
+	@ApiModelProperty(value="$column.comments,仅更新或者查询时，传参数！")
+	private $column.attrType $column.attrname;
+	
+	#end
+#end
+
+#foreach ($column in $columns)
+	//设置值方法
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	//获取值方法
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+}
