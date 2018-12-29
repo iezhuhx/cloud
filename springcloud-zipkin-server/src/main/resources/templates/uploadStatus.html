@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title sec:authentication="name">首页</title>
+</head>
+<body th:with="basePath=${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()  + #httpServletRequest.getContextPath() + '/'} ">
+	<div th:if="${ message }">
+	    <span th:text="${message}"></span>
+	</div>
+</body>
+</html>

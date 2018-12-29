@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{ message }}<br>
+    {{ test1 }}<br>
+    {{ test2 }}<br>
+    <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            test1: '1',
+            test2: '2',
+        },
+        methods: {
+            reverseMessage: function () {
+                var vue = this;
+                axios.get('./test1')
+                    .then(function (response) {
+                        console.log(response);
+                        vue.test1 = response.data
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                axios.get('./test2')
+                    .then(function (response) {
+                        console.log(response);
+                        vue.test2 = response.data
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    });
+</script>
+</body>
+</html>
