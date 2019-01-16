@@ -22,6 +22,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -29,16 +30,25 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import com.cyb.app.reptile.ProxyInfor;
 import com.cyb.utils.file.FileUtils;
+import com.cyb.utils.response.R;
 
 @SuppressWarnings("deprecation")
 public class MyHttpClient {
@@ -65,6 +75,7 @@ public class MyHttpClient {
 	public static void downLoadContent(String url, String toDir) {
 		try {
 			System.out.println(url);
+			@SuppressWarnings("resource")
 			HttpClient hc = new DefaultHttpClient();
 			HttpGet hg = new HttpGet(url);
 			HttpResponse response = hc.execute(hg);
@@ -124,9 +135,7 @@ public class MyHttpClient {
 		}
 		return result;
 	}
-	
-	@SuppressWarnings("resource")
-	public static String doGet(String uri) {
+	public static String doGet(String uri,DefaultHttpClient httpClient) {
 		String result = "";
 		// HttpGet httpRequst = new HttpGet(String uri);
 		// 创建HttpGet或HttpPost对象，将要请求的URL通过构造方法传入HttpGet或HttpPost对象。
@@ -135,17 +144,17 @@ public class MyHttpClient {
 		httpRequst.setHeader(new BasicHeader("Accept", "text/plain;charset=utf-8"));
 		try {
 			// 使用DefaultHttpClient类的execute方法发送HTTP GET请求，并返回HttpResponse对象。
-			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequst);// 其中HttpGet是HttpUriRequst的子类
+			HttpResponse httpResponse = httpClient.execute(httpRequst);// 其中HttpGet是HttpUriRequst的子类
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
 				HttpEntity httpEntity = httpResponse.getEntity();
 				result = EntityUtils.toString(httpEntity);// 取出应答字符串
 				// 一般来说都要删除多余的字符
 				result.replaceAll("\r", "");// 去掉返回结果中的"\r"字符，否则会在结果字符串后面显示一个小方格
 			} else {
-
+				System.out.println("访问失败");
 			}
-			httpRequst.abort();
-			httpRequst.releaseConnection();
+			//httpRequst.abort();
+			//httpRequst.releaseConnection();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			result = e.getMessage().toString();
@@ -155,8 +164,14 @@ public class MyHttpClient {
 		}
 		return result;
 	}
-
+	
+	public static String doGet(String uri) {
+		return doGet(uri,new DefaultHttpClient());
+	}
 	public static String doPost(String url) {
+		return doPost(url,new DefaultHttpClient());
+	}
+	public static String doPost(String url,DefaultHttpClient httpClient) {
 		String result = "";
 		HttpPost httpRequst = new HttpPost(url);// 创建HttpPost对象
 
@@ -169,13 +184,11 @@ public class MyHttpClient {
 		try {
 			httpRequst.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			httpRequst.setHeader("self_define", "value");
-			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequst);
+			HttpResponse httpResponse = httpClient.execute(httpRequst);
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
 				HttpEntity httpEntity = httpResponse.getEntity();
 				result = EntityUtils.toString(httpEntity);// 取出应答字符串
 			}
-			httpRequst.abort();
-			httpRequst.releaseConnection();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			result = e.getMessage().toString();
@@ -188,27 +201,23 @@ public class MyHttpClient {
 		}
 		return result;
 	}
-	
-	@SuppressWarnings("deprecation")
 	public static String doPost(String url,Map<String,String> para) {
+	return doPost(url,para,createHttpClient());	
+	}
+	public static String doPost(String url,Map<String,String> para,DefaultHttpClient httpClient) {
 		String result = "";
 		HttpPost httpRequst = new HttpPost(url);// 创建HttpPost对象
-
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		;
 		for(String key :para.keySet()){
 			params.add(new BasicNameValuePair(key, para.get(key)));
 		}
 		try {
 			httpRequst.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-			@SuppressWarnings("resource")
-			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequst);
+			HttpResponse httpResponse = httpClient.execute(httpRequst);
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
 				HttpEntity httpEntity = httpResponse.getEntity();
 				result = EntityUtils.toString(httpEntity);// 取出应答字符串
 			}
-			httpRequst.abort();
-			httpRequst.releaseConnection();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			result = e.getMessage().toString();
@@ -218,6 +227,49 @@ public class MyHttpClient {
 		} catch (IOException e) {
 			e.printStackTrace();
 			result = e.getMessage().toString();
+		}
+		return result;
+	}
+	 private static DefaultHttpClient createHttpClient(){
+	        HttpParams params = new BasicHttpParams();
+	        HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+	        HttpProtocolParams.setContentCharset(params, HTTP.DEFAULT_CONTENT_CHARSET);
+	        HttpProtocolParams.setUseExpectContinue(params, true);
+	        SchemeRegistry schReg = new SchemeRegistry();
+	        schReg.register(new Scheme("http",PlainSocketFactory.getSocketFactory(),80));
+	        schReg.register(new Scheme("https",PlainSocketFactory.getSocketFactory(),433));
+	        ClientConnectionManager conMgr = new ThreadSafeClientConnManager(params,schReg);
+	        return new DefaultHttpClient(conMgr,params);
+
+	    };
+	public static R<DefaultHttpClient> login(String url,Map<String,String> para) {
+		DefaultHttpClient httpclient = createHttpClient();
+		R<DefaultHttpClient> result = new R<DefaultHttpClient>();
+		HttpPost httpRequst = new HttpPost(url);// 创建HttpPost对象
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		for(String key :para.keySet()){
+			params.add(new BasicNameValuePair(key, para.get(key)));
+		}
+		try {
+			httpRequst.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			 //登录一遍
+            //httpclient.execute(httpRequst); 
+			HttpResponse httpResponse = httpclient.execute(httpRequst);
+			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+				HttpEntity httpEntity = httpResponse.getEntity();
+				String r = EntityUtils.toString(httpEntity);// 取出应答字符串
+				System.out.println("登录结果！"+r);
+				result.data(httpclient);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			result.fail(e.getMessage());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			result.fail(e.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+			result.fail(e.getMessage());
 		}
 		return result;
 	}

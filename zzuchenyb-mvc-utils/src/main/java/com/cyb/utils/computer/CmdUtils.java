@@ -127,8 +127,68 @@ public class CmdUtils {
 			return false;
 		} 
 	}
-
+	/**
+	 * 是否可以在后台运行
+	 *作者 : iechenyb<br>
+	 *方法描述: 说点啥<br>
+	 *创建时间: 2017年7月15日
+	 *@param batName
+	 */
+	 public static void runbat(String batName) {
+	       /* String cmd = "cmd /k start D:\\data\\bat\\bat.bat";// pass
+	        try {
+	            Process ps = Runtime.getRuntime().exec(cmd);
+	            InputStream in = ps.getInputStream();
+	            int c;
+	            while ((c = in.read()) != -1) {
+	                //System.out.print(c);// 如果你不需要看输出，这行可以注销掉
+	            }
+	            in.close();
+	            ps.waitFor();
+	        } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	        }
+	        catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+	        System.out.println("child thread donn");*/
+		 // 执行批处理文件  
+	        String strcmd = "cmd /c start  D:\\data\\bat\\bat.bat";  
+	        Runtime rt = Runtime.getRuntime();  
+	        Process ps = null;  
+	        try {  
+	            ps = rt.exec(strcmd);  
+	        } catch (IOException e1) {  
+	            e1.printStackTrace();  
+	        }  
+	        try {  
+	            ps.waitFor();  
+	        } catch (InterruptedException e) {  
+	            // TODO Auto-generated catch block  
+	            e.printStackTrace();  
+	        }  
+	        int i = ps.exitValue();  
+	        if (i == 0) {  
+	            System.out.println("执行完成.");  
+	        } else {  
+	            System.out.println("执行失败.");  
+	        }  
+	        ps.destroy();  
+	        ps = null;  
+	        // 批处理执行完后，根据cmd.exe进程名称  
+	        // kill掉cmd窗口  
+	        killProcess(); 
+	    }
+	 public static void killProcess() {  
+	        Runtime rt = Runtime.getRuntime();  
+	        try {  
+	            rt.exec("cmd.exe /C start wmic process where name='cmd.exe' call terminate");  
+	        } catch (IOException e) {  
+	            e.printStackTrace();  
+	        }  
+	    }
 	public static void main(String[] args) {
+		runbat("");
 		// java -version 不可以查看
 		/*
 		 * System.out.println(exeCMDWithResult("netstat -a"));
@@ -144,7 +204,5 @@ public class CmdUtils {
 				e.printStackTrace();
 			}
 		}*/
-		System.out.println(telnet("192.168.108.224", 8085));
-		System.out.println(ping("192.168.108.224"));
 	}
 }

@@ -47,6 +47,7 @@ public class FileUtils {
 
 		// 这样写不会抛异常
 		Files.deleteIfExists(path);
+		
 	}
 	public static void fileUpload(InputStream is, OutputStream os) throws Exception{
 		byte[] b = new byte[1024 * 1024 * 10];
@@ -626,18 +627,23 @@ public class FileUtils {
 	}
 
 	public static void main(String[] args) {
-		/*
-		 * String to = "d:\\file\\industry.txt"; appendString2File1("111汉字1",
-		 * to); appendString2File2("1112汉字", to); appendString2File3("1113汉字",
-		 * to);
-		 */
+		
+		/* String to = "d:\\file\\industry.txt"; 
+		 appendString2File1("111汉字1", to); 
+		 appendString2File2("1112汉字", to); 
+		 appendString2File3("1113汉字",to);
 		try {
 			String str = readContentFromCurClsDir(FileUtils.class, "test.txt");
 			System.out.println(str);
 			genFileDir("d:/xxx/yyy");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
+		
+		List<String> ret = new ArrayList<>();
+		String dir = "D:\\apache-tomcat-7.0.52\\conf";
+		listDirFiles("js",dir,dir,ret);
+		System.out.println(ret);
 	}
 
 	/**
@@ -785,6 +791,38 @@ public class FileUtils {
 		}
 		return files;
 	}
+	
+	 /** 
+     * 寻找指定目录下，具有指定后缀名的所有文件。 
+     * ret存储的是相对目录（减少存储空间），使用时需要加上root 
+     * @param filenameSuffix : 文件后缀名 
+     * @param currentDirUsed : 当前使用的文件目录 
+     * @param currentFilenameList ：当前文件名称的列表 
+     */  
+    public static void listDirFiles(String suffix, String root ,String baseDir,  
+            List<String> ret) {  
+        File dir = new File(baseDir);  
+        if (!dir.exists() || !dir.isDirectory()) {  
+            return;  
+        }  
+        for (File file : dir.listFiles()) {  
+            if (file.isDirectory()) {  
+                /** 
+                 * 如果目录则递归继续遍历 
+                 */  
+            	listDirFiles(suffix,root,file.getAbsolutePath(), ret);  
+            } else {  
+                /** 
+                 * 如果不是目录。 
+                 * 那么判断文件后缀名是否符合。 
+                 */  
+                if (file.getAbsolutePath().endsWith(suffix)) {  
+                	//System.out.println(file.getAbsolutePath().substring(root.length(), file.getAbsolutePath().length()));
+                	ret.add(file.getAbsolutePath().substring(root.length(), file.getAbsolutePath().length())); //省存储，只保存相对路径 .substring(baseDir.length(), file.getAbsolutePath().length()
+                }  
+            }  
+        }  
+    }
 
 	/**
 	 * 读取文件内容

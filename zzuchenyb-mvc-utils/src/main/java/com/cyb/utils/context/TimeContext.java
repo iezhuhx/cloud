@@ -5,7 +5,7 @@ import java.util.TimeZone;
 
 import org.springframework.util.StringUtils;
 
-import com.cyb.utils.date.DateUtil;
+import com.cyb.utils.date.DateUnsafeUtil;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -48,7 +48,7 @@ public class TimeContext {
 	}
 	public static long calExecuteTime(String msg){
 		long millis = System.currentTimeMillis() -  start.get();
-		String rest = DateUtil.timeToMilis()+" "+msg+"用时("+millis+"毫秒)："+formatTime(millis)+"\n";
+		String rest = DateUnsafeUtil.timeToMilis()+" "+msg+"用时("+millis+"毫秒)："+formatTime(millis)+"\n";
 		System.err.println(rest);
 		return millis;
 	}

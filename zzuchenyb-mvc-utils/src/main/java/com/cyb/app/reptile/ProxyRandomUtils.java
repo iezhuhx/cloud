@@ -35,7 +35,7 @@ public class ProxyRandomUtils {
 				find = true;
 			}
 		}
-		System.out.println("可用代理个数:"+proxy.size()+",随机索引序号:"+idx);
+		System.out.println("可用代理个数:"+proxy.size()+",随机索引序号:"+idx+",是否可用："+CmdUtils.telnet(new ProxyInfor(proxy.get(idx))));
 		return new ProxyInfor(proxy.get(idx));
 	}
 }

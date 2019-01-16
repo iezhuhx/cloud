@@ -1,5 +1,6 @@
 package com.cyb.app.bms;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 /**
@@ -17,9 +19,10 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.util.Assert;
 
-import com.cyb.utils.date.DateUtil;
+import com.cyb.utils.date.DateUnsafeUtil;
+import com.cyb.utils.http.MyHttpClient;
+import com.cyb.utils.response.R;
 import com.cyb.utils.text.ELUtils;
 
 @SuppressWarnings("deprecation")
@@ -28,18 +31,49 @@ public class BmsDataCheckWorker {
 	static String 登录地址="http://bms.kiiik.com/kiiikoa/login.do?username=${name}&password=${password}";
 	static String 交易客户端="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=loginStatisticslist&navigation=%B5%C7%C2%BC%D7%B4%CC%AC%CD%B3%BC%C6";
 	static String 成交排名="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=postionRankQufenlist";
+	static String 交易概览="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=queryCompanyTrades";
+	static String 交易排名="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=positionRankingList";
+	static String 持仓排名="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=queryPostionRank";
 	static Map<String, String> cookie;
 	static String cookieString;
 	static String lastDay;
 
 	public static void main(String[] args) throws Exception {
+		boolean isMonday = DateUnsafeUtil.isSomeWeekDay(Calendar.MONDAY);
+		System.out.println("是否周一?"+isMonday);
 		登录();
-		String lastDay = DateUtil.date2long8(DateUtil.preDate()).toString();
+		int days = 0;
+		if(isMonday) days=-2;
+		String lastDay = DateUnsafeUtil.date2long8(DateUnsafeUtil.preDate(days)).toString();
 		交易客户端数据(lastDay);
-		lastDay = DateUtil.format(DateUtil.preDate(), "yyyy/MM/dd");
+		lastDay = DateUnsafeUtil.format(DateUnsafeUtil.preDate(days), "yyyy/MM/dd");
 		成交排名(lastDay);
+		交易概览(lastDay);
+		交易排名(lastDay);
+		//持仓排名(lastDay);
 	}
-	
+	//慢 超时失败 不做校验
+	/**
+	 * 同一个连接 既是会话保持
+	 */
+	public static void 持仓排名(String lastDay) throws IOException {
+		Map<String,String> param = new HashMap<>();
+		param.put("name", "gongweilin");
+		param.put("password", "my.123456");
+		R<DefaultHttpClient> htl = MyHttpClient.login(登录地址,param);
+		System.out.println(htl);
+		Map<String, String> data = new HashMap<String, String>();  
+	    data.put("transactionDate", lastDay);
+	    data.put("sortflag", "0");
+	    data.put("order", "");
+	    data.put("chaxunPro", "");
+	    data.put("findtext", "");
+		String res = MyHttpClient.doPost(持仓排名,data, htl.getD());
+		System.out.println("hh:"+res);
+		
+		
+	}
+
 	/**
 	 * 
 	 *作者 : iechenyb<br>
@@ -65,8 +99,45 @@ public class BmsDataCheckWorker {
         for(String key:cookie.keySet()){
         	sb.append(key+"="+cookie.get(key)+";");
         }
-        System.out.println("cookie:"+sb.toString());
+        //System.out.println("cookie:"+sb.toString());
 	}
+	
+	{Connection conSearch = Jsoup.connect(持仓排名).timeout(30*1000); 
+	setCookie(conSearch);
+	Map<String, String> data = new HashMap<String, String>();  
+    data.put("transactionDate", lastDay);
+    data.put("sortflag", "0");
+    data.put("order", "");
+    data.put("chaxunPro", "");
+    data.put("findtext", "");
+    Map<String, String> header = new HashMap<String, String>();
+    header.put("Host", "http://bms.kiiik.com");
+    header.put("User-Agent", "  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0");
+    header.put("Accept", "  text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+    header.put("Accept-Language", "zh-cn,zh;q=0.5");
+    header.put("Accept-Charset", "  UTF-8,utf-8;q=0.7,*;q=0.7");
+    header.put("Connection", "keep-alive");
+    header.put("Content-Type", "application/x-www-form-urlencoded");
+    conSearch.data(data);
+    Document doc;
+	try {
+		doc = conSearch.headers(header).timeout(30*1000).get();
+	
+    System.out.println(doc.html());
+    Elements eles = doc
+    		.getElementById("resultTable")
+    		.getElementsByTag("tr");
+    if(eles.size()>1){
+		System.err.println(lastDay+"->持仓排名ok！");
+	}else{
+		System.err.println(lastDay+"->持仓排名异常！");
+	}	
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		
+	}
+    }
 	
 	public static void setCookie( Connection curConnection){
 		Iterator<Entry<String, String>> iterCookie = cookie.entrySet().iterator();  
@@ -84,8 +155,27 @@ public class BmsDataCheckWorker {
         Document doc = conSearch.get();  
 		Elements eles = doc.getElementById("resultTable").getElementsByTag("tr");
 		String year = eles.get(1).children().get(2).html();
-		Assert.isTrue(year.equals(lastDay));
-		System.err.println("交易客户端ok！");
+		//Assert.isTrue();
+		if(year.equals(lastDay)){
+			System.err.println(year+"->交易客户端ok！");
+		}else{
+			System.err.println(year+"->交易客户端异常！");
+		}
+	}
+	
+	public static void 交易概览(String lastDay) throws IOException{
+		Connection conSearch = Jsoup.connect(交易概览); 
+		setCookie(conSearch);
+		Map<String, String> data = new HashMap<String, String>();  
+        data.put("transactionDate", lastDay);
+        conSearch.data(data);
+        Document doc = conSearch.get();
+        String year = doc.getElementById("resultTable1").parent().getElementsByTag("tr").get(1).getElementsByTag("td").get(0).html();
+        if(year.equals(lastDay.replaceAll("/", ""))){
+			System.err.println(year+"->交易概览ok！");
+		}else{
+			System.err.println(year+"->交易概览异常！");
+		}
 	}
 	
 	public static void 成交排名(String lastDay) throws IOException{
@@ -96,10 +186,26 @@ public class BmsDataCheckWorker {
         conSearch.data(data);
         Document doc = conSearch.get();
         Elements eles = doc.getElementById("resultTable").getElementsByTag("tr");
-        Assert.isTrue(eles.size()>1);
-        System.err.println("成交排名ok！");
+        if(eles.size()>1){
+        	System.err.println(lastDay+"->成交排名ok！");
+        }else{
+        	System.err.println(lastDay+"->成交排名异常！");
+        }
 	} 
-	
+	public static void 交易排名(String lastDay) throws IOException{
+		Connection conSearch = Jsoup.connect(交易排名); 
+		setCookie(conSearch);
+		Map<String, String> data = new HashMap<String, String>();  
+        data.put("transactionDate", lastDay);
+        conSearch.data(data);
+        Document doc = conSearch.get();
+        Elements eles = doc.getElementById("resultTable").getElementsByTag("tr");
+        if(eles.size()>1){
+        	System.err.println(lastDay+"->交易排名ok！");
+        }else{
+        	System.err.println(lastDay+"->交易排名异常！");
+        }
+	}
 	public static String httpGet(String url,String cookie) throws IOException{
         //获取请求连接
         Connection con = Jsoup.connect(url);
