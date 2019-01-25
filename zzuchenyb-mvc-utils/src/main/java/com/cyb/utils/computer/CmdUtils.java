@@ -74,7 +74,13 @@ public class CmdUtils {
 		}
 		return sb.toString();
 	}
-
+    /**
+     * 
+     *作者 : iechenyb<br>
+     *方法描述: windows和linux都可用<br>
+     *创建时间: 2017年7月15日
+     *@return
+     */
 	public static String getLocalIPForJava() {
 		StringBuilder sb = new StringBuilder();
 		try {

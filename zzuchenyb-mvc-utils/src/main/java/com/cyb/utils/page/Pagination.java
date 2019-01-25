@@ -153,26 +153,28 @@ public class Pagination implements Serializable{
     public int getPageStart(){
     	return getOffset();
     }
+    public Pagination getPage(int pageIndex){
+    	return new Pagination(pageIndex,getPageSize(),this.getRecordCount());
+    }
 
     public static void main(String[] args) throws InvocationTargetException {
-        int pageSize = 20;
+        int pageSize = 16;
         int total = 291;
-    	Pagination p = null;
-        p = new Pagination(1,pageSize,total);
+    	Pagination p = new Pagination(1,pageSize,total);
     	//不到一页 pagesize=total 否则等于固定页数
     	//边界值 如果最后一页一条数据
     	for(int i=1;i<=p.getPageCount();i++){
-    		Pagination p_ = new Pagination(i,pageSize,total);
+    		Pagination p_ = p.getPage(i);
     		System.out.println(p_.getOffset()+","
     		+p_.getPageEnd());//(p_.getPageSize()*i-1)
     	}
-    	System.out.println("========================");
+    	System.out.println("============0开始============");
     	Pagination p1 = new Pagination(1,pageSize,total);
     	for(int i=1;i<=p1.getPageCount();i++){
-    		Pagination p_ = new Pagination(i,pageSize,total);
+    		Pagination p_ = p.getPage(i);
     		System.out.println((p_.getOffset()+1)+","+(p_.getPageEnd()+1));//(p_.getPageSize()*i-1)
     	}
-    	System.out.println("========================");
+    	System.out.println("===========1开始=============");
     	List<String> data = new ArrayList<String>(total);
     	for(int i=0;i<total;i++){
     		data.add(String.valueOf(i));

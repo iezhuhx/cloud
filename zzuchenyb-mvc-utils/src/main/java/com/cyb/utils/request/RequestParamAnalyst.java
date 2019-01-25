@@ -14,7 +14,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.cyb.utils.Contants;
+import com.cyb.contant.Contants;
 
 /**
  * 作者 : iechenyb<br>

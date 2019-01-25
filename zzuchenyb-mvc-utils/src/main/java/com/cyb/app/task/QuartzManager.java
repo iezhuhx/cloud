@@ -8,7 +8,10 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+import java.util.List;
+
 import org.quartz.CronTrigger;
+import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
@@ -16,7 +19,10 @@ import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.TriggerKey;
-import org.quartz.impl.StdSchedulerFactory;  
+import org.quartz.impl.StdSchedulerFactory;
+
+import com.cyb.app.stock.DrawCodesUtils;
+import com.cyb.utils.file.FileUtils;  
   
 /** 
  * Quartz调度管理器 
@@ -61,14 +67,25 @@ public class QuartzManager {
      * @Title: QuartzManager.java 
      */  
     public static void addJob(Scheduler sched, String jobName,  
-            @SuppressWarnings("rawtypes") Class cls, String time) {  
-        try {  
+            @SuppressWarnings("rawtypes") Class cls, String time) { 
+    	List<String> shCodes=FileUtils.readFileToList(DrawCodesUtils.baseDir+"sh.txt");
+		List<String> szCodes=FileUtils.readFileToList(DrawCodesUtils.baseDir+"sz.txt");
+		JobDataMap data = new JobDataMap();
+		data.put("sh", shCodes);
+		data.put("sz", szCodes);
+		try {  
             JobKey jobKey = new JobKey(jobName, JOB_GROUP_NAME);// 任务名，任务组，任务执行类  
             @SuppressWarnings("unchecked")  
-            JobDetail jobDetail = newJob(cls).withIdentity(jobKey).build();  
+            JobDetail jobDetail = newJob(cls)
+            .withIdentity(jobKey)
+            .setJobData(data)
+            .usingJobData("param", "value")
+            .build();  
             TriggerKey triggerKey = new TriggerKey(jobName, TRIGGER_GROUP_NAME);// 触发器  
-            Trigger trigger = newTrigger().withIdentity(triggerKey)  
-                    .withSchedule(cronSchedule(time)).build();// 触发器时间设定  
+            Trigger trigger = newTrigger()
+            		.withIdentity(triggerKey)  
+                    .withSchedule(cronSchedule(time))
+                    .build();// 触发器时间设定  
             sched.scheduleJob(jobDetail, trigger);  
             if (!sched.isShutdown()) {  
                 sched.start();// 启动  

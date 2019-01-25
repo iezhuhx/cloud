@@ -1,4 +1,7 @@
 package com.cyb.utils.response;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.method.HandlerMethod;
 
 import com.alibaba.fastjson.JSON;
-import com.cyb.utils.Contants;
+import com.cyb.contant.Contants;
+import com.cyb.utils.bean.RThis;
 import com.cyb.utils.exception.UserSessionTimeoutException;
+import com.cyb.utils.file.FileUtils;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -23,7 +28,7 @@ import com.cyb.utils.exception.UserSessionTimeoutException;
  */
 public class ResponseUtils {
 	static Log log = LogFactory.getLog(ResponseUtils.class);
-	public static void writeResult(HttpServletResponse response, R<String> result) {
+	public static void writeResult(HttpServletResponse response, RThis<String> result) {
         response.setCharacterEncoding(Contants.UTF8);
         response.setHeader("Content-type", "application/json;charset=UTF-8");
         response.setStatus(200);
@@ -34,6 +39,13 @@ public class ResponseUtils {
         }
         return ;
     }
+	
+	public static void downFile(HttpServletResponse response,File file) throws FileNotFoundException, IOException, Exception{
+		response.setContentType("application/octet-stream");
+		response.addHeader("Content-Disposition", "attachment;filename="+file.getName());
+		response.setCharacterEncoding("utf-8");
+		FileUtils.fileUpload(new FileInputStream(file), response.getOutputStream());
+	}
 	/**
 	 * 
 	 *作者 : iechenyb<br>
@@ -43,11 +55,11 @@ public class ResponseUtils {
 	 *@param e
 	 *@param kiiik
 	 */
-	public static R<String> HandlerMethodExceptionDispatcher(
+	public static RThis<String> HandlerMethodExceptionDispatcher(
 			HttpServletRequest request, 
 			HttpServletResponse response,
 			Object handler,Exception e){
-		R<String> result = new R<String>(Contants.BLANK).fail();
+		RThis<String> result = new RThis<String>(Contants.BLANK).fail();
 		if (e instanceof AccessDeniedException) {
 			result.refuse("无权限访问！");
 		} else if (e instanceof UserSessionTimeoutException) {

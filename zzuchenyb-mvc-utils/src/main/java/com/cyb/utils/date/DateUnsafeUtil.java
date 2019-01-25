@@ -243,15 +243,26 @@ public class DateUnsafeUtil {
 	public static Date preDate(Date date,int days) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		cal.add(Calendar.DAY_OF_MONTH, -1);
+		cal.add(Calendar.DAY_OF_MONTH, days);
 		return cal.getTime();
 	}
+	/**
+	 * 
+	 *作者 : iechenyb<br>
+	 *方法描述: 
+	 *负数为，不包括今天，往前推算n天<br>
+	 *正数时，不包括今天，往后推算n天<br>
+	 *创建时间: 2017年7月15日
+	 *@param days
+	 *@return
+	 */
 	public static Date preDate(int days) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(Calendar.DAY_OF_MONTH, -1);
+		cal.add(Calendar.DAY_OF_MONTH, days);
 		return cal.getTime();
 	}
+	
 	public static int getWeekOfYear(Date date) {
 		Calendar c = new GregorianCalendar();
 		c.setFirstDayOfWeek(Calendar.MONDAY);
@@ -329,6 +340,13 @@ public class DateUnsafeUtil {
 		long between_days = (time2 - time1) / (1000 * 3600 * 24);
 
 		return Integer.parseInt(String.valueOf(between_days));
+	}
+	
+	public static String curYearStartDay(){
+		return date2long8().toString().substring(0, 4)+"0101";
+	}
+	public static String curYearEndDay(){
+		return date2long8().toString().substring(0, 4)+"1231";
 	}
 
 	/**

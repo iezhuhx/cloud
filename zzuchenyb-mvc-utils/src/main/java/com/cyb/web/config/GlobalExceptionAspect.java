@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import com.cyb.utils.bean.RMeta;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -30,15 +32,15 @@ public class GlobalExceptionAspect  {
     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public Response handleHttpMessageNotReadableException(
+    public RMeta handleHttpMessageNotReadableException(
             HttpMessageNotReadableException e) {
         log.error("无法读取JSON...", e);
-        return new Response().failure("无法读取JSON");
+        return new RMeta().failure("无法读取JSON");
     }
  
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Response handleValidationException(MethodArgumentNotValidException e)
+    public RMeta handleValidationException(MethodArgumentNotValidException e)
     {
     	MethodArgumentNotValidException manv = (MethodArgumentNotValidException) e;
 		List<ObjectError> errors = manv.getBindingResult().getAllErrors();
@@ -47,12 +49,12 @@ public class GlobalExceptionAspect  {
 			sb.append(er.getDefaultMessage()+ " ");
 		}
         log.error("参数验证异常...", e);
-        return new Response().failure("参数验证异常!,"+sb.toString());
+        return new RMeta().failure("参数验证异常!,"+sb.toString());
     }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    public Response handleValidationException(BindException e)
+    public RMeta handleValidationException(BindException e)
     {
     	BindException be = (BindException) e;
 		List<ObjectError> errors = be.getAllErrors();
@@ -61,7 +63,7 @@ public class GlobalExceptionAspect  {
 			sb.append(er.getDefaultMessage() + " ");
 		}
         log.error("参数验证异常...", e);
-        return new Response().failure("参数验证异常!,"+sb.toString());
+        return new RMeta().failure("参数验证异常!,"+sb.toString());
     }
  
     /**
@@ -71,10 +73,10 @@ public class GlobalExceptionAspect  {
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoHandlerFoundException.class)
-    public Response handlerNotFoundException(NoHandlerFoundException e)
+    public RMeta handlerNotFoundException(NoHandlerFoundException e)
     {
         log.error("请求的资源不可用",e);
-        return new Response().failure("请求的资源不可用");
+        return new RMeta().failure("请求的资源不可用");
     }
  
     /*
@@ -84,9 +86,9 @@ public class GlobalExceptionAspect  {
     */
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public Response handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
+    public RMeta handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
         log.error("不合法的请求方法...",e);
-        return new Response().failure("不合法的请求方法");
+        return new RMeta().failure("不合法的请求方法");
     }
  
     /**
@@ -94,9 +96,9 @@ public class GlobalExceptionAspect  {
      */
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler({ HttpMediaTypeNotSupportedException.class })
-    public Response handleHttpMediaTypeNotSupportedException(Exception e) {
+    public RMeta handleHttpMediaTypeNotSupportedException(Exception e) {
         log.error("内容类型不支持...", e);
-        return new Response().failure("内容类型不支持");
+        return new RMeta().failure("内容类型不支持");
     }
  
    /* *//**
@@ -114,9 +116,9 @@ public class GlobalExceptionAspect  {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public Response handleException(Exception e) {
+    public RMeta handleException(Exception e) {
         log.error("内部服务错误...", e);
-        return new Response().failure("内部服务错误");
+        return new RMeta().failure("内部服务错误");
     }
  
 }

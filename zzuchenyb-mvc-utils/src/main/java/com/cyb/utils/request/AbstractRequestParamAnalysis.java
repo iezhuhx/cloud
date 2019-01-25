@@ -2,7 +2,7 @@ package com.cyb.utils.request;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.cyb.utils.Contants;
+import com.cyb.contant.Contants;
 
 /**
  *作者 : iechenyb<br>

@@ -59,7 +59,17 @@ public class ELUtils {
 	    return words;
 	}
 	
+	public static String el(String words,String paramName,String value){
+		Map<String,Object> param = new HashMap<>();
+		param.put(paramName, value);
+	    return el(words,param);
+	}
 	
+	public static String el1(String words,String paramName,String value) {
+		Map<String,Object> param = new HashMap<>();
+		param.put(paramName, value);
+	    return el1(words,param);
+	}
 	public static String el1(String words,Map<String,Object> param) {   
 		String regex = "\\$\\{([^\\}]+)\\}"; 
 	    Pattern p = Pattern.compile(regex);     

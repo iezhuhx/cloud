@@ -1,6 +1,5 @@
 package com.cyb.utils.controller;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -14,7 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cyb.app.reptile.ProxyInfor;
-import com.cyb.utils.file.FileUtils;
+import com.cyb.utils.response.ResponseUtils;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -79,11 +78,13 @@ public class BaseController {
 	 *@throws Exception
 	 */
 	protected void downloadFile(File file) throws FileNotFoundException, IOException, Exception {
-		HttpServletResponse response = getCurrentResponse();
+		/*HttpServletResponse response = getCurrentResponse();
 		response.setContentType("application/octet-stream");
 		response.addHeader("Content-Disposition", "attachment;filename="+file.getName());
 		response.setCharacterEncoding("utf-8");
 		FileUtils.fileUpload(new FileInputStream(file), response.getOutputStream());
+		*/
+		ResponseUtils.downFile(getCurrentResponse(), file);	
 	}
 	/**
 	 * 

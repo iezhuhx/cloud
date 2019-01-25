@@ -27,5 +27,18 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="src/main/webapp/lib/javabase64-1.3.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="/sina/WebContent/WEB-INF/lib/erweima/zxingjavase-3.2.1.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repos/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.archivename" value="commons-httpclient-3.1.jar"/>
+			<attribute name="maven.groupId" value="commons-httpclient"/>
+			<attribute name="maven.artifactId" value="commons-httpclient"/>
+			<attribute name="maven.version" value="3.1"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/sina/WebContent/WEB-INF/lib/h2/h2-1.3.171.jar"/>
+	<classpathentry kind="lib" path="/sina/WebContent/WEB-INF/lib/commons-dbutils-1.6.jar" sourcepath="C:/Users/DHUser/.m2/repository/commons-dbutils/commons-dbutils/1.6/commons-dbutils-1.6-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

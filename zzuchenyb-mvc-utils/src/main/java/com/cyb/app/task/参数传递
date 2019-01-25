@@ -1,0 +1,88 @@
+1.main方法：
+
+public static void main(String[] args) throws SchedulerException {
+// TODO Auto-generated method stub
+
+// 创建一个JobDetail实例 将HelloJob类添加到JobDetail中
+JobDetail jobDetail = JobBuilder.newJob(helloJob.class)
+.withIdentity("myJob", "jobDetailGroup")
+.usingJobData("message1","date1")
+.usingJobData("float1", 3.14f)
+.build();
+System.out.println(jobDetail.getKey().getName());
+System.out.println(jobDetail.getKey().getGroup());
+System.out.println(jobDetail.getJobClass().getName());
+
+//创建一个Trigger实例，定义该job立即执行，每隔两秒钟重复执行一次，一直不停
+Trigger trigger = TriggerBuilder.newTrigger()
+.withIdentity("myTrigger","triggerGroup")
+.usingJobData("triggerParam1","trigerParam1Value")
+.startNow().withSchedule(
+SimpleScheduleBuilder.simpleSchedule()
+.withIntervalInSeconds(2)
+.repeatForever())
+.build();
+//创建Schduler实例
+SchedulerFactory sfFactory = new StdSchedulerFactory();
+Scheduler scheduler = sfFactory.getScheduler();
+scheduler.start();
+
+//打印当前时间
+Date date = new Date();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+System.out.println("current scheduler time is :"+sdf.format(date));
+scheduler.scheduleJob(jobDetail, trigger);
+
+}
+
+ 
+
+2.job实现类：
+
+//实现job接口execute方法具体内容
+public void execute(JobExecutionContext arg0) throws JobExecutionException{
+//打印当前执行时间 格式：2017-01-01 00:00:00
+Date date = new Date();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+System.out.println("job execute time is :"+sdf.format(date));
+
+//编写具体业务逻辑
+System.out.println("helloJob类 实现了 Job接口的execute方法");
+
+JobKey jobkey=arg0.getJobDetail().getKey();
+System.out.println("Job name:"+jobkey.getName()+" and Job group:"+jobkey.getGroup());
+
+TriggerKey trkey = arg0.getTrigger().getKey();
+System.out.println("Trigger name:"+trkey.getName()+" and Trigger group:"+trkey.getGroup());
+
+JobDataMap jobDM = arg0.getJobDetail().getJobDataMap();
+JobDataMap triDM = arg0.getTrigger().getJobDataMap();
+
+String jobMsg = jobDM.getString("message1");
+Float jobFloatValue =jobDM.getFloat("float1");
+String triMsg = triDM.getString("triggerParam1");
+
+System.out.println("jobMsg:"+jobMsg);
+System.out.println("jobFloatValue:"+jobFloatValue);
+System.out.println("triMsg:"+triMsg);
+}
+
+ 
+
+3.运行结果：
+
+current scheduler time is :2018-01-03 17:43:59
+job execute time is :2018-01-03 17:43:59
+helloJob类 实现了 Job接口的execute方法
+Job name:myJob and Job group:jobDetailGroup
+Trigger name:myTrigger and Trigger group:triggerGroup
+jobMsg:date1
+jobFloatValue:3.14
+triMsg:trigerParam1Value
+job execute time is :2018-01-03 17:44:01
+helloJob类 实现了 Job接口的execute方法
+Job name:myJob and Job group:jobDetailGroup
+Trigger name:myTrigger and Trigger group:triggerGroup
+jobMsg:date1
+jobFloatValue:3.14
+triMsg:trigerParam1Value

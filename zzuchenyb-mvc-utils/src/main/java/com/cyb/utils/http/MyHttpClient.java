@@ -47,8 +47,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import com.cyb.app.reptile.ProxyInfor;
+import com.cyb.utils.bean.RThis;
 import com.cyb.utils.file.FileUtils;
-import com.cyb.utils.response.R;
 
 @SuppressWarnings("deprecation")
 public class MyHttpClient {
@@ -57,17 +57,6 @@ public class MyHttpClient {
 	static String url_str = "http://www.czce.com.cn/portal/DFSStaticFiles/Future/2016/20160215/FutureDataWhsheet.htm";
 
 	public static void main(String[] args) throws Exception {
-		/*
-		 * HttpClient hc = new DefaultHttpClient(); HttpGet hg = new
-		 * HttpGet(url_str); HttpResponse response = hc.execute(hg); HttpEntity
-		 * entity = response.getEntity(); InputStream htm_in = null; if(entity
-		 * != null){ System.out.println("文件大小："+entity.getContentLength());
-		 * htm_in = entity.getContent(); StringBuffer htm_str =
-		 * InputStream2String(htm_in,charset);
-		 * FileUtils.overideString2File(htm_str.toString(),filepath); //
-		 * saveStr2Html(filepath,htm_str.toString());
-		 * System.out.println("文件下载成功！"+filepath); }
-		 */
 		doPost("http://localhost:8080");
 		postBody("http://localhost:8080", "body content is here!");
 	}
@@ -242,9 +231,9 @@ public class MyHttpClient {
 	        return new DefaultHttpClient(conMgr,params);
 
 	    };
-	public static R<DefaultHttpClient> login(String url,Map<String,String> para) {
+	public static RThis<DefaultHttpClient> login(String url,Map<String,String> para) {
 		DefaultHttpClient httpclient = createHttpClient();
-		R<DefaultHttpClient> result = new R<DefaultHttpClient>();
+		RThis<DefaultHttpClient> result = new RThis<DefaultHttpClient>();
 		HttpPost httpRequst = new HttpPost(url);// 创建HttpPost对象
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		for(String key :para.keySet()){

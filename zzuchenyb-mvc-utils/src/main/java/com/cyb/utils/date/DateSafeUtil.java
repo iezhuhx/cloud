@@ -58,8 +58,18 @@ public class DateSafeUtil {
 		return descTimeToSec(new Date());
 	}
 	
+	public static Long date2long8(Date date) {
+		formattor.set(new SimpleDateFormat("yyyyMMdd"));
+		String dateString = formattor.get().format(date);
+		Long time =  Long.valueOf(dateString);
+		formattor.remove();
+		return time;
+	}
+	public static Long date2long8(){
+		return date2long8(new Date());
+	}
 	public static Long date2long14(Date date) {
-		formattor.set(new SimpleDateFormat("yyyyMMddHHmmss"));
+		formattor.set(new SimpleDateFormat("yyyyMMdd"));
 		String dateString = formattor.get().format(date);
 		Long time =  Long.valueOf(dateString);
 		formattor.remove();

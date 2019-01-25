@@ -1,6 +1,6 @@
 package com.cyb.app.bms;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,10 +19,13 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.quartz.SchedulerException;
 
+import com.cyb.app.holiday.HolidayH2DbUtils;
+import com.cyb.app.task.QuartzManager;
+import com.cyb.utils.bean.RThis;
 import com.cyb.utils.date.DateUnsafeUtil;
 import com.cyb.utils.http.MyHttpClient;
-import com.cyb.utils.response.R;
 import com.cyb.utils.text.ELUtils;
 
 @SuppressWarnings("deprecation")
@@ -37,21 +40,31 @@ public class BmsDataCheckWorker {
 	static Map<String, String> cookie;
 	static String cookieString;
 	static String lastDay;
-
+	
 	public static void main(String[] args) throws Exception {
-		boolean isMonday = DateUnsafeUtil.isSomeWeekDay(Calendar.MONDAY);
-		System.out.println("是否周一?"+isMonday);
+		//start();
+		execTask();
+	}
+	
+	public static void start() throws ClassNotFoundException, SchedulerException{
+        String job_name = "动态任务调度";  
+        String cron = "*/10 * * * * ?"; 
+        QuartzManager.addJob(job_name, BMSJob.class, cron);  
+    }
+	public static void execTask() throws Exception{
 		登录();
-		int days = 0;
-		if(isMonday) days=-2;
-		String lastDay = DateUnsafeUtil.date2long8(DateUnsafeUtil.preDate(days)).toString();
+		String lastTrade = HolidayH2DbUtils.preTradeDay(new Date());
+		String lastDay = DateUnsafeUtil.format(DateUnsafeUtil.calendar(lastTrade).getTime(), "yyyyMMdd");
+		System.out.println("ywrq="+lastDay);
 		交易客户端数据(lastDay);
-		lastDay = DateUnsafeUtil.format(DateUnsafeUtil.preDate(days), "yyyy/MM/dd");
+		lastDay = DateUnsafeUtil.format(lastTrade, "yyyy/MM/dd");
+		System.out.println("ywrq="+lastDay);
 		成交排名(lastDay);
 		交易概览(lastDay);
-		交易排名(lastDay);
+		交易排名(lastDay);//增值服务中心抓取
 		//持仓排名(lastDay);
 	}
+	
 	//慢 超时失败 不做校验
 	/**
 	 * 同一个连接 既是会话保持
@@ -60,7 +73,7 @@ public class BmsDataCheckWorker {
 		Map<String,String> param = new HashMap<>();
 		param.put("name", "gongweilin");
 		param.put("password", "my.123456");
-		R<DefaultHttpClient> htl = MyHttpClient.login(登录地址,param);
+		RThis<DefaultHttpClient> htl = MyHttpClient.login(登录地址,param);
 		System.out.println(htl);
 		Map<String, String> data = new HashMap<String, String>();  
 	    data.put("transactionDate", lastDay);
@@ -70,8 +83,6 @@ public class BmsDataCheckWorker {
 	    data.put("findtext", "");
 		String res = MyHttpClient.doPost(持仓排名,data, htl.getD());
 		System.out.println("hh:"+res);
-		
-		
 	}
 
 	/**

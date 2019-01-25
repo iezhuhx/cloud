@@ -196,6 +196,12 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency> 
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>1.4.178</version>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>mvc40</finalName>

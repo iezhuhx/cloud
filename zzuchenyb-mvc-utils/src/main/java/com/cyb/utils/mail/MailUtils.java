@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.cyb.utils.response.R;
+import com.cyb.utils.bean.RThis;
 import com.sun.mail.util.MailSSLSocketFactory;
 /**
  *作者 : iechenyb<br>
@@ -46,7 +46,7 @@ public class MailUtils {
 		return session;
 	}
 	
-	public static R<String> sendEmail(EmailInformation email) throws NoSuchProviderException, GeneralSecurityException, MessagingException{
+	public static RThis<String> sendEmail(EmailInformation email) throws NoSuchProviderException, GeneralSecurityException, MessagingException{
 		Session session = getQQJavaMailSession();
 		Transport transport=session.getTransport();
 		QQServerInfor server = new QQServerInfor();
@@ -57,7 +57,7 @@ public class MailUtils {
 				new Address[] { new InternetAddress(
 				email.getTo()) });
 		transport.close();
-		return new R<String>();
+		return new RThis<String>();
 	}
 	
 	public static Message convert(Session session,EmailInformation email) throws MessagingException{
