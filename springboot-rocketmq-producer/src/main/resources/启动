@@ -1,0 +1,15 @@
+1、rocketmq的启动 
+进入rocketMQ解压目录下的bin文件夹 
+启动namesrv服务：nohup sh bin/mqnamesrv & 
+日志目录：{rocketMQ解压目录}/logs/rocketmqlogs/namesrv.log
+
+启动broker服务：nohup sh bin/mqbroker & 
+日志目录：{rocketMQ解压目录}/logs/rocketmqlogs/broker.log 
+
+以上的启动日志可以在启动目录下的nohub.out中看到 
+
+2、rocketmq服务关闭
+
+关闭namesrv服务：sh bin/mqshutdown namesrv
+
+关闭broker服务 ：sh bin/mqshutdown broker
