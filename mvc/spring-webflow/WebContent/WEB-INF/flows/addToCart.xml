@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+    http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+    
+	<!-- flow 执行之前 ，productId这个字段内容从viewCart页面中获取-->
+	<on-start>
+		<set name="requestScope.productId" value="requestParameters.productId" />
+	</on-start>
+	
+	<!-- addToCart flow 主要由一个 action-state 构成，完成添加商品到购物车的功能，
+	 addToCart flow 的实现需要有输入参数，即 productId 。
+	 本示例中是通过请求参数来传递，通过 requestParameters 来获取该数值。
+	 这里还要注意到 end-state 的 id 为“ productAdded ”，
+	 与 subflow-state 中的 transition元素的on属性的名称是对应的。 -->
+	
+	<action-state id="addToCart">
+		<evaluate expression="cart.addItem(productService.getProduct(productId))" />
+		<transition to="productAdded" />
+	</action-state>
+	<end-state id="productAdded" />
+</flow>

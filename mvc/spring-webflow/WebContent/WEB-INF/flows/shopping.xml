@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+ http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- 在 shopping flow 开始时必须分配一个 Cart 对象，由于要调用 subflow ，
+	这个 Cart 对象应存放于 conversationScope 中。
+	同时要添加一个 subflow-state 用于执行添加商品到购物车的任务。 -->
+	<!-- mycart为一个服务类 -->
+	<var name="mycart" class="samples.webflow.Cart" />
+	<on-start>
+		<set name="conversationScope.cart" value="mycart"></set>
+	</on-start>
+	<!-- view-state中的view对应jsp文件夹中的jsp页面，on是触发事件，to对应state id -->
+	<view-state id="viewCart" view="viewCart">
+		<!-- 在进入 view 的 render 流程之后，在 view 真正 render出来之前 -->
+		<on-render>
+			<!-- 要在 viewCart 页面中显示商品，只需在 view-state 元素的 on-render 切入点调用 productService 
+				的 getProducts 方法，并将所得结果保存到 viewScope 中即可 -->
+			<evaluate expression="productService.getProducts()" result="viewScope.products" />
+		</on-render>
+		<transition on="submit" to="viewOrder" />
+		<transition on="addToCart" to="addProductToCart" />
+	</view-state>
+	
+	<subflow-state id="addProductToCart" subflow="addToCart">
+		<transition on="productAdded" to="viewCart" />
+	</subflow-state>
+	
+	<view-state id="viewOrder" view="viewOrder">
+		<transition on="confirm" to="orderConfirmed">
+		</transition>
+	</view-state>
+	<view-state id="orderConfirmed" view="orderConfirmed">
+		<transition on="returnToIndex" to="returnToIndex">
+		</transition>
+	</view-state>
+	
+	<end-state id="returnToIndex" view="externalRedirect:servletRelative:/index.jsp">
+	</end-state>
+</flow>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView">
+		</property>
+		<property name="prefix" value="/WEB-INF/jsp/">
+		</property>
+		<property name="suffix" value=".jsp">
+		</property>
+	</bean>
+	
+	<bean id="viewMappings"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<!-- /shopping.do 请求由 flowController 来处理 -->
+		<property name="mappings">
+			<value> /shopping.do=flowController </value>
+		</property>
+		<property name="defaultHandler">
+			<!-- UrlFilenameViewController 会将 "/index" 这样的请求映射成名为 "index" 的视图 -->
+			<bean class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+		</property>
+	</bean>
+	
+	<!-- 一般来讲，我们只要明白 FlowController 可根据客户端请求的结尾部分，找出相应的 flow 来执行。配置 FlowController只需指定FlowExecutor即可 -->
+	<bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+</beans>
