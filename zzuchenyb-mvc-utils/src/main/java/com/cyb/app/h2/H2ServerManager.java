@@ -45,11 +45,12 @@ public class H2ServerManager {
         }
     }
 
-    public static void crudTest() {
+    public static void crudTest(H2DBInfor db) {
         try {
             Class.forName("org.h2.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:h2:./h2db/sxaz42b4", "sa", "sa");
-            conn = H2DBConnectionPool.getJDBCConnectionPool(new H2DBInfor("0","data/aa/","test")).getConnection();
+            Connection conn = DriverManager
+            		.getConnection("jdbc:h2:./h2db/sxaz42b4", "sa", "sa");
+            conn = H2DBConnectionPool.getJDBCConnectionPool(db).getConnection();
             Statement stat = conn.createStatement();
             stat.execute("CREATE TABLE TEST(NAME VARCHAR)");
             stat.execute("INSERT INTO TEST VALUES('菩提树下的杨过')");
@@ -72,7 +73,10 @@ public class H2ServerManager {
     }
     public static void h2Test() {
         start();
-        crudTest();
+        for(int i=0;i<=2;i++){
+	        H2DBInfor db = new H2DBInfor(""+i,"data/aa/","test"+i);
+	        crudTest(db);
+        }
         stop();
     }
     public static void main(String[] args) {

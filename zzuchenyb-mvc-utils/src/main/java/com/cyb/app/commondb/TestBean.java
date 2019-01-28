@@ -6,9 +6,7 @@ package com.cyb.app.commondb;
  *创建时间: 2019年1月25日
  */
 public class TestBean {
-	public TestBean() {
-		
-	}
+	public TestBean() {}
 
 	String rq;
 
