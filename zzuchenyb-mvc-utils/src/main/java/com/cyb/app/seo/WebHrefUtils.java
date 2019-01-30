@@ -10,6 +10,8 @@ import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
+
+import com.cyb.utils.file.FileUtils;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -17,20 +19,22 @@ import org.springframework.util.StringUtils;
  */
 public class WebHrefUtils {
 	Log log = LogFactory.getLog(WebHrefUtils.class);
+	public static String newsFile = "d:/data/news/data.txt";
+	static String index = "http://www.baidu.com";
 	
-	static String baidu = "http://www.baidu.com";
-	static int deep = 0;
-	static int maxDeep = 1000;
+	static int curDeep = 0;
+	static int maxDeep = 1000*100;
 	static transient volatile Map<String, String> urls 
 	= new ConcurrentHashMap<>();// new HashMap<>();
 	public static void main(String[] args) throws MalformedURLException, IOException {
-		getHref(baidu);
-		//title 和
+		FileUtils.overideString2File("", newsFile);
+		index="https://www.hao123.com/";
+		getHref(index);
 	}
 	public static void getHref(String index) throws MalformedURLException, IOException{
 		try{
-		if(deep>=maxDeep) return ;
-		deep++;
+		if(curDeep>=maxDeep) return ;
+		curDeep++;
 		Elements hrefs = Jsoup.parse(new URL(index), 10*1000).getElementsByTag("a");
 		for(int i=0;i<hrefs.size();i++){
 			String a = hrefs.get(i).attr("href");
@@ -46,7 +50,8 @@ public class WebHrefUtils {
 			}
 			urls.put(a, "");//去重
 			if(a.startsWith("http")||a.startsWith("https")){
-				System.out.println("deep="+deep+"\t"+title+"\t"+a);
+				System.out.println("deep="+curDeep+"\t"+title+"\t"+a);
+				FileUtils.appendString2File(title+"#"+a+"\n", newsFile);
 				getHref(a);
 			}
 		}

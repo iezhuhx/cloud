@@ -31,6 +31,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
+
 public class FileUtils {
 	public void pathInfo() throws IOException {
 		@SuppressWarnings("unused")
@@ -350,11 +353,11 @@ public class FileUtils {
 	public static void appendString2File(String content, String dest) {
 		FileOutputStream fop = null;
 		File file;
-		// StringBuffer content = new StringBuffer("This is the text content
-		// 中文"+"\n");
-		// content.append("This is the text content 中文是");
 		try {
 			file = new File(dest);
+			if(!file.getParentFile().exists()){
+				file.getParentFile().mkdirs();
+			}
 			// 如果第二个参数为true，则将字节写入文件末尾处，而不是写入文件开始处
 			fop = new FileOutputStream(file, true);
 			if (!file.exists()) {
@@ -716,16 +719,14 @@ public class FileUtils {
 	}
 
 	/***
-	 * 递归获取指定目录下的所有的文件（不包括文件夹）
+	 * 递归获取指定目录下的所有的文件
 	 * 
 	 * @param obj
 	 * @return
 	 */
-	public static ArrayList<File> getAllFiles(String dirPath) {
+	public static ArrayList<File> listFiles(String dirPath) {
 		File dir = new File(dirPath);
-
 		ArrayList<File> files = new ArrayList<File>();
-
 		if (dir.isDirectory()) {
 			File[] fileArr = dir.listFiles();
 			for (int i = 0; i < fileArr.length; i++) {
@@ -733,7 +734,7 @@ public class FileUtils {
 				if (f.isFile()) {
 					files.add(f);
 				} else {
-					files.addAll(getAllFiles(f.getPath()));
+					files.addAll(listFiles(f.getPath()));
 				}
 			}
 		}
@@ -1039,4 +1040,28 @@ public class FileUtils {
 			}
 		}
 	}
+	/**
+	 * 
+	 *作者 : iechenyb<br>
+	 *方法描述: 说点啥<br>
+	 *创建时间: 2017年7月15日
+	 *@param fileName classpath:/a/b/c.txt
+	 * @throws FileNotFoundException 
+	 */
+	public static File classPathFile(String fileName) throws FileNotFoundException{
+		return ResourceUtils.getFile(fileName);
+	}
+	/**
+	 * 
+	 *作者 : iechenyb<br>
+	 *方法描述: 说点啥<br>
+	 *创建时间: 2017年7月15日
+	 *@param fileName /a/b/c.txt
+	 *@return
+	 *@throws IOException
+	 */
+	public static File classPathFile2(String fileName) throws IOException{
+		return new ClassPathResource(fileName).getFile();
+	}
+	
 }

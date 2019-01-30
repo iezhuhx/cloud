@@ -36,7 +36,7 @@ public class HolidayUtils {
 		types.put(HOLIDAY_XIUXIRI, "休息日");
 		types.put(HOLIDAY_JIEJIARI, "节假日");
 	}
-	static String rqs="D:\\data\\calendar\\rqs.txt";
+	public static String rqs="D:\\data\\calendar\\rqs.txt";
 	static String holidayUrl = "http://api.goseek.cn/Tools/holiday?date=${date}";
 	//抓取当年的节假日2019
 	public static void main(String[] args) throws IOException {

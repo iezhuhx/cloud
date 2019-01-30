@@ -1,6 +1,9 @@
 package com.cyb.unit;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
@@ -18,6 +21,7 @@ import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.apache.lucene.queryparser.flexible.standard.StandardQueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
@@ -34,7 +38,9 @@ import org.apache.lucene.util.Version;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cyb.utils.ik.SynonymsAnalyzer;	
+import com.cyb.app.seo.WebHrefUtils;
+import com.cyb.utils.file.FileLineUtils;
+import com.cyb.utils.ik.AnalyzerStratory;	
 
 /*  FieldType	说明
 	TextField.TYPE_STORED	被分词索引且存储
@@ -42,40 +48,101 @@ import com.cyb.utils.ik.SynonymsAnalyzer;
 	StringField.TYPE_STORED	不被分词，它作为一个整体被搜索，索引且存储
 	StringField.TYPE_NOT_STORED	不被分词，它作为一个整体被搜索，索引但不存储
 	StoredField.TYPE	这是不能被搜索的，它只是被搜索内容的附属物。如URL等
-*/
-public class SynonymAnalyzerTest {
+	（索引）Index  
 
+　　　　　---（段）Segment  
+
+　　　　　　　---（文档）Document
+
+　　　　　　　　　 --- （域）Field
+
+　　　　　　　　　　　　--- （词）Term
+*/
+
+public class SynonymAnalyzerTest {
+	Map<String,Analyzer> analyzers=new HashMap<>();
 	Directory dir;
-	FSDirectory fsDir;
+	//FSDirectory fsDir;
+	public static String fsDirFile="d:/data/logs";
 	IndexSearcher searcher;
-	Analyzer analyzer = new SynonymsAnalyzer();
+	Analyzer analyzer = null;
 	Version version = Version.LUCENE_47;
-	@Before
-	public void setUp() throws Exception {
-		dir = new RAMDirectory();
-		fsDir=FSDirectory.open(new File("d:/data/"));
-		IndexWriterConfig conf = new IndexWriterConfig(
-				version,
-				analyzer);
+	/**
+	 * 
+	 *作者 : iechenyb<br>
+	 *方法描述: 初始化目录<br>
+	 *创建时间: 2017年7月15日
+	 *@param dir
+	 *@param conf
+	 *@throws IOException
+	 */
+	public void initDir(Directory dir,IndexWriterConfig conf) throws IOException{
 		IndexWriter writer = new IndexWriter(dir, conf);
+		initDataIndex(writer);
+		writer.close();
+		IndexReader reader = DirectoryReader.open(dir); 
+		searcher = new IndexSearcher(reader);
+	}
+	@Before
+	public void setUpFS() throws Exception {
+		analyzer = AnalyzerStratory.getAnalyzer();
+		IndexWriterConfig conf = new IndexWriterConfig(version,analyzer);
+		dir=FSDirectory.open(new File(fsDirFile));
+		initDir(dir, conf);
+	}
+	//@Before
+	public void setUpMem() throws Exception {
+		analyzer = AnalyzerStratory.getAnalyzer();
+		IndexWriterConfig conf = new IndexWriterConfig(version,analyzer);
+		dir = new RAMDirectory();
+		initDir(dir, conf);
+	}
+	/**
+	 * 
+	 *作者 : iechenyb<br>
+	 *方法描述: 创建索引，内存模式和文件系统模式<br>
+	 *创建时间: 2017年7月15日
+	 *@param writer
+	 *@throws IOException
+	 */
+	public void initDataIndex(IndexWriter writer) throws IOException{
 		Document doc = new Document();
 		doc.add(new TextField("content", "我来自中国广州", Field.Store.YES));
 		doc.add(new TextField("name", "iechenyb是csdn博客活跃者", Field.Store.YES));
 		writer.addDocument(doc);
-		
 		Document doc1 = new Document();
-		doc1.add(new TextField("content", "远豹是csdn博客活跃者", Field.Store.YES));
+		doc1.add(new TextField("content", "俺是csdn博客活跃者", Field.Store.YES));
 		doc1.add(new TextField("name", "我来自中国天朝", Field.Store.YES));
 		writer.addDocument(doc1);
-		
-		writer.close();
-		IndexReader reader = DirectoryReader.open(dir);
-		searcher = new IndexSearcher(reader);
+		List<String> news = FileLineUtils.dataReader(WebHrefUtils.newsFile);
+		for(String n:news){
+			try{
+				Document doc2 = new Document();
+				doc2.add(new TextField("content", n.split("#")[1], Field.Store.YES));
+				doc2.add(new TextField("name",n.split("#")[0], Field.Store.YES));
+				writer.addDocument(doc2);
+			}catch(Exception e){ 
+				//System.err.println("异常索引数据："+n);
+			}
+		}
+	}
+	
+	@Test
+	public void searcher() {
+		try {
+			String queryString = "去百度一下小儿";
+			QueryParser parser = new QueryParser(version, "name", analyzer);
+			Query query = parser.parse(queryString);
+			TopDocs tds = searcher.search(query, 5);
+			show(tds);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	public void test1() throws IOException {
-		Term term = new Term("content", "天朝");//天朝
+		Term term = new Term("name", "去百度一下");//天朝
 		Query query = new TermQuery(term);
 		IndexReader reader = DirectoryReader.open(dir);
 		IndexSearcher searcher = new IndexSearcher(reader);
@@ -131,24 +198,24 @@ public class SynonymAnalyzerTest {
  
     @Test//通配符搜索
     public void searchByWildcard() {
-        Query query = new WildcardQuery(new Term("content", "Apache"));
+        Query query = new WildcardQuery(new Term("name", "百度一下"));
         showQueryResult(query, 5);
     }
  
     @Test//多个条件的查询
     public void searchByBoolean() {
         BooleanQuery booleanQuery = new BooleanQuery();
-        Query query1 = new TermQuery(new Term("name", "天朝"));
-        Query query2 = new TermQuery(new Term("content", "广州"));
+        Query query1 = new TermQuery(new Term("name", "去百度一下"));
+        Query query2 = new TermQuery(new Term("content", "去百度一下"));
         booleanQuery.add(query1, BooleanClause.Occur.SHOULD);
         booleanQuery.add(query2, BooleanClause.Occur.SHOULD);
         showQueryResult(booleanQuery, 5);
     }
  
-    @Test//模糊匹配搜索
+    @Test//模糊匹配搜索，不可用
     public void searchByFuzzy() {
-       /* FuzzyQuery query = new FuzzyQuery(new Term("name", "天朝"), 20, 10);
-        showQueryResult(query, 5);*/
+        FuzzyQuery query = new FuzzyQuery(new Term("name", "天朝"), 20, 10);
+        showQueryResult(query, 5);
     }
  
     @Test

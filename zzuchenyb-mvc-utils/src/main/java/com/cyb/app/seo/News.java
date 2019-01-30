@@ -10,6 +10,7 @@ public class News {
 	public String keywords;
 	public String href;
 	public String remark;// 摘要
+	
 	public String getTitle() {
 		return title;
 	}

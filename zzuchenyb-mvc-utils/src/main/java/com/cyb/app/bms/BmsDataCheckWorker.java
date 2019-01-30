@@ -58,7 +58,6 @@ public class BmsDataCheckWorker {
 		System.out.println("ywrq="+lastDay);
 		交易客户端数据(lastDay);
 		lastDay = DateUnsafeUtil.format(lastTrade, "yyyy/MM/dd");
-		System.out.println("ywrq="+lastDay);
 		成交排名(lastDay);
 		交易概览(lastDay);
 		交易排名(lastDay);//增值服务中心抓取

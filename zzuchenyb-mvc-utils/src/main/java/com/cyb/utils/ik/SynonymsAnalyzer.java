@@ -1,7 +1,6 @@
 package com.cyb.utils.ik;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
@@ -21,6 +20,8 @@ import org.apache.lucene.util.Version;
 import org.springframework.util.ResourceUtils;
 import org.wltea.analyzer.lucene.IKTokenizer;
 
+import com.cyb.utils.file.FileUtils;
+
 /**
  * 作者 : iechenyb<br>
  * 类描述: 说点啥<br>
@@ -33,9 +34,10 @@ public class SynonymsAnalyzer extends Analyzer {
 	public SynonymsAnalyzer()   {
 		try {
 			File cfgFile = ResourceUtils.getFile("classpath:ik/synonyms.txt");
+			cfgFile = FileUtils.classPathFile2("ik/synonyms.txt"); 
 			this.synonymsPath = cfgFile.getAbsolutePath();
 			System.out.println(this.synonymsPath);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

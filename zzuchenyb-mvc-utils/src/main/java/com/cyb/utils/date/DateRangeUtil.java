@@ -71,7 +71,12 @@ public class DateRangeUtil {
 			return false;
 		}
 	}
-
+	
+	public static boolean isInTime(String sourceTime){
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		String cur = sdf.format(new Date());
+		return isInTime(sourceTime,cur);
+	}
 	/**
 	 * 判断某一时间是否在一个区间内
 	 * 

@@ -39,7 +39,7 @@ public class MD5Util {
 		return hexValue.toString();
 	}
 
-	public static String getMd5ByFile(File file) throws FileNotFoundException {
+	public static String md5File(File file) throws FileNotFoundException {
 		String value = null;
 		FileInputStream in = new FileInputStream(file);
 		try {
