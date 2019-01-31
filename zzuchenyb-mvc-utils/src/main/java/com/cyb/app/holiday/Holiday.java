@@ -16,6 +16,15 @@ public class Holiday {
 		this.rq = rq;
 		this.type = type;
 	}
+	public boolean isWeekDay(){
+		return type.equals("1");
+	}
+	public boolean isTradeDay(){
+		return type.equals("0");
+	}
+	public boolean isJIJIARI(){
+		return type.equals("2");
+	}
 	public Holiday(){};
 	Holiday(String row){
 		this.rq = DateSafeUtil.calendar(row.split(",")[0]).getTime();

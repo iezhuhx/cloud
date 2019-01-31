@@ -82,6 +82,7 @@ public class SynonymAnalyzerTest {
 		writer.close();
 		IndexReader reader = DirectoryReader.open(dir); 
 		searcher = new IndexSearcher(reader);
+		
 	}
 	@Before
 	public void setUpFS() throws Exception {
@@ -125,6 +126,9 @@ public class SynonymAnalyzerTest {
 				//System.err.println("异常索引数据："+n);
 			}
 		}
+		//writer.deleteAll();
+		//writer.deleteDocuments(query);//根据查询删除
+		//writer.updateDocument(new Term("id", "1"), new Document());
 	}
 	
 	@Test

@@ -52,6 +52,7 @@ public class BmsDataCheckWorker {
         QuartzManager.addJob(job_name, BMSJob.class, cron);  
     }
 	public static void execTask() throws Exception{
+		DateUnsafeUtil.showMonthCal();
 		登录();
 		String lastTrade = HolidayH2DbUtils.preTradeDay(new Date());
 		String lastDay = DateUnsafeUtil.format(DateUnsafeUtil.calendar(lastTrade).getTime(), "yyyyMMdd");

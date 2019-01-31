@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import com.cyb.utils.encrypt.MD5Util;
 /**
  *作者 : iechenyb<br>
- *类描述: 说点啥<br>
+ *类描述: app/ribbon 查看负载均衡策略<br>
  *创建时间: 2019年1月29日
  */
 public class HashUtils {

@@ -36,9 +36,25 @@ public class HolidayH2DbUtils {
 		showHoliday();
 	}
 	public static boolean isTradeDay() throws SQLException {
+		return isTradeDay(new Date());
+	}
+	public static Holiday getSomeDay() throws SQLException {
+		return getSomeDay(new Date());
+	}
+	public static Holiday getSomeDay(Date date) throws SQLException{
 		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
 		Map<String, Object> param = new HashMap<>();
-		param.put("rq", DateSafeUtil.date2long8(new Date()).toString());
+		param.put("rq", DateSafeUtil.date2long8(date).toString());
+		String sql = ELUtils.el(HolidaySQL.tradeSQL, param);
+		
+		Holiday h =  dbUtil.queryForObject(sql, Holiday.class);
+		dbUtil.close();
+		return h;
+	}
+	public static boolean isTradeDay(Date date) throws SQLException {
+		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
+		Map<String, Object> param = new HashMap<>();
+		param.put("rq", DateSafeUtil.date2long8(date).toString());
 		String sql = ELUtils.el(HolidaySQL.tradeSQL, param);
 		return HolidayUtils.HOLIDAY_GOGZUORI.equals(dbUtil.queryForMap(sql).get("type").toString());
 	}
