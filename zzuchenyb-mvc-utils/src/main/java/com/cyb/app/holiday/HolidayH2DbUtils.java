@@ -32,8 +32,8 @@ public class HolidayH2DbUtils {
 
 	public static void main(String[] args) throws SQLException {
 		createTable(tableName);
-		// insertHoliday();
-		showHoliday();
+		 insertHoliday();
+		//showHoliday();
 	}
 	public static boolean isTradeDay() throws SQLException {
 		return isTradeDay(new Date());
