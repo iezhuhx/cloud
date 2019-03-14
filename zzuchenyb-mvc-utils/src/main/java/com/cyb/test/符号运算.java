@@ -7,6 +7,7 @@ public static void main(String[] args) throws Exception {
 	for(int i=64;i<=64;i++){
 		System.out.println(i+"->"+Long.toBinaryString(c>>>i));//32*n=数据本身
 	}
+	
 	//自己与自己亦或 永远都是0
 	System.out.println(aa^(aa>>>32));//亦或 相同为0，不同为1---自己与自己做亦或运算
 	
