@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.cyb.utils.jsr.annotation.Decimal;
 import com.cyb.utils.jsr.annotation.Email;
-import com.cyb.utils.jsr.annotation.Integer;
+import com.cyb.utils.jsr.annotation.IntegerAnno;
 import com.cyb.utils.jsr.annotation.ListEmpty;
-import com.cyb.utils.jsr.annotation.Long;
+import com.cyb.utils.jsr.annotation.LongAnn;
 import com.cyb.utils.jsr.annotation.MapEmpty;
 import com.cyb.utils.jsr.annotation.Pattern;
 import com.cyb.utils.jsr.annotation.Phone;
@@ -25,21 +25,21 @@ public class ValidateBean {
 	@ApiModelProperty("用户名,不可以为空")
 	private String username;
 	
-	@Long(min=1,max=5,message="数字必须为1-5")
+	@LongAnn(min=1,max=5,message="数字必须为1-5")
 	@ApiModelProperty("Long数字必须为1-5")
 	private Long blv;
 	
-	@Long(min=1,max=5,message="数字必须为1-5")
+	@LongAnn(min=1,max=5,message="数字必须为1-5")
 	@ApiModelProperty("long数字必须为1-5")
-	private long lv;
+	private Long lv;
 	
-	@Integer(min=1,max=5,message="数字必须为1-5")
+	@IntegerAnno(min=1,max=5,message="数字必须为1-5")
 	@ApiModelProperty("Integer数字必须为1-5")
 	private Integer biv;
 	
-	@Integer(min=1,max=5,message="数字必须为1-5")
+	@IntegerAnno(min=1,max=5,message="数字必须为1-5")
 	@ApiModelProperty("int数字必须为1-5")
-	private int iv;
+	private Integer iv;
 	
 	@ApiModelProperty("密码，非空")
 	private String password;

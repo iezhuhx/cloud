@@ -1,15 +1,31 @@
 package com.cyb.test;
 
 public class 符号运算 {
+	/**
+	 *  byte 1字节
+		short 2字节
+		int 4字节
+		long 8字节
+		float 4字节
+		double 8字节
+		char 2字节
+		boolean 1字节
+	 * @param args
+	 * @throws Exception
+	 */
+@SuppressWarnings("unused")
 public static void main(String[] args) throws Exception {
-	int aa=8;//32位循环
-	long c=17;//64位循环
-	for(int i=64;i<=64;i++){
-		System.out.println(i+"->"+Long.toBinaryString(c>>>i));//32*n=数据本身
+    byte by=7;//32位循环
+	char ch=7;//32位循环
+	short sh=7;//32位循环
+	int in=7;//32位循环
+	long lon=7;//64位循环
+	double dd=7;
+	for(int i=0;i<=64;i++){
+		System.out.println(i+"->"+Long.toBinaryString(lon>>>i));//32*n=数据本身
 	}
-	
 	//自己与自己亦或 永远都是0
-	System.out.println(aa^(aa>>>32));//亦或 相同为0，不同为1---自己与自己做亦或运算
+	System.out.println(in^(in>>>32));//亦或 相同为0，不同为1---自己与自己做亦或运算
 	
 }
 public void test() throws Exception{

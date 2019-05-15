@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="aaa" xmlns="http://jbpm.org/4.4/jpdl">
+   <start name="start1" g="117,107,82,53">
+      <transition name="start" to="task1" g="-52,-22"/>
+   </start>
+   <end name="end1" g="832,149,162,61"/>
+   <task name="task1" g="298,127,112,74">
+      <transition name="to exclusive1" to="exclusive1" g="-79,-22"/>
+   </task>
+   <decision name="exclusive1" g="569,136,85,24">
+      <transition name="to task2" to="task2" g="-52,-22"/>
+      <transition name="to task3" to="task3" g="-52,-22"/>
+   </decision>
+   <task name="task2" g="681,70,67,88">
+      <transition name="to end1" to="end1" g="-50,-22"/>
+   </task>
+   <task name="task3" g="671,187,92,104">
+      <transition name="to end1" to="end1" g="-50,-22"/>
+   </task>
+</process>

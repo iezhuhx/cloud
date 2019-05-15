@@ -21,7 +21,7 @@ import com.cyb.utils.jsr.validator.LongValidator;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {LongValidator.class})
-public @interface Long {
+public @interface LongAnn {
 	 String message() default "整数格式不正确！";
 	 long min() default -999999999;
 	 long max() default 999999999;

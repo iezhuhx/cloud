@@ -21,7 +21,7 @@ import com.cyb.utils.jsr.validator.IntegerValidator;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {IntegerValidator.class})
-public @interface Integer {
+public @interface IntegerAnno {
 	 String message() default "整数格式不正确！";
 	 long min() default -999999999;
 	 long max() default 99999999;

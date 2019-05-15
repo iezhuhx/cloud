@@ -10,6 +10,8 @@ import javax.validation.Validator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.cyb.utils.jsr.bean.ValidateBean;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -30,5 +32,10 @@ public class JSRValidatorUtils {
 		}
 		System.out.println(tips);
 		return tips;
+	}
+	public static void main(String[] args) {
+		ValidateBean aa = new ValidateBean();
+		aa.setLv(100);
+		JSRValidatorUtils.validateCommonBeanParams(aa);
 	}
 }

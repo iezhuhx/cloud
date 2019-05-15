@@ -27,9 +27,9 @@ import com.cyb.utils.text.ELUtils;
 public class HolidayUtils {
 	static Log log = LogFactory.getLog(HolidayUtils.class);
 	static Map<String,String> types = new HashMap<>();
-	public static String HOLIDAY_GOGZUORI="0";
-	public static String HOLIDAY_XIUXIRI="1";
-	public static String HOLIDAY_JIEJIARI="2";
+	public static String HOLIDAY_GOGZUORI="0";//工作日
+	public static String HOLIDAY_XIUXIRI="1";//休息日
+	public static String HOLIDAY_JIEJIARI="2";//节假日
 	static{
 		types = new HashMap<>();
 		types.put(HOLIDAY_GOGZUORI, "工作日");
@@ -40,7 +40,8 @@ public class HolidayUtils {
 	static String holidayUrl = "http://api.goseek.cn/Tools/holiday?date=${date}";
 	//抓取当年的节假日2019
 	public static void main(String[] args) throws IOException {
-		initHoliday();
+		//initHoliday();
+		initHoliday("20170101","20171231");
 		//System.out.println(lastTradeDay());
 	}
 	public static void initHoliday() throws IOException{
@@ -60,7 +61,14 @@ public class HolidayUtils {
 					HolidayStatus.class);
 			String row = DateUnsafeUtil.date2long8(date)+","+status.getData()+"\n";
 			FileUtils.append(rqs, row);
-			log.info(new Holiday(date, status.getData()));
+			//log.info(new Holiday(date, status.getData()));
+			String isMarketDay = "0";
+			if(Integer.valueOf(status.getData()).intValue()==0){
+				isMarketDay="1";
+			}
+			
+			String sql = "insert into tb_calendar(day,is_market_day) values("+DateUnsafeUtil.date2long8(date).toString()+","+isMarketDay+");";
+			System.out.println(sql);
 		}
 	}
 	public static Holiday holiday(Date date){
