@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.cyb.bean/com.cyb.bean.iml" filepath="$PROJECT_DIR$/com.cyb.bean/com.cyb.bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cyb.unit/com.cyb.unit.iml" filepath="$PROJECT_DIR$/com.cyb.unit/com.cyb.unit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cyb.utils/com.cyb.utils.iml" filepath="$PROJECT_DIR$/com.cyb.utils/com.cyb.utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project.iml" filepath="$PROJECT_DIR$/project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.cyb.web/web.iml" filepath="$PROJECT_DIR$/com.cyb.web/web.iml" />
+    </modules>
+  </component>
+</project>

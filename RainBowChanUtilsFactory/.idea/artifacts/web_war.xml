@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="web:war">
+    <output-path>$PROJECT_DIR$/com.cyb.web/target</output-path>
+    <root id="archive" name="web.war">
+      <element id="artifact" artifact-name="web:war exploded" />
+    </root>
+  </artifact>
+</component>
