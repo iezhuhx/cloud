@@ -10,11 +10,12 @@ import org.apache.commons.logging.LogFactory;
 import org.h2.tools.Server;
 /**
  *作者 : iechenyb<br>
- *类描述: 说点啥<br>
+ *类描述: 程序启动与关闭h2<br>
  *创建时间: 2019年1月22日
  */
 public class H2ServerManager {
 	private static Server server;
+	private static Server webServer;
 	Log log = LogFactory.getLog(H2ServerManager.class);
 	public static void start() {
 		start("8043");
@@ -28,7 +29,14 @@ public class H2ServerManager {
                     		"-tcpAllowOthers",
                     		"-tcpPort",
                              port }).start();
-            System.out.println("启动成功：" + server.getStatus());
+            webServer = Server.createWebServer(new String[] { 
+            		"-web", 
+            		"-webPort",
+            		"8095",
+                    "-browser",
+                    "-webAllowOthers"}).start();
+            System.out.println("启动h2server成功：" + server.getStatus());
+            System.out.println("启动webserver成功：" + webServer.getStatus());
         } catch (SQLException e) {
             System.out.println("启动h2出错：" + e.toString());
 
@@ -42,6 +50,11 @@ public class H2ServerManager {
             System.out.println("正在关闭h2...");
             server.stop();
             System.out.println("关闭成功.");
+        }
+        if (webServer != null) {
+            System.out.println("正在关闭h2web...");
+            webServer.stop();
+            System.out.println("关闭h2web成功.");
         }
     }
 
@@ -73,7 +86,7 @@ public class H2ServerManager {
     }
     public static void h2Test() {
         start();
-        for(int i=0;i<=2;i++){
+        for(int i=0;i<=200;i++){
 	        H2DBInfor db = new H2DBInfor(""+i,"data/aa/","test"+i);
 	        crudTest(db);
         }

@@ -9,5 +9,8 @@
         <module name="itzixi-maven-ssm-alipay" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="itzixi-maven-ssm-alipay" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

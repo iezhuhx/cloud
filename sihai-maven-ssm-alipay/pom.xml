@@ -168,11 +168,11 @@
 				<version>4.10.3</version>
 			</dependency>
 			<!-- fastDFS -->
-			<dependency>
+			<!--<dependency>
 				<groupId>org.csource</groupId>
 				<artifactId>fastdfs-client-java</artifactId>
 				<version>1.25</version>
-			</dependency>
+			</dependency>-->
 			<!-- freemarker -->
 			<dependency>
 				<groupId>org.freemarker</groupId>
@@ -330,9 +330,13 @@
 				<artifactId>activation</artifactId>
 				<version>1.1.1</version>
 			</dependency>
-			
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.199</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
 	<build>
 	
 		<resources>

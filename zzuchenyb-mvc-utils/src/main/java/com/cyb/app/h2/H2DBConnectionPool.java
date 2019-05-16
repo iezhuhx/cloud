@@ -35,7 +35,8 @@ public class H2DBConnectionPool {
     }
 	//获取连接池
 	public  static JdbcConnectionPool getJDBCConnectionPool(H2DBInfor db){  
-		JdbcConnectionPool pool=JdbcConnectionPool.create(H2UrlStratroy.getDbUrl(db), db.getUsername(), db.getPassword());
+		H2DBAware aware = new H2UrlStratroy();
+		JdbcConnectionPool pool=JdbcConnectionPool.create(aware.getDbUrl(db), db.getUsername(), db.getPassword());
 		pool.setLoginTimeout(10000);//建立连接超时时间  
         pool.setMaxConnections(100);//建立连接最大个数
         return pool;
