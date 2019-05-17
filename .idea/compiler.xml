@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cloud" />
+        <module name="com.cyb.app" />
+        <module name="com.cyb.bean" />
+        <module name="com.cyb.boot" />
+        <module name="com.cyb.unit" />
+        <module name="com.cyb.utils" />
+        <module name="com.cyb.web" />
+        <module name="itzixi-maven-ssm-alipay" />
+        <module name="mvc40" />
+        <module name="mvc40 (1)" />
+        <module name="mvcutils" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="cloud" target="1.7" />
+      <module name="com.cyb.app" target="1.8" />
+      <module name="com.cyb.bean" target="1.8" />
+      <module name="com.cyb.boot" target="1.8" />
+      <module name="com.cyb.unit" target="1.8" />
+      <module name="com.cyb.utils" target="1.8" />
+      <module name="com.cyb.web" target="1.8" />
+      <module name="itzixi-maven-ssm-alipay" target="1.7" />
+      <module name="mvc40" target="1.8" />
+      <module name="mvc40 (1)" target="1.5" />
+      <module name="mvcutils" target="1.8" />
+      <module name="RainBowChanUtilsFactory" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

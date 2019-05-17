@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import com.cyb.bean.response.body.ResultMap;
+import com.cyb.test.validate.bean.ChildBean;
 import com.cyb.test.validate.bean.ValidateBean;
 import com.cyb.test.validate.bean.ValidateBean2;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JSRValidatorTest {
 
-	public static <T> List<String> validateCommonBeanParams(T bean) {
+    public static final ChildBean CHILD = new ChildBean();
+
+    public static <T> List<String> validateCommonBeanParams(T bean) {
 		List<String> tips= new ArrayList<String>();
 		// 调用JSR303验证工具，校验参数
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -48,11 +51,16 @@ public class JSRValidatorTest {
         aa.setIv(20);
         aa.setIiv(30);
         aa.setDv(3d);
-        aa.setDdv(20.36d);
+        aa.setDdv(2.36d);
         aa.setPassword("9");
         aa.setPattern("12");
         aa.setEmail("12sdf@qq.com");
         aa.setPhone("13938469052");
+        //aa.setChild(null);//error
+        //aa.setChild(new ChildBean());//ChildBean的childName不能为空！
+        ChildBean child = CHILD;
+        child.setChildName("jingrui");
+        aa.setChild(child);
         List<String> a = new ArrayList<String>();
         a.add("str");
         aa.setList(a);

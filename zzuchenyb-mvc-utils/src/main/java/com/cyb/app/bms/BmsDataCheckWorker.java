@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.cyb.app.h2.H2ServerManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -52,6 +53,7 @@ public class BmsDataCheckWorker {
         QuartzManager.addJob(job_name, BMSJob.class, cron);  
     }
 	public static void execTask() throws Exception{
+		H2ServerManager.start();
 		DateUnsafeUtil.showMonthCal();
 		登录();
 		String lastTrade = HolidayH2DbUtils.preTradeDay(new Date());

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="com.cyb.web:war">
+    <output-path>$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.web/target</output-path>
+    <root id="archive" name="com.cyb.web.war">
+      <element id="artifact" artifact-name="com.cyb.web:war exploded" />
+    </root>
+  </artifact>
+</component>

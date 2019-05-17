@@ -41,7 +41,7 @@ public class HolidayUtils {
 	//抓取当年的节假日2019
 	public static void main(String[] args) throws IOException {
 		//initHoliday();
-		initHoliday("20170101","20171231");
+		initHoliday("20180101","20171231");
 		//System.out.println(lastTradeDay());
 	}
 	public static void initHoliday() throws IOException{

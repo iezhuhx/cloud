@@ -5,7 +5,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,12 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 public class StudentTest implements Serializable {
-
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = 1L;
 
 	@Test
@@ -30,7 +26,13 @@ public class StudentTest implements Serializable {
         });
 
     }
-
+   /**
+   *@description 方法描述
+   *@author iechenyb
+   *@param 
+   *@return 
+   *@createTime   
+   */
     private  Student getBean() {
         Student bean = new Student();
         bean.setName(null);

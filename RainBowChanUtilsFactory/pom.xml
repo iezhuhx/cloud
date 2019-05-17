@@ -8,10 +8,17 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>com.cyb.web</module>
+        <module>com.cyb.boot</module>
         <module>com.cyb.unit</module>
+        <module>com.cyb.bean</module>
         <module>com.cyb.utils</module>
+        <module>com.cyb.web</module>
     </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     <dependencies>
         <!-- 所有模块都用到的依赖放到这里！！！！-->
         <dependency>

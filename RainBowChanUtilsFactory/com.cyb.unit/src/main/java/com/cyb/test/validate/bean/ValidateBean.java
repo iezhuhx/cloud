@@ -3,8 +3,10 @@ package com.cyb.test.validate.bean;
 import com.cyb.util.validate.jsr.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.GroupSequence;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -42,15 +44,11 @@ public class ValidateBean {
 	private Double Dv;
 	@DecimalAnn(min=0.0,max=10.0,precision=2,message = "ddv为0-10的数字！",groups = {ValidateBean.Second.class})
 	private double ddv;
-	
-	/*@NotEmpty
-	ChildBean user;
-	public ChildBean getUser() {
-		return user;
-	}
-	public void setUser(ChildBean user) {
-		this.user = user;
-	}*/
+	private
+	@Valid
+	@NotNull
+	ChildBean child;
+
 	@ListEmpty(groups = {ValidateBean.Second.class})
 	private  List<String> list;
 	@MapEmpty(groups = {ValidateBean.Second.class})

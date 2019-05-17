@@ -1,5 +1,6 @@
 package com.cyb.app.holiday;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,9 +31,10 @@ public class HolidayH2DbUtils {
 	static H2DBInfor dbInfo = new H2DBInfor();
 	static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		createTable(tableName);
 		 insertHoliday();
+		HolidayUtils.initHoliday();
 		//showHoliday();
 	}
 	public static boolean isTradeDay() throws SQLException {

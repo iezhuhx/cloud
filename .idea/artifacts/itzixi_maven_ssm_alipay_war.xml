@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="itzixi-maven-ssm-alipay:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="itzixi-maven-ssm-alipay.war">
+      <element id="artifact" artifact-name="itzixi-maven-ssm-alipay:war exploded" />
+    </root>
+  </artifact>
+</component>
