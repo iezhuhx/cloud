@@ -2,3 +2,28 @@
 D:\chenyb\myproject\zhuhx\cloud\zzuchenyb-mvc-utils\target>java -Djava.ext.dirs=../start/lib  -cp mvc40.jar com.cyb.app.bms.BmsDataCheckWorker
 二  start下运行脚本
 D:\chenyb\myproject\zhuhx\cloud\zzuchenyb-mvc-utils\target>java -Djava.ext.dirs=./lib  -cp ../target/mvc40.jar com.cyb.app.bms.BmsDataCheckWorker
+
+
+com.cyb.app.properties.ApplicationConfig
+
+java.io.FileNotFoundException: file:\D:\chenyb\myproject\zhuhx\cloud\zzuchenyb-m
+vc-utils\target\mvc40.jar!\application.yml (文件名、目录名或卷标语法不正确。)
+        at java.io.FileInputStream.open0(Native Method)
+        at java.io.FileInputStream.open(Unknown Source)
+        at java.io.FileInputStream.<init>(Unknown Source)
+        at java.io.FileInputStream.<init>(Unknown Source)
+        at com.cyb.app.properties.ApplicationConfig.initYaml(ApplicationConfig.j
+ava:56)
+        at com.cyb.app.properties.ApplicationConfig.main(ApplicationConfig.java:
+71)
+Exception in thread "main" java.io.FileNotFoundException: file:\D:\chenyb\myproj
+ect\zhuhx\cloud\zzuchenyb-mvc-utils\target\mvc40.jar!\bean.yml (文件名、目录名或
+卷标语法不正确。)
+        at java.io.FileInputStream.open0(Native Method)
+        at java.io.FileInputStream.open(Unknown Source)
+        at java.io.FileInputStream.<init>(Unknown Source)
+        at java.io.FileInputStream.<init>(Unknown Source)
+        at com.cyb.app.properties.ApplicationConfig.initYaml(ApplicationConfig.j
+ava:34)
+        at com.cyb.app.properties.ApplicationConfig.main(ApplicationConfig.java:
+72)
