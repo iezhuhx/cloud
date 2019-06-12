@@ -12,13 +12,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Deprecated
-public class IntegerValidator implements ConstraintValidator<IntegerAnn, String> {
+public class IntegerValidator implements ConstraintValidator<IntegerAnn, Integer> {
 	IntegerAnn constraintAnnotation;
 	public void initialize(IntegerAnn constraintAnnotation) {
 		this.constraintAnnotation = constraintAnnotation;
 	}
 
-	public boolean isValid(String value, ConstraintValidatorContext context) {
+	public boolean isValid(Integer value, ConstraintValidatorContext context) {
 		if(StringUtil.isEmpty(value)) return false;
 		long val = Integer.valueOf(value);
 		if(val<constraintAnnotation.min()||val>constraintAnnotation.max())

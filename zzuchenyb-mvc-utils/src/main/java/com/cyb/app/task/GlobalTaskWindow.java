@@ -25,14 +25,15 @@ public class GlobalTaskWindow {
 	static String cron = "*/10 * * * * ?";
 	static List<Task> tasks = new ArrayList<>();
 	
-	static {
+	static void init()  {
 		tasks = new ArrayList<>();
-		tasks.add(new Task(BMSJob.class,false,cron));
+		tasks.add(new Task(BMSJob.class,true,cron));
 		tasks.add(new Task(CsdnJob.class,false,cron));
-		tasks.add(new Task(StockJob.class,true,cron));
+		tasks.add(new Task(StockJob.class,false,cron));
 		tasks.add(new Task(HolidayJob.class,false,cron));
 	}
 	public static void main(String[] args) throws SchedulerException {
+		init();
 	    for(Task task:tasks){
 	    	if(task.enable){
 	    		QuartzManager
@@ -41,6 +42,10 @@ public class GlobalTaskWindow {
 	    				cron);
 	    	}
 	    }
+
+	   /* while (true){
+			System.out.println("aaaa");
+		}*/
 	}
 }
 

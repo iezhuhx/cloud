@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.cyb.unit.base.JunitBase;
 import com.cyb.utils.jsr.bean.ValidateBean;

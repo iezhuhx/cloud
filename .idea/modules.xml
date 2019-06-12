@@ -9,7 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.unit/com.cyb.app.iml" filepath="$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.unit/com.cyb.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.utils/com.cyb.utils.iml" filepath="$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.utils/com.cyb.utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.web/com.cyb.web.iml" filepath="$PROJECT_DIR$/RainBowChanUtilsFactory/com.cyb.web/com.cyb.web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mvc/mvc4/mvc40 (1).iml" filepath="$PROJECT_DIR$/mvc/mvc4/mvc40 (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/mvc/mvc4/mvc40.iml" filepath="$PROJECT_DIR$/mvc/mvc4/mvc40.iml" />
       <module fileurl="file://$PROJECT_DIR$/zzuchenyb-mvc-utils/mvcutils.iml" filepath="$PROJECT_DIR$/zzuchenyb-mvc-utils/mvcutils.iml" />
     </modules>
   </component>

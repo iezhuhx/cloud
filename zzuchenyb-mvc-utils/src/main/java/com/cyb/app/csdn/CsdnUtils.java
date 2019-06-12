@@ -79,7 +79,8 @@ public class CsdnUtils {
 			HttpsClient.get(url, proxy);
 			System.out.println(proxy+"["+CmdUtils.telnet(proxy)+"]--->"+url);
 		} catch (Exception e) {
-			System.out.println("访问失败：" + url);
+			e.printStackTrace();
+			System.out.println("访问失败：" + url+","+e.toString());
 		}
 
 	}

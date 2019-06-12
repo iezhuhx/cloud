@@ -28,7 +28,7 @@
       <module name="com.cyb.utils" target="1.8" />
       <module name="com.cyb.web" target="1.8" />
       <module name="itzixi-maven-ssm-alipay" target="1.7" />
-      <module name="mvc40" target="1.8" />
+      <module name="mvc40" target="1.5" />
       <module name="mvc40 (1)" target="1.5" />
       <module name="mvcutils" target="1.8" />
       <module name="RainBowChanUtilsFactory" target="1.8" />

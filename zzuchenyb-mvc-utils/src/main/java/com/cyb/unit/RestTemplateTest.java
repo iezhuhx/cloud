@@ -1,9 +1,10 @@
 package com.cyb.unit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
 
 import com.cyb.utils.http.HttpClientUtils;
+import org.junit.jupiter.api.Test;
+
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>

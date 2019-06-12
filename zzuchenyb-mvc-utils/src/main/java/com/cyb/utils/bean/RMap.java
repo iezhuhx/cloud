@@ -51,11 +51,13 @@ public class RMap extends HashMap<String, Object> {
 		return new RMap();
 	}
 
-	public RMap put(String key, Object value) {
+	public  RMap put(String key, Object value) {
 		super.put(key, value);
 		return this;
 	}
-	
+	public static RMap build(){
+		return new RMap();
+	}
 	public <T1> RMap data(T1 data){
 		super.put("d", data);
 		return this;

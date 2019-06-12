@@ -137,5 +137,7 @@ public class R<T> implements Serializable {
 	public void setD(T d) {
 		this.d = d;
 	}
-	
+	public static void main(String[] args) {
+		System.out.println("••••••••••");
+	}
 }

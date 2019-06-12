@@ -1,12 +1,13 @@
 package com.cyb.app.bms;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import com.cyb.app.h2.H2ServerManager;
+import com.cyb.utils.bean.RMap;
+import com.cyb.utils.mail.EmailInformation;
+import com.cyb.utils.mail.MailUtils;
+import com.cyb.utils.mail.QQServerInfor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -28,12 +29,14 @@ import com.cyb.utils.bean.RThis;
 import com.cyb.utils.date.DateUnsafeUtil;
 import com.cyb.utils.http.MyHttpClient;
 import com.cyb.utils.text.ELUtils;
+import org.springframework.cglib.core.EmitUtils;
 
 @SuppressWarnings("deprecation")
 public class BmsDataCheckWorker {
 	Log log = LogFactory.getLog(BmsDataCheckWorker.class);
 	static String 登录地址="http://bms.kiiik.com/kiiikoa/login.do?username=${name}&password=${password}";
-	static String 交易客户端="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=loginStatisticslist&navigation=%B5%C7%C2%BC%D7%B4%CC%AC%CD%B3%BC%C6";
+	static String 交易客户端="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=loginStatisticslist&startime=${start}&endtime=${end}";
+	//"http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=loginStatisticslist&navigation=%B5%C7%C2%BC%D7%B4%CC%AC%CD%B3%BC%C6";
 	static String 成交排名="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=postionRankQufenlist";
 	static String 交易概览="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=queryCompanyTrades";
 	static String 交易排名="http://bms.kiiik.com/kiiikoa/settleAccount/balanceReport.do?method=positionRankingList";
@@ -52,8 +55,10 @@ public class BmsDataCheckWorker {
         String cron = "*/10 * * * * ?"; 
         QuartzManager.addJob(job_name, BMSJob.class, cron);  
     }
+   static  List<String> result;
 	public static void execTask() throws Exception{
-		H2ServerManager.start();
+		//H2ServerManager.start();
+		result = new ArrayList<>();
 		DateUnsafeUtil.showMonthCal();
 		登录();
 		String lastTrade = HolidayH2DbUtils.preTradeDay(new Date());
@@ -64,6 +69,20 @@ public class BmsDataCheckWorker {
 		成交排名(lastDay);
 		交易概览(lastDay);
 		交易排名(lastDay);//增值服务中心抓取
+		if(result.size()>=1){//如果有错误信息，则进入发送邮件逻辑
+			//判断当日是否发过邮件，否则不发送！
+			if(SendLogService.queryLog()>0) return ;
+			QQServerInfor qqServer = new QQServerInfor();
+			EmailInformation email = null;
+			email = new EmailInformation
+					.Builder()
+					.from(qqServer.getAccount()+"@qq.com")
+					.to(qqServer.getDefaultTO())
+					.emailContent(result.toString())
+					.subject("BMSCTP数据导入监控程序提示！")
+					.date(DateUnsafeUtil.date2long8().toString()).build();
+			MailUtils.sendEmail(email);
+		}
 		//持仓排名(lastDay);
 	}
 	
@@ -142,8 +161,10 @@ public class BmsDataCheckWorker {
     		.getElementsByTag("tr");
     if(eles.size()>1){
 		System.err.println(lastDay+"->持仓排名ok！");
+
 	}else{
 		System.err.println(lastDay+"->持仓排名异常！");
+		result.add(lastDay+"->持仓排名异常！");
 	}	
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -159,20 +180,30 @@ public class BmsDataCheckWorker {
             curConnection.cookie(entry.getKey(), entry.getValue());  
         } 
 	}
-	
-	
+
 	public static void 交易客户端数据(String lastDay) throws IOException{
-		//会话保持
-        Connection conSearch = Jsoup.connect(交易客户端);  
-        setCookie(conSearch);
-        Document doc = conSearch.get();  
-		Elements eles = doc.getElementById("resultTable").getElementsByTag("tr");
-		String year = eles.get(1).children().get(2).html();
-		//Assert.isTrue();
-		if(year.equals(lastDay)){
-			System.err.println(year+"->交易客户端ok！");
-		}else{
-			System.err.println(year+"->交易客户端异常！");
+		try {
+			//会话保持
+			String lastDayAAA = DateUnsafeUtil.format(lastDay, "yyyy-MM-dd");
+			String url = ELUtils.el(交易客户端, RMap.build().put("start", lastDayAAA).put("end", lastDayAAA));
+			System.out.println(url);
+			Connection conSearch = Jsoup.connect(url);
+			setCookie(conSearch);
+			Document doc = conSearch.get();
+			Elements eles = doc.getElementById("resultTable").getElementsByTag("tr");
+			//System.out.println(eles.text());
+
+			String year = eles.get(1).children().get(2).html();
+			//Assert.isTrue();
+			if (year.equals(lastDay)) {
+				System.err.println(year + "->交易客户端ok！");
+			} else {
+				System.err.println(year + "->交易客户端异常！");
+				result.add(year + "->交易客户端异常！");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			result.add(lastDay + "->交易客户端异常！");
 		}
 	}
 	
@@ -188,6 +219,7 @@ public class BmsDataCheckWorker {
 			System.err.println(year+"->交易概览ok！");
 		}else{
 			System.err.println(year+"->交易概览异常！");
+			result.add(year+"->交易概览异常！");
 		}
 	}
 	
@@ -203,6 +235,7 @@ public class BmsDataCheckWorker {
         	System.err.println(lastDay+"->成交排名ok！");
         }else{
         	System.err.println(lastDay+"->成交排名异常！");
+			result.add(lastDay+"->成交排名异常！");
         }
 	} 
 	public static void 交易排名(String lastDay) throws IOException{
@@ -217,6 +250,7 @@ public class BmsDataCheckWorker {
         	System.err.println(lastDay+"->交易排名ok！");
         }else{
         	System.err.println(lastDay+"->交易排名异常！");
+			result.add(lastDay+"->交易排名异常！");
         }
 	}
 	public static String httpGet(String url,String cookie) throws IOException{

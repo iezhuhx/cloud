@@ -10,6 +10,7 @@ import javax.validation.Validator;
 
 import com.cyb.bean.response.body.ResultMap;
 import com.cyb.test.validate.bean.ChildBean;
+import com.cyb.test.validate.bean.IntLongBean;
 import com.cyb.test.validate.bean.ValidateBean;
 import com.cyb.test.validate.bean.ValidateBean2;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +39,20 @@ public class JSRValidatorTest {
 		return tips;
 	}
 	public static void main(String[] args) {
-		checkBean1();
+		checkBean3();
 	}
+
+    private static void checkBean3() {
+        IntLongBean bean = new IntLongBean();
+       /* bean.setInteger(1);
+        bean.setLang(1l);*/
+       /*bean.setPostCode("aaaa");
+       bean.setPostCode("null");*/
+       //bean.setPostCode(" ");//通过
+        bean.setPostCode("");//不通过^$|
+        JSRValidatorTest.validateCommonBeanParams(bean);
+    }
+
 
     /**
      * 无序校验

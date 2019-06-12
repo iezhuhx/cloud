@@ -136,15 +136,15 @@ public class DateUnsafeUtil {
 		return descTimeToSec(new Date());
 	}
 
-	public static Long date2long10(Date date) {
+	/*public static Long date2long10(Date date) {
 		formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = formatter.format(date);
 		return Long.valueOf(dateString);
-	}
+	}*/
 
-	public static Long date2long10() {
-		return Long.valueOf(date2long10(new Date()));
-	}
+	/*public static Long date2long8() {
+		return Long.valueOf(date2long8(new Date()));
+	}*/
 
 	public static Long date2long8(Date date) {
 		formatter = new SimpleDateFormat("yyyyMMdd");
@@ -508,19 +508,21 @@ public class DateUnsafeUtil {
 		String weekdays[] = new DateFormatSymbols().getShortWeekdays(); // 保存7个星期名
 		long todayStr=DateUnsafeUtil.date2long8(d.getTime());
 		System.out.println("\t今日："+todayStr+",*代表工作日");
-		for (int i = 0; i < weekdaysName.length; ++i)
-		    System.out.print("\t"+weekdaysName[i]); // 打印月历头部，7个星期名
+		for (int i = 0; i < weekdaysName.length; ++i) {
+			System.out.print(String.format("%12s", weekdaysName[i]));
+		}//System.out.print("\t"+weekdaysName[i]); // 打印月历头部，7个星期名
 		System.out.println();
 		
-		for (int i = 1; i < 8; ++i)
-			System.out.print("\t"+weekdays[i]); // 打印月历头部，7个星期名
+		for (int i = 1; i < 8; ++i) {
+			System.out.print(String.format("%15s", weekdays[i]));
+		}//System.out.print("\t"+weekdays[i]); // 打印月历头部，7个星期名
 		System.out.println();
 		d.set(Calendar.DAY_OF_MONTH, 1); // 设置d的日期为当月1号
 		int weeknameofFirstday = d.get(Calendar.DAY_OF_WEEK);// 获得当月1号的星期名
 		int cnt = 1;
 		while (weekdays[cnt] != weekdays[weeknameofFirstday]) // 打印日历第一行，判断当月1号从第一行的哪里开始打印
 		{
-			System.out.print("\t");
+			System.out.print(String.format("%15s","*"));
 			++cnt;
 		}
 		do {
@@ -538,7 +540,8 @@ public class DateUnsafeUtil {
 			if (curDayStr == today){
 				tip="今";
 			}
-			System.out.print("\t"+day+tip);
+			//System.out.print("\t"+day+tip);
+			System.out.print(String.format("%15s",day+tip));
 			if (weekdays[d.get(Calendar.DAY_OF_WEEK)] == weekdays[7]) // 判断是否需要换行打印
 				System.out.println();
 			d.add(Calendar.DAY_OF_MONTH, 1);

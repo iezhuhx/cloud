@@ -17,8 +17,4 @@ public class TestBean {
 	public void setRq(String rq) {
 		this.rq = rq;
 	}
-
-	public static void main(String[] args) {
-		System.out.println("sasd");
-	}
 }
