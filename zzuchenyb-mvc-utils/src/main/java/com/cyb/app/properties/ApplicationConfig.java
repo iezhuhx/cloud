@@ -68,7 +68,7 @@ public class ApplicationConfig {
     public static void main(String[] args) throws FileNotFoundException {
         initProperties();
         System.out.println(resource.getString("name"));
-        //initYaml();//读取默认的对象
+        initYaml();//读取默认的对象Map
         initYaml("bean.yml");
         initYaml("bean.yml",Bean.class);//指定的bean
         initYaml("yml/bean.yml",Bean.class);//指定目录，指定bean
