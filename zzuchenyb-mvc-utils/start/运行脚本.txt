@@ -2,7 +2,7 @@
 D:\chenyb\myproject\zhuhx\cloud\zzuchenyb-mvc-utils\target>java -Djava.ext.dirs=../start/lib  -cp mvc40.jar com.cyb.app.bms.BmsDataCheckWorker
 二  start下运行脚本
 D:\chenyb\myproject\zhuhx\cloud\zzuchenyb-mvc-utils\target>java -Djava.ext.dirs=./lib  -cp ../target/mvc40.jar com.cyb.app.bms.BmsDataCheckWorker
-
+com.cyb.app.vas.VASChecker
 
 com.cyb.app.properties.ApplicationConfig
 

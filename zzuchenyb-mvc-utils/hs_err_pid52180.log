@@ -1,0 +1,694 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1374896 bytes for Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:389), pid=52180, tid=0x0000000000005728
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_202-b08) (build 1.8.0_202-b08)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.202-b08 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000006de4000):  JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=22312, stack(0x0000000006080000,0x0000000006180000)]
+
+Stack: [0x0000000006080000,0x0000000006180000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+Current CompileTask:
+C2:  46071 8318   !   4       org.apache.flink.runtime.io.network.NetworkEnvironment::registerTask (123 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000000037448800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_new, id=47176, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000037451800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_new, id=42800, stack(0x0000000000000000,0x0000000000000000)]
+  0x000000003744c000 JavaThread "Window(TumblingEventTimeWindows(2000), EventTimeTrigger, WindowFunction$1) -> (Sink: Print to Std. Out, Sink: Unnamed) (1/4)" [_thread_new, id=25528, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000037447000 JavaThread "Window(TumblingEventTimeWindows(2000), EventTimeTrigger, WindowFunction$1) -> (Sink: Print to Std. Out, Sink: Unnamed) (2/4)" [_thread_new, id=20068, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000037442800 JavaThread "Window(TumblingEventTimeWindows(2000), EventTimeTrigger, WindowFunction$1) -> (Sink: Print to Std. Out, Sink: Unnamed) (3/4)" [_thread_new, id=51948, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000037450800 JavaThread "Window(TumblingEventTimeWindows(2000), EventTimeTrigger, WindowFunction$1) -> (Sink: Print to Std. Out, Sink: Unnamed) (4/4)" [_thread_new, id=32500, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000037446000 JavaThread "CloseableReaperThread" daemon [_thread_blocked, id=39008, stack(0x0000000050600000,0x0000000050700000)]
+  0x0000000034554800 JavaThread "Source: Custom Source -> Flat Map (4/4)" [_thread_new, id=27232, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000034e08800 JavaThread "Source: Custom Source -> Flat Map (3/4)" [_thread_new, id=38884, stack(0x0000000000000000,0x0000000000000000)]
+  0x0000000034e03800 JavaThread "Source: Custom Source -> Flat Map (2/4)" [_thread_in_native, id=6180, stack(0x00000000524e0000,0x00000000525e0000)]
+  0x0000000034e0e800 JavaThread "Source: Custom Source -> Flat Map (1/4)" [_thread_in_Java, id=44316, stack(0x0000000050e10000,0x0000000050f10000)]
+  0x000000003744a800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=16240, stack(0x00000000551e0000,0x00000000552e0000)]
+  0x000000003744d800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=18752, stack(0x0000000047010000,0x0000000047110000)]
+  0x000000003744e800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=51092, stack(0x0000000052980000,0x0000000052a80000)]
+  0x0000000037449000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=23520, stack(0x0000000053340000,0x0000000053440000)]
+  0x0000000037443000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=42100, stack(0x000000004cbf0000,0x000000004ccf0000)]
+  0x0000000037444000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22724, stack(0x00000000548b0000,0x00000000549b0000)]
+  0x000000003744a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=23920, stack(0x0000000054a70000,0x0000000054b70000)]
+  0x0000000037447800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38168, stack(0x00000000554e0000,0x00000000555e0000)]
+  0x0000000034e0d000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33228, stack(0x0000000054e30000,0x0000000054f30000)]
+  0x000000003392a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29616, stack(0x000000004ed10000,0x000000004ee10000)]
+  0x0000000034e0a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=32572, stack(0x0000000053180000,0x0000000053280000)]
+  0x0000000033926000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=12808, stack(0x0000000053b10000,0x0000000053c10000)]
+  0x0000000033929000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29932, stack(0x000000004c3e0000,0x000000004c4e0000)]
+  0x0000000035795000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=13820, stack(0x0000000053fe0000,0x00000000540e0000)]
+  0x0000000034e0e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29044, stack(0x000000004b410000,0x000000004b510000)]
+  0x000000001dfc0000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25532, stack(0x0000000054750000,0x0000000054850000)]
+  0x0000000034e0c800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22924, stack(0x0000000051ba0000,0x0000000051ca0000)]
+  0x0000000034949800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=40668, stack(0x0000000053e50000,0x0000000053f50000)]
+  0x0000000036321000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45504, stack(0x0000000051cb0000,0x0000000051db0000)]
+  0x0000000037915800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=37200, stack(0x00000000543f0000,0x00000000544f0000)]
+  0x000000003631a800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=43544, stack(0x000000004bb90000,0x000000004bc90000)]
+  0x0000000034b0e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31648, stack(0x0000000053440000,0x0000000053540000)]
+  0x0000000034e0b000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47548, stack(0x0000000053760000,0x0000000053860000)]
+  0x0000000034e02800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=55924, stack(0x0000000053d40000,0x0000000053e40000)]
+  0x0000000034e07000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34592, stack(0x0000000052eb0000,0x0000000052fb0000)]
+  0x0000000034b0a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=7076, stack(0x00000000523a0000,0x00000000524a0000)]
+  0x0000000034e0b800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=5868, stack(0x0000000052c00000,0x0000000052d00000)]
+  0x0000000034e09800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38944, stack(0x0000000052a80000,0x0000000052b80000)]
+  0x000000003631b000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=6440, stack(0x0000000052280000,0x0000000052380000)]
+  0x0000000034e06800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33916, stack(0x0000000052850000,0x0000000052950000)]
+  0x0000000034b0d000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=9540, stack(0x0000000052670000,0x0000000052770000)]
+  0x0000000034b0f800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=17148, stack(0x000000004e430000,0x000000004e530000)]
+  0x0000000034e02000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=21864, stack(0x00000000513c0000,0x00000000514c0000)]
+  0x0000000034e0f800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=48992, stack(0x0000000051230000,0x0000000051330000)]
+  0x0000000034e05000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=23576, stack(0x0000000050f70000,0x0000000051070000)]
+  0x0000000034e01000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53180, stack(0x000000004e210000,0x000000004e310000)]
+  0x0000000034e05800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44740, stack(0x000000004f4c0000,0x000000004f5c0000)]
+  0x0000000034e04000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=32056, stack(0x0000000052150000,0x0000000052250000)]
+  0x0000000034e00800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56040, stack(0x0000000052d10000,0x0000000052e10000)]
+  0x000000003648a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54692, stack(0x0000000051ed0000,0x0000000051fd0000)]
+  0x0000000034b11000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53636, stack(0x00000000517e0000,0x00000000518e0000)]
+  0x0000000034b10000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52412, stack(0x0000000052020000,0x0000000052120000)]
+  0x0000000034b11800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=27192, stack(0x00000000514f0000,0x00000000515f0000)]
+  0x0000000036324000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=23864, stack(0x0000000051900000,0x0000000051a00000)]
+  0x000000003392b800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46372, stack(0x000000004c6d0000,0x000000004c7d0000)]
+  0x0000000034b08800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52464, stack(0x00000000509e0000,0x0000000050ae0000)]
+  0x0000000036325800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15332, stack(0x0000000050700000,0x0000000050800000)]
+  0x0000000034b09800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=39424, stack(0x0000000050af0000,0x0000000050bf0000)]
+  0x0000000034b0e800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31456, stack(0x0000000051610000,0x0000000051710000)]
+  0x0000000034b02800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=48688, stack(0x000000004b6a0000,0x000000004b7a0000)]
+  0x0000000036323800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=9492, stack(0x0000000051110000,0x0000000051210000)]
+  0x0000000034b04000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=12272, stack(0x000000004fd30000,0x000000004fe30000)]
+  0x0000000034b05800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44580, stack(0x0000000050800000,0x0000000050900000)]
+  0x0000000034b04800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=42944, stack(0x0000000050260000,0x0000000050360000)]
+  0x0000000034b06800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=24776, stack(0x0000000050160000,0x0000000050260000)]
+  0x0000000036322000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=48960, stack(0x0000000050480000,0x0000000050580000)]
+  0x0000000036328000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52892, stack(0x000000004fa80000,0x000000004fb80000)]
+  0x0000000036322800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=41924, stack(0x000000004f910000,0x000000004fa10000)]
+  0x0000000036319000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=19136, stack(0x000000004e600000,0x000000004e700000)]
+  0x000000001dfb4800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36244, stack(0x000000004e910000,0x000000004ea10000)]
+  0x000000003631d800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25044, stack(0x000000004e770000,0x000000004e870000)]
+  0x000000003631c000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49184, stack(0x0000000050360000,0x0000000050460000)]
+  0x000000003392d800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30604, stack(0x0000000050040000,0x0000000050140000)]
+  0x000000003631e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45756, stack(0x000000004dce0000,0x000000004dde0000)]
+  0x000000003631c800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29684, stack(0x000000004f5f0000,0x000000004f6f0000)]
+  0x0000000036326800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=14788, stack(0x000000004f0e0000,0x000000004f1e0000)]
+  0x0000000035794000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=43888, stack(0x000000004ec10000,0x000000004ed10000)]
+  0x000000003631f800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=28976, stack(0x000000004c7d0000,0x000000004c8d0000)]
+  0x0000000036325000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=41384, stack(0x000000004f240000,0x000000004f340000)]
+  0x000000003392d000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22896, stack(0x000000004fbe0000,0x000000004fce0000)]
+  0x000000003392a800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49912, stack(0x000000004f7c0000,0x000000004f8c0000)]
+  0x0000000036320800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22512, stack(0x000000004ef60000,0x000000004f060000)]
+  0x000000003631f000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38124, stack(0x000000004ee30000,0x000000004ef30000)]
+  0x0000000036319800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54200, stack(0x000000004f3c0000,0x000000004f4c0000)]
+  0x0000000033924800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=11032, stack(0x000000004bcb0000,0x000000004bdb0000)]
+  0x000000001dfba000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=28752, stack(0x000000004eb00000,0x000000004ec00000)]
+  0x0000000033923000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49368, stack(0x000000004e0d0000,0x000000004e1d0000)]
+  0x0000000033925800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33296, stack(0x000000004d300000,0x000000004d400000)]
+  0x0000000033924000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=2992, stack(0x000000004d1d0000,0x000000004d2d0000)]
+  0x0000000035798800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=28568, stack(0x000000004e310000,0x000000004e410000)]
+  0x0000000033927800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=12740, stack(0x000000004d640000,0x000000004d740000)]
+  0x0000000033931800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36492, stack(0x000000004afa0000,0x000000004b0a0000)]
+  0x0000000033928800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52768, stack(0x000000004c500000,0x000000004c600000)]
+  0x0000000033930800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52680, stack(0x000000004dfc0000,0x000000004e0c0000)]
+  0x000000003578b000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=28516, stack(0x000000004dbe0000,0x000000004dce0000)]
+  0x0000000033927000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=17312, stack(0x000000004d7f0000,0x000000004d8f0000)]
+  0x0000000035799800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34728, stack(0x000000004ce10000,0x000000004cf10000)]
+  0x000000003392e800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=1620, stack(0x000000004a6e0000,0x000000004a7e0000)]
+  0x000000003392c000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38868, stack(0x000000004a5d0000,0x000000004a6d0000)]
+  0x0000000033930000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=35688, stack(0x000000004a360000,0x000000004a460000)]
+  0x0000000035798000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=7184, stack(0x000000004de50000,0x000000004df50000)]
+  0x000000003392f000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36092, stack(0x000000004c950000,0x000000004ca50000)]
+  0x0000000035791000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31024, stack(0x000000004bdc0000,0x000000004bec0000)]
+  0x0000000033922800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36440, stack(0x000000004dad0000,0x000000004dbd0000)]
+  0x000000001d3bd800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=16972, stack(0x000000004cf30000,0x000000004d030000)]
+  0x00000000350c5000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=24112, stack(0x000000004cd10000,0x000000004ce10000)]
+  0x0000000035796800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47196, stack(0x000000004d940000,0x000000004da40000)]
+  0x0000000035795800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49016, stack(0x000000004d0d0000,0x000000004d1d0000)]
+  0x000000003578d800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=5540, stack(0x000000004d460000,0x000000004d560000)]
+  0x000000001dfbe800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53220, stack(0x0000000041b00000,0x0000000041c00000)]
+  0x000000001dfb8800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30388, stack(0x0000000046390000,0x0000000046490000)]
+  0x000000001dfbf000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=5056, stack(0x000000004b170000,0x000000004b270000)]
+  0x0000000034558000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=20376, stack(0x000000004ca80000,0x000000004cb80000)]
+  0x000000003578e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=32896, stack(0x000000004c270000,0x000000004c370000)]
+  0x0000000035792800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49480, stack(0x00000000464e0000,0x00000000465e0000)]
+  0x000000003578f800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31064, stack(0x000000004bfc0000,0x000000004c0c0000)]
+  0x000000003579a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=17840, stack(0x000000004abb0000,0x000000004acb0000)]
+  0x000000003578c000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30948, stack(0x0000000048100000,0x0000000048200000)]
+  0x000000003578c800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=35168, stack(0x0000000047640000,0x0000000047740000)]
+  0x0000000035792000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46740, stack(0x000000004bec0000,0x000000004bfc0000)]
+  0x0000000035797000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47940, stack(0x000000004b540000,0x000000004b640000)]
+  0x0000000035790800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44760, stack(0x000000004a030000,0x000000004a130000)]
+  0x000000003578f000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=43560, stack(0x000000004c110000,0x000000004c210000)]
+  0x00000000350cc000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29480, stack(0x00000000499a0000,0x0000000049aa0000)]
+  0x00000000351c2000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45144, stack(0x000000004b8d0000,0x000000004b9d0000)]
+  0x00000000350cf000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=43420, stack(0x0000000048980000,0x0000000048a80000)]
+  0x00000000351bc000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49144, stack(0x0000000049de0000,0x0000000049ee0000)]
+  0x000000001dfb7000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49020, stack(0x000000004ba60000,0x000000004bb60000)]
+  0x000000001dfbc000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44300, stack(0x000000004b300000,0x000000004b400000)]
+  0x000000001dfb1800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=35388, stack(0x0000000048e60000,0x0000000048f60000)]
+  0x000000003648b800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46556, stack(0x000000004ace0000,0x000000004ade0000)]
+  0x0000000036abe800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26976, stack(0x000000004b7d0000,0x000000004b8d0000)]
+  0x00000000350c8000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=32284, stack(0x000000004aa60000,0x000000004ab60000)]
+  0x000000001dfb7800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=7836, stack(0x0000000048670000,0x0000000048770000)]
+  0x000000001dfb4000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=39580, stack(0x000000004a960000,0x000000004aa60000)]
+  0x00000000350c4800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15836, stack(0x0000000046ce0000,0x0000000046de0000)]
+  0x000000001dfb2800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33152, stack(0x0000000048f60000,0x0000000049060000)]
+  0x000000001dfb6000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49644, stack(0x0000000043460000,0x0000000043560000)]
+  0x000000001dfb5800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30412, stack(0x000000004ae20000,0x000000004af20000)]
+  0x00000000350cd800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=8968, stack(0x000000004a7f0000,0x000000004a8f0000)]
+  0x000000001dfbd800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56828, stack(0x0000000049120000,0x0000000049220000)]
+  0x000000001dfb9000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46996, stack(0x00000000494d0000,0x00000000495d0000)]
+  0x000000001dfba800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56088, stack(0x0000000046e10000,0x0000000046f10000)]
+  0x000000001dfbd000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25892, stack(0x0000000049cc0000,0x0000000049dc0000)]
+  0x00000000350cb000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54564, stack(0x0000000046bc0000,0x0000000046cc0000)]
+  0x000000001dfbb800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54348, stack(0x0000000049f20000,0x000000004a020000)]
+  0x00000000350ca800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38104, stack(0x000000004a4d0000,0x000000004a5d0000)]
+  0x000000001dfb3000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31208, stack(0x000000004a150000,0x000000004a250000)]
+  0x000000003533d800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34120, stack(0x0000000049870000,0x0000000049970000)]
+  0x00000000350cc800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49604, stack(0x0000000049310000,0x0000000049410000)]
+  0x0000000036486000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36404, stack(0x0000000046980000,0x0000000046a80000)]
+  0x00000000350c3800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=21716, stack(0x0000000048440000,0x0000000048540000)]
+  0x0000000036491800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33244, stack(0x0000000048a80000,0x0000000048b80000)]
+  0x00000000350c2000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15548, stack(0x0000000048d50000,0x0000000048e50000)]
+  0x00000000350c9800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44796, stack(0x00000000495d0000,0x00000000496d0000)]
+  0x00000000350c7800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=35032, stack(0x0000000047d20000,0x0000000047e20000)]
+  0x00000000350ce000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15252, stack(0x0000000048200000,0x0000000048300000)]
+  0x0000000036abb000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=6416, stack(0x0000000044870000,0x0000000044970000)]
+  0x00000000350c6800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=51316, stack(0x0000000047aa0000,0x0000000047ba0000)]
+  0x00000000350c3000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22952, stack(0x0000000047bb0000,0x0000000047cb0000)]
+  0x00000000350c9000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=35096, stack(0x0000000041890000,0x0000000041990000)]
+  0x00000000350c1800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34784, stack(0x0000000046ac0000,0x0000000046bc0000)]
+  0x0000000036483000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36688, stack(0x0000000048540000,0x0000000048640000)]
+  0x000000003533a800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=24900, stack(0x0000000049750000,0x0000000049850000)]
+  0x00000000350c0800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=21612, stack(0x000000003fd60000,0x000000003fe60000)]
+  0x000000003648f000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=5176, stack(0x0000000043fe0000,0x00000000440e0000)]
+  0x0000000036ac0000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=16700, stack(0x00000000472d0000,0x00000000473d0000)]
+  0x0000000034595800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45724, stack(0x0000000048330000,0x0000000048430000)]
+  0x000000003648c000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=50836, stack(0x0000000045ac0000,0x0000000045bc0000)]
+  0x0000000033943000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33144, stack(0x0000000046860000,0x0000000046960000)]
+  0x00000000377ae000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29032, stack(0x0000000048000000,0x0000000048100000)]
+  0x0000000034555000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=11976, stack(0x00000000477d0000,0x00000000478d0000)]
+  0x0000000036490800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22032, stack(0x0000000047e50000,0x0000000047f50000)]
+  0x00000000351c1800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47592, stack(0x0000000047400000,0x0000000047500000)]
+  0x0000000036485800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53232, stack(0x0000000044180000,0x0000000044280000)]
+  0x0000000036489000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33204, stack(0x0000000048840000,0x0000000048940000)]
+  0x0000000036492000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47520, stack(0x0000000047500000,0x0000000047600000)]
+  0x0000000036487800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=5116, stack(0x0000000041380000,0x0000000041480000)]
+  0x00000000351bf000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=50448, stack(0x0000000045600000,0x0000000045700000)]
+  0x000000003648e800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49776, stack(0x0000000045740000,0x0000000045840000)]
+  0x00000000377af800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22056, stack(0x0000000046260000,0x0000000046360000)]
+  0x00000000351bd000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=10892, stack(0x00000000450e0000,0x00000000451e0000)]
+  0x00000000351bd800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=50940, stack(0x00000000422c0000,0x00000000423c0000)]
+  0x0000000036487000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=55972, stack(0x0000000046610000,0x0000000046710000)]
+  0x0000000036ac1800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56204, stack(0x0000000045fe0000,0x00000000460e0000)]
+  0x0000000036484000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53964, stack(0x0000000046f10000,0x0000000047010000)]
+  0x0000000036490000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46396, stack(0x00000000471c0000,0x00000000472c0000)]
+  0x000000003648d000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=39476, stack(0x0000000045d70000,0x0000000045e70000)]
+  0x000000003648d800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30952, stack(0x0000000045e80000,0x0000000045f80000)]
+  0x0000000036488800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=12608, stack(0x0000000040e30000,0x0000000040f30000)]
+  0x0000000036484800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=48092, stack(0x0000000046760000,0x0000000046860000)]
+  0x00000000351c0800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=16556, stack(0x0000000043360000,0x0000000043460000)]
+  0x00000000351bb800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46364, stack(0x0000000042ae0000,0x0000000042be0000)]
+  0x0000000036abf800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15448, stack(0x0000000045c20000,0x0000000045d20000)]
+  0x00000000351c0000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33688, stack(0x00000000454d0000,0x00000000455d0000)]
+  0x00000000369cb000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52480, stack(0x0000000044cf0000,0x0000000044df0000)]
+  0x00000000377ad000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=6724, stack(0x0000000045860000,0x0000000045960000)]
+  0x00000000351be800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=16920, stack(0x0000000046130000,0x0000000046230000)]
+  0x0000000034556800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29876, stack(0x00000000453b0000,0x00000000454b0000)]
+  0x0000000036abd000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52036, stack(0x0000000044be0000,0x0000000044ce0000)]
+  0x0000000036abc800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30816, stack(0x0000000044aa0000,0x0000000044ba0000)]
+  0x000000003533c000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=8976, stack(0x0000000044300000,0x0000000044400000)]
+  0x000000001d383000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45080, stack(0x0000000042730000,0x0000000042830000)]
+  0x0000000036ac1000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=36008, stack(0x0000000044720000,0x0000000044820000)]
+  0x0000000033945800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47816, stack(0x0000000045960000,0x0000000045a60000)]
+  0x000000001d387800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29740, stack(0x0000000044f50000,0x0000000045050000)]
+  0x0000000034559000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22164, stack(0x0000000044e10000,0x0000000044f10000)]
+  0x0000000036abb800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=51672, stack(0x0000000041f10000,0x0000000042010000)]
+  0x00000000377ac800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=14508, stack(0x00000000444c0000,0x00000000445c0000)]
+  0x00000000377ae800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=19244, stack(0x0000000044970000,0x0000000044a70000)]
+  0x0000000036abe000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=20652, stack(0x00000000451e0000,0x00000000452e0000)]
+  0x000000003533c800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29164, stack(0x0000000042f20000,0x0000000043020000)]
+  0x000000003533b000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15224, stack(0x000000003bc60000,0x000000003bd60000)]
+  0x0000000035339000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30468, stack(0x0000000043c10000,0x0000000043d10000)]
+  0x00000000377aa000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46072, stack(0x000000003e4d0000,0x000000003e5d0000)]
+  0x000000003533e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=9560, stack(0x00000000431c0000,0x00000000432c0000)]
+  0x0000000035338000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=41708, stack(0x0000000043ec0000,0x0000000043fc0000)]
+  0x0000000035339800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31596, stack(0x0000000044620000,0x0000000044720000)]
+  0x0000000033944000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46332, stack(0x0000000043dc0000,0x0000000043ec0000)]
+  0x0000000034557800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=40244, stack(0x000000003fc20000,0x000000003fd20000)]
+  0x0000000034950000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=37872, stack(0x00000000437f0000,0x00000000438f0000)]
+  0x00000000377a9800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31268, stack(0x0000000041000000,0x0000000041100000)]
+  0x0000000034596800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34628, stack(0x0000000041670000,0x0000000041770000)]
+  0x0000000034597000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45520, stack(0x00000000436d0000,0x00000000437d0000)]
+  0x000000001d3bf800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34048, stack(0x0000000043a60000,0x0000000043b60000)]
+  0x0000000034556000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33980, stack(0x00000000429e0000,0x0000000042ae0000)]
+  0x00000000377a8800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30552, stack(0x000000003d4c0000,0x000000003d5c0000)]
+  0x0000000034553800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45132, stack(0x0000000042e10000,0x0000000042f10000)]
+  0x00000000377ab800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26240, stack(0x00000000421a0000,0x00000000422a0000)]
+  0x000000003455a800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=50948, stack(0x00000000428c0000,0x00000000429c0000)]
+  0x00000000377ab000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25576, stack(0x0000000043960000,0x0000000043a60000)]
+  0x0000000036082800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25712, stack(0x0000000043080000,0x0000000043180000)]
+  0x00000000346d6800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26272, stack(0x0000000042c90000,0x0000000042d90000)]
+  0x000000001d381800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=20812, stack(0x000000003ef90000,0x000000003f090000)]
+  0x0000000034559800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=10800, stack(0x0000000043590000,0x0000000043690000)]
+  0x000000001d386800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22556, stack(0x000000003f270000,0x000000003f370000)]
+  0x000000001d388000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56600, stack(0x0000000041210000,0x0000000041310000)]
+  0x000000001d3bd000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47612, stack(0x000000003fe70000,0x000000003ff70000)]
+  0x000000001d383800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56804, stack(0x00000000402f0000,0x00000000403f0000)]
+  0x000000001d3c0000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=55396, stack(0x00000000425a0000,0x00000000426a0000)]
+  0x000000001d382000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=55104, stack(0x0000000041df0000,0x0000000041ef0000)]
+  0x0000000036085000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54428, stack(0x0000000040a30000,0x0000000040b30000)]
+  0x000000001d384800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54232, stack(0x0000000042420000,0x0000000042520000)]
+  0x00000000346d4800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38676, stack(0x0000000041ca0000,0x0000000041da0000)]
+  0x00000000369c6000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33372, stack(0x00000000419c0000,0x0000000041ac0000)]
+  0x00000000369c9000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30108, stack(0x000000003d720000,0x000000003d820000)]
+  0x000000001d386000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53104, stack(0x0000000042090000,0x0000000042190000)]
+  0x00000000346d3800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38292, stack(0x000000003ed20000,0x000000003ee20000)]
+  0x000000001d3c1000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=50068, stack(0x0000000041780000,0x0000000041880000)]
+  0x000000001d3c2800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=17852, stack(0x00000000406d0000,0x00000000407d0000)]
+  0x000000001d3bc000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=40572, stack(0x000000003da60000,0x000000003db60000)]
+  0x00000000369c7800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25036, stack(0x0000000040ce0000,0x0000000040de0000)]
+  0x00000000369c9800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=48728, stack(0x0000000041100000,0x0000000041200000)]
+  0x00000000369ca800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=30036, stack(0x00000000405b0000,0x00000000406b0000)]
+  0x000000003494b000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=23348, stack(0x000000003e3b0000,0x000000003e4b0000)]
+  0x000000001d3c3000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33772, stack(0x000000003f7a0000,0x000000003f8a0000)]
+  0x000000001d3be800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29520, stack(0x0000000041560000,0x0000000041660000)]
+  0x0000000034598000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52852, stack(0x000000003dd30000,0x000000003de30000)]
+  0x00000000346d2000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44104, stack(0x0000000040920000,0x0000000040a20000)]
+  0x00000000369c4800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=12140, stack(0x000000003d3c0000,0x000000003d4c0000)]
+  0x000000003494c800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=22472, stack(0x000000003f9f0000,0x000000003faf0000)]
+  0x00000000346d6000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34256, stack(0x000000003e240000,0x000000003e340000)]
+  0x00000000369c5000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52244, stack(0x000000003ff90000,0x0000000040090000)]
+  0x00000000369c8000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=17044, stack(0x000000003e710000,0x000000003e810000)]
+  0x0000000036082000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=39180, stack(0x000000003f4f0000,0x000000003f5f0000)]
+  0x0000000036083800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=40408, stack(0x0000000040bb0000,0x0000000040cb0000)]
+  0x00000000369c6800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52380, stack(0x00000000407f0000,0x00000000408f0000)]
+  0x0000000036084000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=32456, stack(0x000000003f630000,0x000000003f730000)]
+  0x0000000034593800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52376, stack(0x000000003ee30000,0x000000003ef30000)]
+  0x00000000346d7800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=52976, stack(0x0000000039960000,0x0000000039a60000)]
+  0x00000000346d8000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25668, stack(0x000000003d1c0000,0x000000003d2c0000)]
+  0x00000000338d8800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=53068, stack(0x0000000040410000,0x0000000040510000)]
+  0x0000000037914000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=34988, stack(0x000000003de30000,0x000000003df30000)]
+  0x0000000037913800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=19164, stack(0x000000003bef0000,0x000000003bff0000)]
+  0x00000000346d3000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=41696, stack(0x000000003d950000,0x000000003da50000)]
+  0x0000000033948800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=27004, stack(0x0000000040130000,0x0000000040230000)]
+  0x00000000346d9000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=46580, stack(0x000000003f170000,0x000000003f270000)]
+  0x00000000346d5000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=45636, stack(0x000000003fb10000,0x000000003fc10000)]
+  0x0000000036081000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=51144, stack(0x0000000039f10000,0x000000003a010000)]
+  0x000000003494e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=21316, stack(0x000000003c580000,0x000000003c680000)]
+  0x000000003607f000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=47680, stack(0x000000003cda0000,0x000000003cea0000)]
+  0x0000000033947000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38512, stack(0x000000003f3a0000,0x000000003f4a0000)]
+  0x0000000033944800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25088, stack(0x000000003a150000,0x000000003a250000)]
+  0x000000003607f800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26924, stack(0x00000000395a0000,0x00000000396a0000)]
+  0x0000000033942800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=56084, stack(0x000000003aab0000,0x000000003abb0000)]
+  0x0000000033946000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=55884, stack(0x000000003d830000,0x000000003d930000)]
+  0x0000000033949000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=54900, stack(0x0000000039da0000,0x0000000039ea0000)]
+  0x000000003494d000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=25364, stack(0x000000003d0a0000,0x000000003d1a0000)]
+  0x0000000034594000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26384, stack(0x000000003df90000,0x000000003e090000)]
+  0x000000003607e000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=17356, stack(0x000000003e880000,0x000000003e980000)]
+  0x000000003494f800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31620, stack(0x000000003d5c0000,0x000000003d6c0000)]
+  0x0000000034592800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=24500, stack(0x000000003c7d0000,0x000000003c8d0000)]
+  0x00000000338d7800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=28352, stack(0x000000003eba0000,0x000000003eca0000)]
+  0x000000003494a000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=12884, stack(0x000000003e600000,0x000000003e700000)]
+  0x00000000338d4800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=6168, stack(0x000000003c480000,0x000000003c580000)]
+  0x000000003494e800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=49264, stack(0x000000003ea40000,0x000000003eb40000)]
+  0x0000000034598800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26464, stack(0x000000003a870000,0x000000003a970000)]
+  0x0000000033947800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=33740, stack(0x000000003e100000,0x000000003e200000)]
+  0x00000000338d2800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=31488, stack(0x000000003dc20000,0x000000003dd20000)]
+  0x0000000037910800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=26544, stack(0x000000003c9e0000,0x000000003cae0000)]
+  0x00000000346ab800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=28616, stack(0x000000003d2c0000,0x000000003d3c0000)]
+  0x00000000346ab000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=40236, stack(0x000000003cf80000,0x000000003d080000)]
+  0x00000000338d7000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=29140, stack(0x0000000039850000,0x0000000039950000)]
+  0x0000000037917000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=51752, stack(0x000000003c050000,0x000000003c150000)]
+  0x0000000037916800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=39944, stack(0x000000003cc60000,0x000000003cd60000)]
+  0x0000000034599800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=8216, stack(0x000000003c8e0000,0x000000003c9e0000)]
+  0x0000000037912800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=41192, stack(0x000000003a300000,0x000000003a400000)]
+  0x00000000346aa000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=14736, stack(0x00000000396e0000,0x00000000397e0000)]
+  0x0000000037915000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=15732, stack(0x000000003cb10000,0x000000003cc10000)]
+  0x00000000338d3000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=39796, stack(0x000000003c6a0000,0x000000003c7a0000)]
+  0x00000000338d5800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=57244, stack(0x000000003a9b0000,0x000000003aab0000)]
+  0x00000000338d6000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=44016, stack(0x000000003c160000,0x000000003c260000)]
+  0x0000000037912000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=6876, stack(0x0000000039300000,0x0000000039400000)]
+  0x00000000346a9800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=50816, stack(0x000000003bd70000,0x000000003be70000)]
+  0x00000000346ac800 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=9844, stack(0x00000000394a0000,0x00000000395a0000)]
+  0x0000000037911000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=14920, stack(0x000000003a660000,0x000000003a760000)]
+  0x00000000346ad000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=19428, stack(0x0000000039b00000,0x0000000039c00000)]
+  0x00000000346ae000 JavaThread "OutputFlusher for Source: Custom Source -> Flat Map" daemon [_thread_blocked, id=38752, stack(0x000000003a030000,0x000000003a130000)]
+  0x00000000346a8800 JavaThread "Flink-MetricRegistry-thread-1" daemon [_thread_blocked, id=23256, stack(0x0000000038e50000,0x0000000038f50000)]
+  0x00000000346a8000 JavaThread "jobmanager-future-thread-4" daemon [_thread_blocked, id=49916, stack(0x0000000038750000,0x0000000038850000)]
+  0x00000000346a7000 JavaThread "pool-1-thread-1" [_thread_blocked, id=28784, stack(0x0000000038f80000,0x0000000039080000)]
+  0x00000000338c9000 JavaThread "FlinkCompletableFutureDelayScheduler-thread-1" daemon [_thread_blocked, id=33816, stack(0x0000000037080000,0x0000000037180000)]
+  0x00000000338c8800 JavaThread "jobmanager-future-thread-3" daemon [_thread_blocked, id=23528, stack(0x0000000038cd0000,0x0000000038dd0000)]
+  0x00000000338c7800 JavaThread "jobmanager-future-thread-2" daemon [_thread_blocked, id=47232, stack(0x0000000038b20000,0x0000000038c20000)]
+  0x00000000338c7000 JavaThread "Checkpoint Timer" daemon [_thread_blocked, id=48004, stack(0x0000000038650000,0x0000000038750000)]
+  0x00000000338c5800 JavaThread "jobmanager-future-thread-1" daemon [_thread_blocked, id=47036, stack(0x00000000371f0000,0x00000000372f0000)]
+  0x00000000338c4800 JavaThread "flink-rest-server-netty-boss-thread-1" daemon [_thread_in_native, id=26112, stack(0x0000000020ae0000,0x0000000020be0000)]
+  0x00000000338c4000 JavaThread "ObjectCleanerThread" daemon [_thread_blocked, id=42820, stack(0x0000000020880000,0x0000000020980000)]
+  0x00000000338c3000 JavaThread "IOManager reader thread #1" daemon [_thread_blocked, id=29444, stack(0x0000000033b80000,0x0000000033c80000)]
+  0x00000000338c2800 JavaThread "IOManager writer thread #1" daemon [_thread_blocked, id=6164, stack(0x00000000339b0000,0x0000000033ab0000)]
+  0x0000000006504000 JavaThread "Timer-2" daemon [_thread_blocked, id=22260, stack(0x0000000020c00000,0x0000000020d00000)]
+  0x0000000006503800 JavaThread "Timer-1" daemon [_thread_blocked, id=29200, stack(0x00000000209d0000,0x0000000020ad0000)]
+  0x0000000006502800 JavaThread "BLOB Server listener at 61640" daemon [_thread_in_native, id=35540, stack(0x0000000020520000,0x0000000020620000)]
+  0x0000000006502000 JavaThread "Timer-0" daemon [_thread_blocked, id=39380, stack(0x00000000200e0000,0x00000000201e0000)]
+  0x0000000006501000 JavaThread "New I/O server boss #6" [_thread_in_native, id=50884, stack(0x00000000203d0000,0x00000000204d0000)]
+  0x0000000006500800 JavaThread "New I/O worker #5" [_thread_in_native, id=40068, stack(0x0000000020290000,0x0000000020390000)]
+  0x00000000064ff800 JavaThread "New I/O worker #4" [_thread_in_native, id=23948, stack(0x000000001ffe0000,0x00000000200e0000)]
+  0x00000000064ff000 JavaThread "New I/O boss #3" [_thread_in_native, id=15480, stack(0x000000001f890000,0x000000001f990000)]
+  0x00000000064fe000 JavaThread "New I/O worker #2" [_thread_in_native, id=26704, stack(0x000000001fe50000,0x000000001ff50000)]
+  0x00000000064fd800 JavaThread "New I/O worker #1" [_thread_in_native, id=51508, stack(0x000000001fcd0000,0x000000001fdd0000)]
+  0x000000000632c800 JavaThread "flink-metrics-akka.remote.default-remote-dispatcher-4" [_thread_blocked, id=32560, stack(0x000000001efd0000,0x000000001f0d0000)]
+  0x0000000006cf6000 JavaThread "flink-metrics-akka.remote.default-remote-dispatcher-3" [_thread_blocked, id=51240, stack(0x000000001f5b0000,0x000000001f6b0000)]
+  0x00000000064a3800 JavaThread "flink-metrics-2" [_thread_blocked, id=17352, stack(0x000000001f3f0000,0x000000001f4f0000)]
+  0x00000000062ee000 JavaThread "flink-metrics-scheduler-1" [_thread_blocked, id=22912, stack(0x000000001f230000,0x000000001f330000)]
+  0x000000001dc37800 JavaThread "flink-akka.actor.default-dispatcher-5" [_thread_blocked, id=33508, stack(0x000000001f0d0000,0x000000001f1d0000)]
+  0x000000001dc36800 JavaThread "flink-akka.actor.default-dispatcher-4" [_thread_blocked, id=44396, stack(0x000000001eb70000,0x000000001ec70000)]
+  0x000000001dca1000 JavaThread "flink-akka.actor.default-dispatcher-3" [_thread_blocked, id=32960, stack(0x00000000072e0000,0x00000000073e0000)]
+  0x000000001dc9f800 JavaThread "flink-akka.actor.default-dispatcher-2" [_thread_blocked, id=30224, stack(0x000000001ec90000,0x000000001ed90000)]
+  0x000000001dbc0800 JavaThread "flink-scheduler-1" [_thread_in_vm, id=25756, stack(0x000000001ea40000,0x000000001eb40000)]
+  0x0000000006e5e000 JavaThread "Service Thread" daemon [_thread_blocked, id=52460, stack(0x0000000007750000,0x0000000007850000)]
+  0x0000000006de5800 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=39064, stack(0x0000000007560000,0x0000000007660000)]
+=>0x0000000006de4000 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=22312, stack(0x0000000006080000,0x0000000006180000)]
+  0x0000000006dc7000 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=44640, stack(0x00000000073e0000,0x00000000074e0000)]
+  0x0000000006de1800 JavaThread "Monitor Ctrl-Break" daemon [_thread_in_native, id=24224, stack(0x00000000028a0000,0x00000000029a0000)]
+  0x00000000062ab000 JavaThread "Attach Listener" daemon [_thread_blocked, id=18572, stack(0x00000000069e0000,0x0000000006ae0000)]
+  0x0000000004e0a800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=40012, stack(0x0000000006760000,0x0000000006860000)]
+  0x0000000004df3000 JavaThread "Finalizer" daemon [_thread_blocked, id=52392, stack(0x0000000006180000,0x0000000006280000)]
+  0x0000000004de9800 JavaThread "Reference Handler" daemon [_thread_blocked, id=25476, stack(0x0000000005f70000,0x0000000006070000)]
+  0x000000000264b000 JavaThread "main" [_thread_blocked, id=28504, stack(0x00000000029a0000,0x0000000002aa0000)]
+
+Other Threads:
+  0x0000000004da4000 VMThread [stack: 0x0000000005e60000,0x0000000005f60000] [id=11760]
+  0x0000000006ef5000 WatcherThread [stack: 0x00000000068e0000,0x00000000069e0000] [id=47156]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x0000000701200000, size: 3054 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x00000007c0000000
+
+Heap:
+ PSYoungGen      total 597504K, used 497444K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 87% used [0x0000000780600000,0x000000079ebc9348,0x00000007a2e80000)
+  from space 31744K, 0% used [0x00000007a2e80000,0x00000007a2e80000,0x00000007a4d80000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 142834K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 87% used [0x0000000701200000,0x0000000709d7ca98,0x000000070b100000)
+ Metaspace       used 40297K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+
+Card table byte_map: [0x0000000002e60000,0x0000000003460000] byte_map_base: 0xffffffffff657000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000008305ce0
+ Begin Bits: [0x0000000017390000, 0x000000001a348000)
+ End Bits:   [0x000000001a348000, 0x000000001d300000)
+
+Polling page: 0x0000000000130000
+
+CodeCache: size=245760Kb used=23830Kb max_used=25662Kb free=221930Kb
+ bounds [0x0000000008390000, 0x0000000009da0000, 0x0000000017390000]
+ total_blobs=7076 nmethods=6512 adapters=475
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 45.788 Thread 0x0000000006dc7000 nmethod 8321 0x00000000092610d0 code [0x0000000009261220, 0x00000000092613d8]
+Event: 45.791 Thread 0x0000000006dc7000 8322       4       org.apache.flink.runtime.io.network.NetworkEnvironment::createKvStateTaskRegistry (10 bytes)
+Event: 45.793 Thread 0x0000000006dc7000 nmethod 8322 0x00000000095d8a50 code [0x00000000095d8ba0, 0x00000000095d8dd8]
+Event: 45.803 Thread 0x0000000006dc7000 8323   !   4       org.apache.flink.runtime.taskmanager.Task::loadAndInstantiateInvokable (105 bytes)
+Event: 45.807 Thread 0x0000000006dc7000 nmethod 8323 0x0000000008d3e010 code [0x0000000008d3e1c0, 0x0000000008d3e668]
+Event: 45.822 Thread 0x0000000006dc7000 8324       4       org.apache.flink.runtime.taskmanager.RuntimeEnvironment::<init> (266 bytes)
+Event: 45.828 Thread 0x0000000006dc7000 nmethod 8324 0x0000000008aab8d0 code [0x0000000008aaba60, 0x0000000008aac658]
+Event: 45.892 Thread 0x0000000006dc7000 8325   !   4       org.apache.flink.runtime.io.network.buffer.NetworkBufferPool::createBufferPool (207 bytes)
+Event: 45.912 Thread 0x0000000006dc7000 nmethod 8325 0x0000000008e30f50 code [0x0000000008e31180, 0x0000000008e324f0]
+Event: 45.999 Thread 0x0000000006dc7000 8326       4       org.apache.flink.streaming.runtime.tasks.StreamTask::<init> (76 bytes)
+
+GC Heap History (10 events):
+Event: 40.729 GC heap before
+{Heap before GC invocations=36 (full 4):
+ PSYoungGen      total 514048K, used 504064K [0x0000000780600000, 0x00000007a6c80000, 0x00000007c0000000)
+  eden space 482304K, 100% used [0x0000000780600000,0x000000079dd00000,0x000000079dd00000)
+  from space 31744K, 68% used [0x000000079dd00000,0x000000079f240000,0x000000079fc00000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 118704K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 72% used [0x0000000701200000,0x00000007085ec098,0x000000070b100000)
+ Metaspace       used 40287K, capacity 41570K, committed 41728K, reserved 1085440K
+  class space    used 5320K, capacity 5563K, committed 5632K, reserved 1048576K
+Event: 40.765 GC heap after
+Heap after GC invocations=36 (full 4):
+ PSYoungGen      total 597504K, used 22944K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 0% used [0x0000000780600000,0x0000000780600000,0x00000007a2e80000)
+  from space 31744K, 72% used [0x00000007a4d80000,0x00000007a63e8000,0x00000007a6c80000)
+  to   space 31744K, 0% used [0x00000007a2e80000,0x00000007a2e80000,0x00000007a4d80000)
+ ParOldGen       total 162816K, used 126257K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 77% used [0x0000000701200000,0x0000000708d4c4e0,0x000000070b100000)
+ Metaspace       used 40287K, capacity 41570K, committed 41728K, reserved 1085440K
+  class space    used 5320K, capacity 5563K, committed 5632K, reserved 1048576K
+}
+Event: 41.951 GC heap before
+{Heap before GC invocations=37 (full 4):
+ PSYoungGen      total 597504K, used 588704K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 100% used [0x0000000780600000,0x00000007a2e80000,0x00000007a2e80000)
+  from space 31744K, 72% used [0x00000007a4d80000,0x00000007a63e8000,0x00000007a6c80000)
+  to   space 31744K, 0% used [0x00000007a2e80000,0x00000007a2e80000,0x00000007a4d80000)
+ ParOldGen       total 162816K, used 126257K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 77% used [0x0000000701200000,0x0000000708d4c4e0,0x000000070b100000)
+ Metaspace       used 40290K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5322K, capacity 5595K, committed 5632K, reserved 1048576K
+Event: 41.995 GC heap after
+Heap after GC invocations=37 (full 4):
+ PSYoungGen      total 597504K, used 24192K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 0% used [0x0000000780600000,0x0000000780600000,0x00000007a2e80000)
+  from space 31744K, 76% used [0x00000007a2e80000,0x00000007a4620000,0x00000007a4d80000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 134211K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 82% used [0x0000000701200000,0x0000000709510ed8,0x000000070b100000)
+ Metaspace       used 40290K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5322K, capacity 5595K, committed 5632K, reserved 1048576K
+}
+Event: 43.095 GC heap before
+{Heap before GC invocations=38 (full 4):
+ PSYoungGen      total 597504K, used 589952K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 100% used [0x0000000780600000,0x00000007a2e80000,0x00000007a2e80000)
+  from space 31744K, 76% used [0x00000007a2e80000,0x00000007a4620000,0x00000007a4d80000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 134211K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 82% used [0x0000000701200000,0x0000000709510ed8,0x000000070b100000)
+ Metaspace       used 40293K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+Event: 43.132 GC heap after
+Heap after GC invocations=38 (full 4):
+ PSYoungGen      total 597504K, used 25568K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 0% used [0x0000000780600000,0x0000000780600000,0x00000007a2e80000)
+  from space 31744K, 80% used [0x00000007a4d80000,0x00000007a6678000,0x00000007a6c80000)
+  to   space 31744K, 0% used [0x00000007a2e80000,0x00000007a2e80000,0x00000007a4d80000)
+ ParOldGen       total 162816K, used 143102K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 87% used [0x0000000701200000,0x0000000709dbf888,0x000000070b100000)
+ Metaspace       used 40293K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+}
+Event: 44.358 GC heap before
+{Heap before GC invocations=39 (full 4):
+ PSYoungGen      total 597504K, used 591328K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 100% used [0x0000000780600000,0x00000007a2e80000,0x00000007a2e80000)
+  from space 31744K, 80% used [0x00000007a4d80000,0x00000007a6678000,0x00000007a6c80000)
+  to   space 31744K, 0% used [0x00000007a2e80000,0x00000007a2e80000,0x00000007a4d80000)
+ ParOldGen       total 162816K, used 143102K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 87% used [0x0000000701200000,0x0000000709dbf888,0x000000070b100000)
+ Metaspace       used 40297K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+Event: 44.399 GC heap after
+Heap after GC invocations=39 (full 4):
+ PSYoungGen      total 597504K, used 25632K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 0% used [0x0000000780600000,0x0000000780600000,0x00000007a2e80000)
+  from space 31744K, 80% used [0x00000007a2e80000,0x00000007a4788000,0x00000007a4d80000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 152054K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 93% used [0x0000000701200000,0x000000070a67d9e0,0x000000070b100000)
+ Metaspace       used 40297K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+}
+Event: 44.399 GC heap before
+{Heap before GC invocations=40 (full 5):
+ PSYoungGen      total 597504K, used 25632K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 0% used [0x0000000780600000,0x0000000780600000,0x00000007a2e80000)
+  from space 31744K, 80% used [0x00000007a2e80000,0x00000007a4788000,0x00000007a4d80000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 152054K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 93% used [0x0000000701200000,0x000000070a67d9e0,0x000000070b100000)
+ Metaspace       used 40297K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+Event: 44.751 GC heap after
+Heap after GC invocations=40 (full 5):
+ PSYoungGen      total 597504K, used 0K [0x0000000780600000, 0x00000007a6e00000, 0x00000007c0000000)
+  eden space 565760K, 0% used [0x0000000780600000,0x0000000780600000,0x00000007a2e80000)
+  from space 31744K, 0% used [0x00000007a2e80000,0x00000007a2e80000,0x00000007a4d80000)
+  to   space 31744K, 0% used [0x00000007a4d80000,0x00000007a4d80000,0x00000007a6c80000)
+ ParOldGen       total 162816K, used 142834K [0x0000000701200000, 0x000000070b100000, 0x0000000780600000)
+  object space 162816K, 87% used [0x0000000701200000,0x0000000709d7ca98,0x000000070b100000)
+ Metaspace       used 40297K, capacity 41602K, committed 41728K, reserved 1085440K
+  class space    used 5323K, capacity 5595K, committed 5632K, reserved 1048576K
+}
+
+Deoptimization events (10 events):
+Event: 33.130 Thread 0x000000001dc37800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x0000000008f7ca4c method=org.apache.flink.runtime.rpc.akka.FencedAkkaInvocationHandler.fenceMessage(Ljava/lang/Object;)Lorg/apache/flink/runtime/rpc/messages/FencedMessage; @ 15
+Event: 33.775 Thread 0x0000000035795800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000008f6725c method=java.net.InetAddress$Cache.get(Ljava/lang/String;)Ljava/net/InetAddress$CacheEntry; @ 49
+Event: 35.199 Thread 0x000000001dc9f800 Uncommon trap: reason=array_check action=maybe_recompile pc=0x0000000008c21cb8 method=java.util.stream.Nodes$FixedNodeBuilder.accept(Ljava/lang/Object;)V @ 28
+Event: 35.199 Thread 0x000000001dc9f800 Uncommon trap: reason=array_check action=maybe_recompile pc=0x0000000008c21cb8 method=java.util.stream.Nodes$FixedNodeBuilder.accept(Ljava/lang/Object;)V @ 28
+Event: 35.199 Thread 0x000000001dc9f800 Uncommon trap: reason=array_check action=maybe_recompile pc=0x0000000008c21cb8 method=java.util.stream.Nodes$FixedNodeBuilder.accept(Ljava/lang/Object;)V @ 28
+Event: 35.199 Thread 0x000000001dc9f800 Uncommon trap: reason=array_check action=maybe_recompile pc=0x0000000008c21cb8 method=java.util.stream.Nodes$FixedNodeBuilder.accept(Ljava/lang/Object;)V @ 28
+Event: 43.919 Thread 0x0000000034e0d000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000009639310 method=org.apache.kafka.clients.consumer.internals.RequestFuture.fireFailure()V @ 17
+Event: 43.969 Thread 0x0000000034e0d000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000009d1a568 method=org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater.maybeUpdate(JLorg/apache/kafka/common/Node;)J @ 133
+Event: 44.071 Thread 0x0000000034e0d000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000097b6a34 method=org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater.maybeUpdate(JLorg/apache/kafka/common/Node;)J @ 133
+Event: 45.459 Thread 0x000000001dc37800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000009a8b304 method=scala.concurrent.forkjoin.ForkJoinPool.scan(Lscala/concurrent/forkjoin/ForkJoinPool$WorkQueue;)Lscala/concurrent/forkjoin/ForkJoinTask; @ 483
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 46.015 Thread 0x0000000037450000 Exception <a 'java/net/BindException': Address already in use: no further information> (0x000000079dfb1ad0) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jni.cpp, line 736]
+Event: 46.036 Thread 0x0000000037450000 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079dfb2e20) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.036 Thread 0x000000003744b800 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079e3cb3e0) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.039 Thread 0x0000000037451800 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079dd6bae8) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.039 Thread 0x0000000037448800 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079e4f5050) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.049 Thread 0x0000000037447000 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079de89490) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.050 Thread 0x000000003744c000 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079e61ecc0) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.052 Thread 0x0000000037450800 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079ddf4618) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.052 Thread 0x0000000037442800 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x000000079e748930) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\prims\jvm.cpp, line 3336]
+Event: 46.052 Thread 0x0000000037446000 Exception <a 'java/lang/InterruptedException'> (0x000000079e7dd718) thrown at [C:\re\workspace\8-2-build-windows-amd64-cygwin\jdk8u202\12323\hotspot\src\share\vm\runtime\objectMonitor.cpp, line 1684]
+
+Events (10 events):
+Event: 46.055 Thread 0x0000000034554800 Thread exited: 0x0000000034554800
+Event: 46.055 Thread 0x0000000034554800 Thread added: 0x0000000034554800
+Event: 46.055 Thread 0x0000000037446000 Thread added: 0x0000000037446000
+Event: 46.055 Thread 0x0000000037450800 Thread added: 0x0000000037450800
+Event: 46.055 Thread 0x0000000037442800 Thread added: 0x0000000037442800
+Event: 46.056 Thread 0x0000000037447000 Thread added: 0x0000000037447000
+Event: 46.056 Thread 0x000000003744c000 Thread added: 0x000000003744c000
+Event: 46.057 Thread 0x0000000037451800 Thread added: 0x0000000037451800
+Event: 46.058 loading class org/apache/flink/formats/avro/utils/AvroKryoSerializerUtils
+Event: 46.058 loading class org/apache/flink/formats/avro/utils/AvroKryoSerializerUtils done
+
+
+Dynamic libraries:
+0x000000013fb60000 - 0x000000013fb97000 	D:\Program Files\Java\jdk1.8.0_202\bin\java.exe
+0x0000000077230000 - 0x00000000773cf000 	C:\Windows\SYSTEM32\ntdll.dll
+0x0000000077110000 - 0x000000007722f000 	C:\Windows\system32\kernel32.dll
+0x000007fefcec0000 - 0x000007fefcf2a000 	C:\Windows\system32\KERNELBASE.dll
+0x000007fefee40000 - 0x000007fefef1b000 	C:\Windows\system32\ADVAPI32.dll
+0x000007fefd860000 - 0x000007fefd8ff000 	C:\Windows\system32\msvcrt.dll
+0x000007fefe8b0000 - 0x000007fefe8cf000 	C:\Windows\SYSTEM32\sechost.dll
+0x000007fefeb60000 - 0x000007fefec8c000 	C:\Windows\system32\RPCRT4.dll
+0x0000000077010000 - 0x000000007710a000 	C:\Windows\system32\USER32.dll
+0x000007fefd690000 - 0x000007fefd6f7000 	C:\Windows\system32\GDI32.dll
+0x000007fefe8d0000 - 0x000007fefe8de000 	C:\Windows\system32\LPK.dll
+0x000007fefd3e0000 - 0x000007fefd4ab000 	C:\Windows\system32\USP10.dll
+0x000007fefb560000 - 0x000007fefb755000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.24440_none_e36f1bbf30ff0606\COMCTL32.dll
+0x000007fefe8e0000 - 0x000007fefe951000 	C:\Windows\system32\SHLWAPI.dll
+0x000007fefd3b0000 - 0x000007fefd3de000 	C:\Windows\system32\IMM32.DLL
+0x000007fefd700000 - 0x000007fefd809000 	C:\Windows\system32\MSCTF.dll
+0x0000000058da0000 - 0x0000000058e72000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\msvcr100.dll
+0x0000000007ae0000 - 0x0000000008385000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\server\jvm.dll
+0x000007fefae70000 - 0x000007fefae79000 	C:\Windows\system32\WSOCK32.dll
+0x000007fefd810000 - 0x000007fefd85d000 	C:\Windows\system32\WS2_32.dll
+0x000007fefd2a0000 - 0x000007fefd2a8000 	C:\Windows\system32\NSI.dll
+0x000007fefcd30000 - 0x000007fefcd6b000 	C:\Windows\system32\WINMM.dll
+0x000007fefbda0000 - 0x000007fefbdac000 	C:\Windows\system32\VERSION.dll
+0x00000000773e0000 - 0x00000000773e7000 	C:\Windows\system32\PSAPI.DLL
+0x000007fef9c10000 - 0x000007fef9c1f000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\verify.dll
+0x000007fef1050000 - 0x000007fef1079000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\java.dll
+0x000007feef880000 - 0x000007feef8a3000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\instrument.dll
+0x000007fef1030000 - 0x000007fef1046000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\zip.dll
+0x000007fefd900000 - 0x000007fefe68b000 	C:\Windows\system32\SHELL32.dll
+0x000007fefe960000 - 0x000007fefeb5f000 	C:\Windows\system32\ole32.dll
+0x000007fefcaf0000 - 0x000007fefcaff000 	C:\Windows\system32\profapi.dll
+0x000007fef0340000 - 0x000007fef035a000 	D:\tools\IntelliJIDEA2017.3.2\bin\breakgen64.dll
+0x000007fef0410000 - 0x000007fef042a000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\net.dll
+0x000007fefecb0000 - 0x000007fefee38000 	C:\Windows\system32\urlmon.dll
+0x000007fefcb70000 - 0x000007fefcb74000 	C:\Windows\system32\api-ms-win-downlevel-ole32-l1-1-0.dll
+0x000007fefcd70000 - 0x000007fefcd74000 	C:\Windows\system32\api-ms-win-downlevel-shlwapi-l1-1-0.dll
+0x000007fefce20000 - 0x000007fefce25000 	C:\Windows\system32\api-ms-win-downlevel-advapi32-l1-1-0.dll
+0x000007fefcb60000 - 0x000007fefcb64000 	C:\Windows\system32\api-ms-win-downlevel-user32-l1-1-0.dll
+0x000007fefcb30000 - 0x000007fefcb34000 	C:\Windows\system32\api-ms-win-downlevel-version-l1-1-0.dll
+0x000007fefcf30000 - 0x000007fefcf33000 	C:\Windows\system32\api-ms-win-downlevel-normaliz-l1-1-0.dll
+0x00000000773d0000 - 0x00000000773d3000 	C:\Windows\system32\normaliz.DLL
+0x000007fefcfd0000 - 0x000007fefd29a000 	C:\Windows\system32\iertutil.dll
+0x000007fefef20000 - 0x000007feff438000 	C:\Windows\system32\WININET.dll
+0x000007fefce60000 - 0x000007fefce7e000 	C:\Windows\system32\USERENV.dll
+0x000007fefc230000 - 0x000007fefc285000 	C:\Windows\system32\mswsock.dll
+0x000007fefc220000 - 0x000007fefc227000 	C:\Windows\System32\wship6.dll
+0x000007fef16c0000 - 0x000007fef16cd000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\management.dll
+0x000007fef0360000 - 0x000007fef0372000 	D:\Program Files\Java\jdk1.8.0_202\jre\bin\nio.dll
+0x000007fefad90000 - 0x000007fefada5000 	C:\Windows\system32\NLAapi.dll
+0x000007fef46a0000 - 0x000007fef46b5000 	C:\Windows\system32\napinsp.dll
+0x000007fef4680000 - 0x000007fef4699000 	C:\Windows\system32\pnrpnsp.dll
+0x000007fefc0b0000 - 0x000007fefc10b000 	C:\Windows\system32\DNSAPI.dll
+0x000007fef4670000 - 0x000007fef467b000 	C:\Windows\System32\winrnr.dll
+0x00000000710e0000 - 0x0000000071115000 	C:\Program Files\Bonjour\mdnsNSP.dll
+0x000007fef9e20000 - 0x000007fef9e47000 	C:\Windows\system32\Iphlpapi.DLL
+0x000007fef9e10000 - 0x000007fef9e1b000 	C:\Windows\system32\WINNSI.DLL
+0x000007fefbb10000 - 0x000007fefbb17000 	C:\Windows\System32\wshtcpip.dll
+0x000007fef8640000 - 0x000007fef8648000 	C:\Windows\system32\rasadhlp.dll
+0x000007fef9b90000 - 0x000007fef9be3000 	C:\Windows\System32\fwpuclnt.dll
+0x000007fefc290000 - 0x000007fefc2a8000 	C:\Windows\system32\CRYPTSP.dll
+0x000007fefbf90000 - 0x000007fefbfd7000 	C:\Windows\system32\rsaenh.dll
+0x000007fefc980000 - 0x000007fefc98f000 	C:\Windows\system32\CRYPTBASE.dll
+0x000007fef9c70000 - 0x000007fef9c81000 	C:\Windows\system32\dhcpcsvc6.DLL
+0x000007fef9c50000 - 0x000007fef9c68000 	C:\Windows\system32\dhcpcsvc.DLL
+
+VM Arguments:
+jvm_args: -javaagent:D:\tools\IntelliJIDEA2017.3.2\lib\idea_rt.jar=57021:D:\tools\IntelliJIDEA2017.3.2\bin -Dfile.encoding=UTF-8 
+java_command: com.cyb.flink.KafkaMessageStreaming
+java_class_path (initial): D:\Program Files\Java\jdk1.8.0_202\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\deploy.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\access-bridge-64.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\cldrdata.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\dnsns.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\jaccess.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\jfxrt.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\localedata.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\nashorn.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\sunec.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\sunjce_provider.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\sunmscapi.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\sunpkcs11.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\ext\zipfs.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\javaws.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jce.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jfr.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jfxswt.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\management-agent.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\plugin.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\resources.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\rt.jar;D:\chenyb\myproject\zhuhx\cloud\zzuchenyb-mvc-utils\fink\target\classes;C:\Users\Administrator\.m2\repository\org\apache\flink\flink-java\1.7.1\flink-java-1.7.1.jar;C:\Users\Administrator\.m2\repository\org\apache\flink\flink-core\1.7.1\flink-core-1.7.1.jar;C:\Users\Administrator\.m2\repository\org\apache\flink\flink-annotations\1.7.1\flink-annotations-1.7.1.jar;C:\Users\Administrator\.m2\repository\org\apache\flink\flink-metrics-core\1.7.1\flink-metrics-core-1.7.1.jar;C:\Users\Administrator\.m2\repository\com\esotericsoftware\kryo\kryo\2.24.0\kryo-2.24.0.jar;C:\Users\Administrator\.m2\repository\com\esotericsoftware\minlog\minlog\1.2\minlog
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=D:\Program Files\Java\jdk1.8.0_202
+PATH=C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;D:\Program Files\TortoiseGit\bin;C:\Program Files\Git\cmd;D:\Program Files\Java\jdk1.8.0_202\bin;D:\apache-maven-3.1.1\bin;D:\bigdata\netcat-win32-1.12
+USERNAME=Administrator
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 60 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 , 64 bit Build 7601 (6.1.7601.24441)
+
+CPU:total 4 (initial active 4) (4 cores per cpu, 1 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, lzcnt, tsc, tscinvbit, bmi1, bmi2
+
+Memory: 4k page, physical 12505636k(2010244k free), swap 12503736k(6220k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.202-b08) for windows-amd64 JRE (1.8.0_202-b08), built on Dec 15 2018 19:54:30 by "java_re" with MS VC++ 10.0 (VS2010)
+
+time: Tue Jun 18 08:59:22 2019
+timezone: 中国标准时间
+elapsed time: 46 seconds (0d 0h 0m 46s)
+

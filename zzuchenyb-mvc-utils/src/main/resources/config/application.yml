@@ -1,0 +1,35 @@
+#https://www.cnblogs.com/sebastian-tyd/p/7895182.html
+name: iechenyb
+spring:
+    application:
+        name: cruncher
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost/test
+server:
+    port: 9000
+data:
+ - 1
+ - 2
+ - 3
+my:
+ servers:
+  - dev.example.com
+  - another.example.com
+milo-attributes:
+  value: 345                          #对应单个值
+  valueArray: 1,2,3,4,5,6,7,8,9      #对应数组
+  valueList:                         #对应list
+    -13579
+    -246810
+  valueMap:                          #对应map
+    name: lili
+    age: 20
+    sex: female
+  valueMapList:                      #对应list<map>
+    - name: bob
+      age: 21
+    - name: caven
+      age: 31
+list: topic1,topic2,topic3
+maps: "{key1: 'value1', key2: 'value2'}"

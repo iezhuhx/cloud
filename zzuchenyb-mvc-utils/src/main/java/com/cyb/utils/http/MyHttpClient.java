@@ -130,7 +130,7 @@ public class MyHttpClient {
 		// 创建HttpGet或HttpPost对象，将要请求的URL通过构造方法传入HttpGet或HttpPost对象。
 		HttpGet httpRequst = new HttpGet(uri);
 		//设置期望服务端返回的编码
-		httpRequst.setHeader(new BasicHeader("Accept", "text/plain;charset=utf-8"));
+		//httpRequst.setHeader(new BasicHeader("Accept", "text/plain;charset=utf-8"));//106错误
 		try {
 			// 使用DefaultHttpClient类的execute方法发送HTTP GET请求，并返回HttpResponse对象。
 			HttpResponse httpResponse = httpClient.execute(httpRequst);// 其中HttpGet是HttpUriRequst的子类
@@ -140,7 +140,7 @@ public class MyHttpClient {
 				// 一般来说都要删除多余的字符
 				result.replaceAll("\r", "");// 去掉返回结果中的"\r"字符，否则会在结果字符串后面显示一个小方格
 			} else {
-				System.out.println("访问失败");
+				System.out.println("访问失败!"+httpResponse.getStatusLine().getStatusCode());
 			}
 			//httpRequst.abort();
 			//httpRequst.releaseConnection();
