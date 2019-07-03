@@ -20,14 +20,26 @@ public class Query extends LinkedHashMap<String, Object> {
 
     public Query(Map<String, Object> params){
         this.putAll(params);
-
         //分页参数
         this.page = Integer.parseInt(params.get("page").toString());
         this.limit = Integer.parseInt(params.get("limit").toString());
         this.put("offset", (page - 1) * limit);
         this.put("page", page);
         this.put("limit", limit);
+		System.out.println("query:"+this);
     }
+	
+	public Query(Map<String, Object> params,String type){
+        this.putAll(params);
+        //分页参数
+        this.page = Integer.parseInt(params.get("page").toString());
+        this.limit = Integer.parseInt(params.get("limit").toString());
+        this.put("offset", (page - 1) * limit);
+        this.put("page", page);
+        this.put("limit", limit*page);
+		System.out.println("query:"+this);
+    }
+	
 
 
     public int getPage() {

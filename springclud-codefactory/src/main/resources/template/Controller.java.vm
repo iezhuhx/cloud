@@ -8,12 +8,14 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.kiiik.pub.bean.Page;
-import com.kiiik.pub.bean.ResultBean;
+import com.kiiik.pub.bean.R;
 import com.kiiik.pub.mybatis.service.GenericService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,11 +57,11 @@ public class ${className}Controller {
      *@return
      */
     @SuppressWarnings("unchecked")
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ApiOperation(value = "/list", notes = "列表信息 ")
-    public ResultBean<List<${className}Entity>> list(@RequestBody ${className}Entity entity){
+    public R<List<${className}Entity>> list(@RequestBody ${className}Entity entity){
        List<${className}Entity> entitys = genericService.queryDBEntityList(entity);
-        return new ResultBean<List<${className}Entity>>(entitys).success();
+        return new R<List<${className}Entity>>(entitys).success();
     }
     
      /**
@@ -73,9 +75,9 @@ public class ${className}Controller {
     @SuppressWarnings("unchecked")
 	@GetMapping("listPage")
 	@ApiOperation(value = "/listPage", notes = "分页查询 ")
-	public ResultBean<List<${className}Entity>> listUsersPage(${className}Entity entity,@ModelAttribute @Validated Page page) {
+	public R<List<${className}Entity>> listUsersPage(${className}Entity entity,@ModelAttribute @Validated Page page) {
 		List<${className}Entity> entitys = genericService.queryDBEntityList(entity, page.getPageNum(), page.getPageSize(), " id asc");
-		return new ResultBean<List<${className}Entity>>(entitys).success();
+		return new R<List<${className}Entity>>(entitys).success();
 	}
     
     /**
@@ -86,9 +88,9 @@ public class ${className}Controller {
      *@param 
      *@return
      */
-	@PostMapping("add")
+	@PutMapping("add")
 	@ApiOperation(value="add",notes="新增信息")
-	public ResultBean<String> add${className}Entity(@RequestBody ${className}Entity entity){
+	public R<String> add${className}Entity(@RequestBody ${className}Entity entity){
 		return ${classname}Service.add${className}Entity(entity);
 		
 	}
@@ -103,7 +105,7 @@ public class ${className}Controller {
      */
 	@PostMapping("update")
 	@ApiOperation(value="update",notes="更新信息")
-	public ResultBean<String> upd${className}Entity(@RequestBody ${className}Entity entity){
+	public R<String> upd${className}Entity(@RequestBody ${className}Entity entity){
 		return ${classname}Service.upd${className}Entity(entity);
 	}
 	
@@ -115,10 +117,29 @@ public class ${className}Controller {
      *@param 
      *@return
      */
-	@GetMapping("deleteById")
+	@DeleteMapping("deleteById")
 	@ApiOperation(value="deleteById",notes="根据主键删除信息")
-	public ResultBean<String> del${className}Entity(Integer id){
-		return ${classname}Service.del${className}Entity(id);
+	public R<String> del${className}Entity(Integer id){
+	    return ${classname}Service.del${className}Entity(id);
 	}
+    /**
+     *
+     *作者 : iechenyb<br>
+     *方法描述: 删除信息<br>
+     *创建时间: 2018年11月20日
+     *@param id
+     *@return
+     */
+    @DeleteMapping("{id}")
+    @ApiOperation("删除信息，支持批量")
+    public R<String> delete(@PathVariable String[] id){
+        log.info("delete");
+        List<String> ids = new ArrayList<String>();
+        for(int i=0;i<id.length;i++){
+            ids.add(id[i]);
+			${classname}Service.del${className}Entity(id);
+        }
+        return new R<String>(ids.toString()).success();
+    }
 
 }

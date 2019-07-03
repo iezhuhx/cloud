@@ -2,12 +2,14 @@ server:
   port: 8081
 spring:
   profiles:
-    active: dev
+    active: mysql
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   resources:
     static-locations: classpath:/static/,classpath:/views/,classpath:/swagger-ui.html
 mybatis:
-  mapperLocations: classpath:mapper/**/*.xml
+  mapperLocations: classpath:mapper/**/*-${spring.profiles.active}.xml
+database:
+  type: ${spring.profiles.active}
 

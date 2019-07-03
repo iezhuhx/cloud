@@ -1,0 +1,4 @@
+ 1 服务器端启动命令
+ java -jar -Dspring.profiles.active=oracle -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 target/codefactory-1.0.jar
+ 2 intellij设置
+ run config + romote 改地址

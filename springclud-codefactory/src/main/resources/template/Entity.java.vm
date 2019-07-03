@@ -22,14 +22,14 @@ public class ${className}Entity implements Serializable {
 
 	@KeyColumn(useGeneratedKeys=true)
 	@DBColumn(value = "id",insertIfNull="default")
-	@ApiModelProperty(value="主键，请求时参数忽略")
+	@ApiModelProperty(value="主键")
 	private Integer id;
 	
 #foreach ($column in $columns)
 	#if($column.columnName != $pk.columnName)
 	
 	@DBColumn("$column.columnName")
-	@ApiModelProperty(value="$column.comments,仅更新或者查询时，传参数！")
+	@ApiModelProperty(value=$column.comments)
 	private $column.attrType $column.attrname;
 	
 	#end

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.dao.SysGeneratorDao">
+	<select id="queryList" resultType="map">
+		select table_name as "tableName",t.tablespace_name as "engine",'默认注释' as "tableComment",t.last_analyzed  as "createTime" from user_tables t where 1=1  
+		<if test="tableName != null and tableName.trim() != ''">
+			and table_name like  '%'||upper(#{tableName})||'%'
+		</if>
+		<if test="offset != null and limit != null">
+			and rownum &gt;=#{offset} and rownum&lt;= #{limit}
+		</if>
+		order by last_analyzed desc
+	</select>
+	
+	<select id="queryTotal" resultType="int">
+		select count(1) from user_tables t  WHERE 1=1
+		<if test="tableName != null and tableName.trim() != ''">
+			and table_name like '%'||upper(#{tableName})||'%'
+		</if> 
+	</select> 
+	
+	<select id="queryTable" resultType="map">
+		select table_name as "tableName",t.tablespace_name as "engine",'默认注释' as "tableComment",t.last_analyzed  as "createTime" from user_tables t  where table_name = #{tableName}
+	</select> 
+	
+	<select id="queryColumns" resultType="map">
+		select column_name as "columnName", data_type as "dataType",'默认注释' as columnComment, '' as "columnKey", '' as "extra" 
+		from user_tab_cols where table_name=#{tableName} and data_type != 'RAW'
+	</select>
+</mapper>

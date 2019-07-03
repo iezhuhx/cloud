@@ -1,0 +1,5 @@
+--查询表信息
+select table_name tableName,t.tablespace_name engine,t.last_analyzed createTime from user_tables t;
+--查询所有的字段名以**行**的形式输出
+select wm_concat(column_name) from user_tab_cols where table_name='TB_ARTICLE';
+--查询表列信息

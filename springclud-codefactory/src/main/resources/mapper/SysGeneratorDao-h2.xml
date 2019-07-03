@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.dao.SysGeneratorDao">
+	<select id="queryList" resultType="map">
+		SELECT table_name as "tableName",table_catalog as "engine",'默认注释' as "tableComment",sysdate as "createTime"  FROM INFORMATION_SCHEMA.TABLES where 1=1
+		<if test="tableName != null and tableName.trim() != ''">
+			and table_name like  '%'||upper(#{tableName})||'%'
+		</if>
+		order by table_name asc
+		<if test="offset != null and limit != null">
+			limit #{offset},#{limit}
+		</if>
+
+	</select>
+
+	<select id="queryTotal" resultType="int">
+		select count(1) from INFORMATION_SCHEMA.TABLES t  WHERE 1=1
+		<if test="tableName != null and tableName.trim() != ''">
+			and table_name like '%'||upper(#{tableName})||'%'
+		</if>
+	</select>
+
+	<select id="queryTable" resultType="map">
+		SELECT table_name as "tableName",table_catalog as "engine",'默认注释' as "tableComment",sysdate as "createTime"  FROM INFORMATION_SCHEMA.TABLES  where table_name = #{tableName}
+	</select>
+
+	<select id="queryColumns" resultType="map">
+		SELECT column_name as "columnName", type_name as "dataType",'默认注释' as columnComment, '' as "columnKey", '' as "extra"  FROM INFORMATION_SCHEMA.COLUMNS
+		where table_name=#{tableName}
+	</select>
+</mapper>

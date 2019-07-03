@@ -22,6 +22,7 @@ import io.renren.utils.Query;
 import io.renren.utils.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.core.env.Environment;
 
 /**
  * 代码生成器
@@ -34,8 +35,12 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/sys/generator")
 @Api
 public class SysGeneratorController {
+	
 	@Autowired
 	private SysGeneratorService sysGeneratorService;
+	
+	@Autowired
+	private Environment env;
 	
 	
 	@ResponseBody
@@ -78,12 +83,13 @@ public class SysGeneratorController {
 	@GetMapping("/list")
 	public R list(@RequestParam Map<String, Object> params){
 		//查询列表数据
-		Query query = new Query(params);
+		Query query = new Query(params);//mysql h2
+		if("oracle".equals(env.getProperty("database.type"))){
+			query = new Query(params,"oracle");
+		}
 		List<Map<String, Object>> list = sysGeneratorService.queryList(query);
 		int total = sysGeneratorService.queryTotal(query);
-		
-		PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());
-		
+		PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());		
 		return R.ok().put("page", pageUtil);
 	}
 
