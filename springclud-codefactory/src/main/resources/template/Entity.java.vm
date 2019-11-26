@@ -1,5 +1,5 @@
-package ${package}.${moduleName}.entity;
-
+package ${package}.*.entity;
+import java.util.Date;
 import java.io.Serializable;
 import com.kiiik.pub.mybatis.annotation.DBEntity;
 import com.kiiik.pub.mybatis.annotation.DBColumn;
@@ -23,13 +23,13 @@ public class ${className}Entity implements Serializable {
 	@KeyColumn(useGeneratedKeys=true)
 	@DBColumn(value = "id",insertIfNull="default")
 	@ApiModelProperty(value="主键")
-	private Integer id;
+	private Long id;
 	
 #foreach ($column in $columns)
 	#if($column.columnName != $pk.columnName)
 	
 	@DBColumn("$column.columnName")
-	@ApiModelProperty(value=$column.comments)
+	@ApiModelProperty(value="")
 	private $column.attrType $column.attrname;
 	
 	#end

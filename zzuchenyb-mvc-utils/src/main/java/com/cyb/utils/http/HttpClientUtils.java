@@ -2,6 +2,7 @@ package com.cyb.utils.http;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +55,8 @@ public class HttpClientUtils {
 	 * @param formParams
 	 * @return
 	 */
-	public static String doPost(String url, Map<String, String> formParams) {
-		init();		
+	public static String doPost(String url,Map<String, String> formParams) {
+		/*init();
 		if (CollectionUtils.isEmpty(formParams)) { return doPost(url); }
 		try {
 			MultiValueMap<String, String> requestEntity 
@@ -65,10 +66,23 @@ public class HttpClientUtils {
 			}
 			return restTemplate.postForObject(url, requestEntity, String.class);
 		} catch (Exception e) {
+		}*/
+		MultiValueMap<String, String> requestEntity
+				= new LinkedMultiValueMap<>();
+		for(String key:formParams.keySet()){
+			requestEntity.add(key, formParams.get(key).toString());
+		}
+		return doPostObject(url,requestEntity);
+	}
+	public static String doPostObject(String url, MultiValueMap<String, String> requestEntity) {
+		init();
+		if (CollectionUtils.isEmpty(requestEntity)) { return doPost(url); }
+		try {
+			return restTemplate.postForObject(url, requestEntity, String.class);
+		} catch (Exception e) {
 		}
 		return "";
 	}
-
 	/**
 	 * post请求
 	 * 

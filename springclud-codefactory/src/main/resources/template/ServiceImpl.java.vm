@@ -1,13 +1,13 @@
-package ${package}.${moduleName}.service.impl;
+package ${package}.*.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.kiiik.pub.bean.ResultBean;
+import com.kiiik.pub.bean.R;
 import com.kiiik.pub.service.BaseService;
 import com.kiiik.pub.mybatis.dao.GenericDao;
-import ${package}.${moduleName}.dao.${className}Dao;
-import ${package}.${moduleName}.entity.${className}Entity;
-import ${package}.${moduleName}.service.${className}Service;
+import ${package}.*.dao.${className}Mapper;
+import ${package}.*.entity.${className}Entity;
+import ${package}.*.service.${className}Service;
 
 /**
  * 业务处理层<br>
@@ -17,11 +17,11 @@ import ${package}.${moduleName}.service.${className}Service;
  * 日期: ${datetime}<br>
  */
 @Service
-public class ${className}ServiceImpl extend BaseService  implements ${className}Service {
+public class ${className}ServiceImpl extends BaseService  implements ${className}Service {
 	
 	//当前业务数据库服务接口
 	@Autowired
-	${className}Dao  ${classname}Dao;
+	${className}Mapper  ${classname}Mapper;
 	
     /**
 	 * 
@@ -32,18 +32,18 @@ public class ${className}ServiceImpl extend BaseService  implements ${className}
 	 *@return
 	 */
 	 @SuppressWarnings("unchecked")
-	 public ResultBean<String> add${className}Entity(${className}Entity entity){
+	 public R<String> add${className}Entity(${className}Entity entity){
 	 	//去重逻辑 需要重写
 	 	${className}Entity tmp = new ${className}Entity();
 	 	tmp.setId(entity.getId());
 	 	if(!CollectionUtils.isEmpty(genericDao.queryDBEntityList(tmp))){
-			 return new ResultBean<String>().fail("***["+entity.getId()+"]已经存在!");
+			 return new R<String>().fail("***["+entity.getId()+"]已经存在!");
 		}
 	 	int count = genericDao.insertDBEntity(entity);
 		if(count==0){
-			return new ResultBean<String>().success("新增记录失败!");
+			return new R<String>().success("新增记录失败!");
 		}else{
-			return new ResultBean<String>().success("新增记录成功!");
+			return new R<String>().success("新增记录成功!");
 		}
 	 }
 	 
@@ -56,7 +56,7 @@ public class ${className}ServiceImpl extend BaseService  implements ${className}
 	 *@return
 	 */
 	 @SuppressWarnings("unchecked")
-	 public ResultBean<String> upd${className}Entity(${className}Entity entity){
+	 public R<String> upd${className}Entity(${className}Entity entity){
 	 	//去重逻辑 需要重写
 	 	${className}Entity tmp = null;
 		//校验名称是否重复
@@ -65,13 +65,13 @@ public class ${className}ServiceImpl extend BaseService  implements ${className}
 					.and()
 					.col("anyColName").eq(entity.getId()));
 		if(tmp!=null){
-			return new ResultBean<String>().fail("***["+entity.getId()+"]已经存在!");
+			return new R<String>().fail("***["+entity.getId()+"]已经存在!");
 		}
 	 	int count = genericDao.updateDBEntityByKey(entity);
 		if(count==0){
-			return new ResultBean<String>().success("更新记录失败!");
+			return new R<String>().success("更新记录失败!");
 		}else{
-			return new ResultBean<String>().success("更新记录成功!");
+			return new R<String>().success("更新记录成功!");
 		}
 	 }
 	 
@@ -84,15 +84,19 @@ public class ${className}ServiceImpl extend BaseService  implements ${className}
 	 *@return
 	 */
 	 @SuppressWarnings("unchecked")
-	 public ResultBean<String> del${className}Entity(Integer id){
+	 public R<String> del${className}Entity(Long id){
 	    ${className}Entity entity = new ${className}Entity();
 		entity.setId(id);
 		int count = genericDao.deleteDBEntityByKey(entity);
 		if(count==0){
-			return new ResultBean<String>().success("删除记录失败!");
+			return new R<String>().success("删除记录失败!");
 		}else{
-			return new ResultBean<String>().success("删除记录成功!");
+			return new R<String>().success("删除记录成功!");
 		}
 	 }
- 
+    @Override
+    public R<String> delTbAgentContractProcEntity(Long id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -95,8 +95,8 @@ public class InputClient {
         }
     }
     public static void main(String[] args) {
-        connect("192.168.16.211", 9000);
-        //sendTCP("Hi");
+        //connect("localhost", 9000);
+        sendTCP("Hi");
     /*try {
         //1.建立客户端socket连接，指定服务器位置及端口
         Socket socket =new Socket("localhost",9000);

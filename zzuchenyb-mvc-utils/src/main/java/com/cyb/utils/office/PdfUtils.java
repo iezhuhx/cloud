@@ -30,7 +30,7 @@ public class PdfUtils {
     @SuppressWarnings("unchecked")
 	public static void pdfout(Map<String,Object> o) {
         // 模板路径  
-        String templatePath = "d:/data/doc/mytest.pdf";R X;
+        String templatePath = "d:/data/doc/mytest.pdf";
         // 生成的新文件路径  
         String newPDFPath = "d:/data/doc/testout1.pdf";
 

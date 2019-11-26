@@ -37,6 +37,7 @@ public class EnvUtils implements ApplicationContextAware {
 	 * org.springframework.context.ApplicationContextAware#setApplicationContext
 	 * (org.springframework.context.ApplicationContext)
 	 */
+
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.context = applicationContext;
 	}

@@ -158,8 +158,8 @@ public class Pagination implements Serializable{
     }
 
     public static void main(String[] args) throws InvocationTargetException {
-        int pageSize = 16;
-        int total = 291;
+        int pageSize = 30;
+        int total = 150;
     	Pagination p = new Pagination(1,pageSize,total);
     	//不到一页 pagesize=total 否则等于固定页数
     	//边界值 如果最后一页一条数据

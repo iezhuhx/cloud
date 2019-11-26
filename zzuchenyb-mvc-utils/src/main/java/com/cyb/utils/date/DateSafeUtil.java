@@ -69,7 +69,7 @@ public class DateSafeUtil {
 		return date2long8(new Date());
 	}
 	public static Long date2long14(Date date) {
-		formattor.set(new SimpleDateFormat("yyyyMMdd"));
+		formattor.set(new SimpleDateFormat("yyyyMMddHHmmss"));
 		String dateString = formattor.get().format(date);
 		Long time =  Long.valueOf(dateString);
 		formattor.remove();

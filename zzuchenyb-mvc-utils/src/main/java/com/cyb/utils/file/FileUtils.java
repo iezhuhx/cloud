@@ -522,6 +522,9 @@ public class FileUtils {
 		}
 		return content;
 	}
+	public static String readContentFromFile(File file) throws IOException {
+		return readContentFromFile(file.getAbsolutePath());
+	}
 
 	public static List<String> readContentFromCurClsDirList(Class<?> clazz, String name) throws IOException {
 		InputStream in = clazz.getResourceAsStream(name);
@@ -1064,4 +1067,19 @@ public class FileUtils {
 		return new ClassPathResource(fileName).getFile();
 	}
 	
+	/**
+	 * 
+	 * @param dir 自定目录
+	 * @param res 返回结果
+	 * @return
+	 * @throws IOException 
+	 */
+	public List<String> regexFileByDir(String dir,List<String> res) throws IOException{
+		//获取dir下的所有文件
+		List<File> files = getDirFiles(dir);
+		for(File f:files){
+			String content = readContentFromFile(f);
+	    }
+		return null;
+	}
 }

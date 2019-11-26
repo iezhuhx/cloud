@@ -1,4 +1,4 @@
-package ${package}.${moduleName}.dao;
+package ${package}.*.dao;
 import org.springframework.stereotype.Repository;
 /**
  * 数据库访问层<br>
@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
  * 日期: ${datetime}<br>
  */
 @Repository
-public class ${className}Dao {
+public class ${className}Mapper {
 	
 }

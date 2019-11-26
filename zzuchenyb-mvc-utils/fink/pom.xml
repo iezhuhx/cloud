@@ -31,10 +31,20 @@
         <artifactId>flink-connector-wikiedits_2.11</artifactId>
         <version>1.7.1</version>
     </dependency>
-    <dependency>
+   <!--<dependency>
         <groupId>org.apache.flink</groupId>
         <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
         <version>1.7.1</version>
+    </dependency>-->
+    <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-kafka-0.8_2.11</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.cyb</groupId>
+        <artifactId>mvc40</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </dependency>
 </dependencies>
     <build>
