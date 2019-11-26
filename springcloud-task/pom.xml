@@ -181,7 +181,7 @@
 		<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
-         	<version>1.4.5.RELEASE</version>
+         	<version>1.4.7.RELEASE</version>
         </dependency>
 		<!-- config -->
 	</dependencies>
