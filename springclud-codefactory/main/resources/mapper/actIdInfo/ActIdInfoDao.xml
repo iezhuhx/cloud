@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kiiik.web.actIdInfo.dao.ActIdInfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kiiik.web.actIdInfo.entity.ActIdInfoEntity" id="actIdInfoMap">
+        <result property="id" column="ID_"/>
+        <result property="rev" column="REV_"/>
+        <result property="userId" column="USER_ID_"/>
+        <result property="type" column="TYPE_"/>
+        <result property="key" column="KEY_"/>
+        <result property="value" column="VALUE_"/>
+        <result property="password" column="PASSWORD_"/>
+        <result property="parentId" column="PARENT_ID_"/>
+    </resultMap>
+
+
+</mapper>

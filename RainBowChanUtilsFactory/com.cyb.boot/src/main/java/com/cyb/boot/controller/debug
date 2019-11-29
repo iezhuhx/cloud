@@ -1,0 +1,13 @@
+java -jar -Dserver.port=8080 -Xdebug -Xrunjdwp:transport=dt_socket,suspend=n,server=y,address=9999 com.cyb.boot.jar
+端口号必须写在*.jar之前。
+2019-06-05 08:48:57.976  INFO 21220 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+[tomcat@localhost debug]$ java -jar -Dserver.port=8100 -Xdebug -Xrunjdwp:transport=dt_socket,suspend=n,server=y,address=9999 com.cyb.boot.jar
+Listening for transport dt_socket at address: 9999
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.4.RELEASE)
