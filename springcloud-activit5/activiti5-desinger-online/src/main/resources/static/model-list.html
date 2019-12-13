@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>模型管理</title>
+</head>
+<body>
+<div id="top">
+</div>
+<h2>模型列表</h2>
+<hr>
+<a href="javascript: AJAX.POST('/models/newModel')">绘制模型</a>
+<table border="1" id="model-list">
+    <tr>
+        <td>模型编号</td>
+        <td>模型名称</td>
+        <td>版本</td>
+        <td>创建时间</td>
+        <td>操作</td>
+    </tr>
+    <script id="models" type="text/html">
+        <tr>
+            <td>模型编号</td>
+            <td>模型名称</td>
+            <td>版本</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        {{each rows.list}}
+        <tr>
+            <td>{{$value.id}}</td>
+            <td>{{$value.name}}</td>
+            <td>{{$value.version}}</td>
+            <td>{{$value.createTime}}</td>
+            <td>
+                <a href="/editor?modelId={{$value.id}}">编辑</a>
+             <a href="javascript: AJAX.DELETE('/models/{{$value.id}}')">删除</a>
+             <a href="javascript: AJAX.POST('/models/{{$value.id}}/deployment')">发布</a>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+</table>
+
+<hr>
+<h2>流程列表</h2>
+<hr>
+<table border="1" id="process-list">
+    <tr>
+        <td>ID</td>
+        <td>流程定义KEY</td>
+        <td>版本</td>
+        <td>部署ID</td>
+        <td>资源名称</td>
+        <td>流程图名称</td>
+        <td>描述</td>
+        <td>操作</td>
+    </tr>
+    <script id="processs" type="text/html">
+        <tr>
+            <td>ID</td>
+            <td>流程定义KEY</td>
+            <td>版本</td>
+            <td>部署ID</td>
+            <td>资源名称</td>
+            <td>流程图名称</td>
+            <td>描述</td>
+            <td>操作</td>
+        </tr>
+        {{each rows.list}}
+        <tr>
+            <td>{{$value.id}}</td>
+            <td>{{$value.key}}</td>
+            <td>{{$value.version}}</td>
+            <td>{{$value.deploymentId}}</td>
+            <td><a target="_blank" href="/process/show?did={{$value.deploymentId}}&ext=.bpmn">{{$value.resourceName}}</a></td>
+            <td><a target="_blank" href="/process/show?did={{$value.deploymentId}}&ext=.png">{{$value.dgrmResourceName}}</a></td>
+            <td>{{$value.description}}</td>
+            <td>
+                <a href="javascript: AJAX.DELETE('/deployments/{{$value.deploymentId}}')">删除</a>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+</table>
+
+
+<!--<hr>
+<h2>执行列表</h2>
+<hr>
+<table border="1" id="run-process-list">
+    <tr>
+        <td>执行ID</td>
+        <td>流程实例ID</td>
+        <td>流程定义ID</td>
+        <td>当前节点定义KEY</td>
+        <td>tenantId</td>
+        <td>操作</td>
+    </tr>
+    <script id="run-process" type="text/html">
+        <tr>
+            <td>执行ID</td>
+            <td>流程实例ID</td>
+            <td>上一执行ID</td>
+            <td>当前节点定义KEY</td>
+            <td>tenantId</td>
+            <td>操作</td>
+        </tr>
+        {{each rows.list}}
+        <tr>
+            <td>{{$value.id}}</td>
+            <td>{{$value.procInstId}}</td>
+            <td>{{$value.parentId}}</td>
+            <td>{{$value.actId}}</td>
+            <td>{{$value.tenantId}}</td>
+            <td>
+                <c:if test="{{$value.suspended}}">
+                    <a href="javascript: AJAX.GET('runs/update/active/{{$value.procInstId}}')">激活</a>
+                </c:if>
+                <c:if test="{{!$value.suspended}}">
+                    <a href="javascript: AJAX.GET('runs/update/suspend/{{$value.procInstId}}')">挂起</a>
+                </c:if>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+</table>-->
+
+<hr>
+<h2>节点列表</h2>
+<hr>
+<table border="1" id="task-list">
+    <tr>
+        <td>ID</td>
+        <td>执行ID</td>
+        <td>流程实例ID</td>
+        <td>流程定义ID</td>
+        <td>节点名称</td>
+        <td>父节点ID</td>
+        <td>描述</td>
+        <td>节点定义KEY</td>
+        <td>实际签收人</td>
+        <td>签收人或委托人</td>
+        <td>委托类型</td>
+        <td>优先级别</td>
+        <td>创建时间</td>
+        <td>过期时间</td>
+    </tr>
+    <script id="tasks" type="text/html">
+        <tr>
+            <td>ID</td>
+            <td>执行ID</td>
+            <td>流程实例ID</td>
+            <td>流程定义ID</td>
+            <td>节点名称</td>
+            <td>父节点ID</td>
+            <td>描述</td>
+            <td>节点定义KEY</td>
+            <td>实际签收人</td>
+            <td>签收人或委托人</td>
+            <td>委托类型</td>
+            <td>优先级别</td>
+            <td>创建时间</td>
+            <td>过期时间</td>
+        </tr>
+        {{each rows.list}}
+        <tr>
+            <td>{{$value.id}}</td>
+            <td>{{$value.executionId}}</td>
+            <td>{{$value.procInstId}}</td>
+            <td>{{$value.procDefId}}</td>
+            <td>{{$value.name}}</td>
+            <td>{{$value.parentTaskId}}</td>
+            <td>{{$value.description}}</td>
+            <td>{{$value.taskDefKey}}</td>
+            <td>{{$value.owner}}</td>
+            <td>{{$value.assignee}}</td>
+            <td>{{$value.delegation}}</td>
+            <td>{{$value.priority}}</td>
+            <td>{{$value.createTime}}</td>
+            <td>{{$value.dueDate}}</td>
+        </tr>
+        {{/each}}
+    </script>
+</table>
+
+<script src="/lib/js/jquery-1.10.2.min.js"></script>
+<script src="/lib/js/jquery.cookie.js"></script>
+<script src="/js/ajax-util.js"></script>
+<script src="/lib/js/template.js"></script>
+
+<script>
+$(function() {
+    AJAX.GET("/models", null
+            , function (result) {
+                var html = template("models", result);
+                $("#model-list").html(html);
+            });
+
+    /*AJAX.GET("/deployments", null
+            , function (result) {
+                var html = template("deployments", result);
+                $("#deployment-list").html(html);
+            });*/
+    AJAX.GET("/prof", null
+        , function (result) {
+            var html = template("processs", result);
+            $("#process-list").html(html);
+        });
+    AJAX.GET("/runs", null
+        , function (result) {
+            var html = template("run-process", result);
+            $("#run-process-list").html(html);
+        });
+
+    AJAX.GET("/runs/tasks", null
+        , function (result) {
+            var html = template("tasks", result);
+            $("#task-list").html(html);
+        });
+})
+
+    function selectsTasks(attr) {
+
+    }
+</script>
+</body>
+</html>

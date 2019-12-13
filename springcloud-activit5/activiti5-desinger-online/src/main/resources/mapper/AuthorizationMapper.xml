@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.dao.AuthorizationMapper">
+
+    <select id="selectRoleIdsByUserId" resultType="java.lang.String">
+        select WW_JS_BM from t_xtsz_yhjs where WW_YH_BM= #{userId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
