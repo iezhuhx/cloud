@@ -47,7 +47,27 @@ public class BmsDataCheckWorker {
 	
 	public static void main(String[] args) throws Exception {
 		//start();
-		execTask();
+		//execTask();
+		checkTradeStatics();
+	}
+	
+	public static void checkTradeStatics() throws Exception {
+		登录();
+		//判断当前月份1号开始，查询数据是否存在。
+		Date first = DateUnsafeUtil.firstDayOfCurMoth();
+		Long cur =null;
+		for(int i=0 ;i<=30;i++){
+			try{
+				cur = DateUnsafeUtil.date2long8(DateUnsafeUtil.nextSomeDay(first, i));
+				if(DateUnsafeUtil.isWeekend(DateUnsafeUtil.nextSomeDay(first, i))){
+					System.out.println(cur+"休息！");
+				}else{
+				    交易客户端数据(cur.toString());
+				}
+			}catch(Exception e){
+				System.out.println(cur+"无数据！");
+			}
+		}
 	}
 	
 	public static void start() throws ClassNotFoundException, SchedulerException{
@@ -74,14 +94,14 @@ public class BmsDataCheckWorker {
 			if(SendLogService.queryLog()>0) return ;
 			QQServerInfor qqServer = new QQServerInfor();
 			EmailInformation email = null;
-			email = new EmailInformation
+			/*email = new EmailInformation
 					.Builder()
 					.from(qqServer.getAccount()+"@qq.com")
 					.to(qqServer.getDefaultTO())
 					.emailContent(result.toString())
 					.subject("BMSCTP数据导入监控程序提示！")
 					.date(DateUnsafeUtil.date2long8().toString()).build();
-			MailUtils.sendEmail(email);
+			MailUtils.sendEmail(email);*/
 		}
 		//持仓排名(lastDay);
 	}
@@ -186,7 +206,7 @@ public class BmsDataCheckWorker {
 			//会话保持
 			String lastDayAAA = DateUnsafeUtil.format(lastDay, "yyyy-MM-dd");
 			String url = ELUtils.el(交易客户端, RMap.build().put("start", lastDayAAA).put("end", lastDayAAA));
-			System.out.println(url);
+			//System.out.println(url);
 			Connection conSearch = Jsoup.connect(url);
 			setCookie(conSearch);
 			Document doc = conSearch.get();
@@ -202,7 +222,7 @@ public class BmsDataCheckWorker {
 				result.add(year + "->交易客户端异常！");
 			}
 		}catch (Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			result.add(lastDay + "->交易客户端异常！");
 		}
 	}
