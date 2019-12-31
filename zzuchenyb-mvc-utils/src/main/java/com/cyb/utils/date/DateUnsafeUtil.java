@@ -1,6 +1,7 @@
 package com.cyb.utils.date;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +11,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+
+import org.springframework.util.StringUtils;
 
 import com.cyb.app.holiday.Holiday;
 import com.cyb.app.holiday.HolidayH2DbUtils;
@@ -315,6 +318,45 @@ public class DateUnsafeUtil {
 		c.add(Calendar.DAY_OF_MONTH, i);
 		return c.getTime();
 	}
+	
+	public static Date firstDayOfCurMoth(){
+		Calendar cale = Calendar.getInstance();  
+        cale.add(Calendar.MONTH, 0);  
+        cale.set(Calendar.DAY_OF_MONTH, 1);  
+        return cale.getTime();
+	}
+	public static boolean isWeekend(Date bDate) throws ParseException {
+       // DateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
+        //Date bdate = format1.parse(bDate);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(bDate);
+        if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY 
+        		|| cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+            return true;
+        } else{
+            return false;
+        }
+ 
+ }
+	public static Date lastDayOfCurMoth(){
+		Calendar cale = Calendar.getInstance();  
+        cale.add(Calendar.MONTH, 1);  
+        cale.set(Calendar.DAY_OF_MONTH, 0);  
+        return cale.getTime();
+	}
+	
+	static SimpleDateFormat yyymmdd = new SimpleDateFormat("yyyy-MM-dd"); 
+	public static String firstDayOfCurMoth(String yyyymmdd){
+		Date date = firstDayOfCurMoth();
+		return yyymmdd.format(date);
+	}
+	
+	public static String lastDayOfCurMoth(String yyyymmdd){
+		Date date = lastDayOfCurMoth();
+		return yyymmdd.format(date);
+	}
+	
+	
 
 	public static String str8to10(String yyyymmdd, String split) {
 		return yyyymmdd.substring(0, 4) + split + yyyymmdd.substring(4, 6) + split + yyyymmdd.substring(6, 8);

@@ -836,8 +836,8 @@ public class FileUtils {
 	 * @return 文件内容
 	 * @throws IOException
 	 */
-	public static String read(String fileName) throws IOException {
-		File f = new File(fileName);
+	public static String read(String filePath) throws IOException {
+		File f = new File(filePath);
 		FileInputStream fs = new FileInputStream(f);
 		String result = null;
 		byte[] b = new byte[fs.available()];
@@ -857,9 +857,9 @@ public class FileUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static boolean write(String fileName, String fileContent) throws IOException {
+	public static boolean write(String filePath, String fileContent) throws IOException {
 		boolean result = false;
-		File f = new File(fileName);
+		File f = new File(filePath);
 		FileOutputStream fs = new FileOutputStream(f);
 		byte[] b = fileContent.getBytes();
 		fs.write(b);
@@ -877,9 +877,9 @@ public class FileUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static boolean append(String fileName, String fileContent) throws IOException {
+	public static boolean append(String filePath, String fileContent) throws IOException {
 		boolean result = false;
-		File f = new File(fileName);
+		File f = new File(filePath);
 		if (f.exists()) {
 			RandomAccessFile rFile = new RandomAccessFile(f, "rw");
 			byte[] b = fileContent.getBytes();

@@ -10,6 +10,7 @@ import org.quartz.SchedulerException;
 import com.cyb.app.bms.BMSJob;
 import com.cyb.app.csdn.CsdnJob;
 import com.cyb.app.holiday.HolidayJob;
+import com.cyb.app.sina.SinaJob;
 import com.cyb.app.stock.StockJob;
 import com.cyb.utils.random.RandomUtils;
 
@@ -27,10 +28,11 @@ public class GlobalTaskWindow {
 	
 	static void init()  {
 		tasks = new ArrayList<>();
-		tasks.add(new Task(BMSJob.class,true,cron));
+		tasks.add(new Task(BMSJob.class,false,cron));
 		tasks.add(new Task(CsdnJob.class,false,cron));
 		tasks.add(new Task(StockJob.class,false,cron));
 		tasks.add(new Task(HolidayJob.class,false,cron));
+		tasks.add(new Task(SinaJob.class,true,cron));
 	}
 	public static void main(String[] args) throws SchedulerException {
 		init();

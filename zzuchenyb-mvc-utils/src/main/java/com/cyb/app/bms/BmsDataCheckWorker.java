@@ -56,16 +56,21 @@ public class BmsDataCheckWorker {
 		//判断当前月份1号开始，查询数据是否存在。
 		Date first = DateUnsafeUtil.firstDayOfCurMoth();
 		Long cur =null;
+		int count=0;
 		for(int i=0 ;i<=30;i++){
 			try{
 				cur = DateUnsafeUtil.date2long8(DateUnsafeUtil.nextSomeDay(first, i));
+				if(cur.toString().equals(DateUnsafeUtil.date2long8().toString())){
+					break;
+					}
 				if(DateUnsafeUtil.isWeekend(DateUnsafeUtil.nextSomeDay(first, i))){
 					System.out.println(cur+"休息！");
 				}else{
 				    交易客户端数据(cur.toString());
 				}
 			}catch(Exception e){
-				System.out.println(cur+"无数据！");
+				count++;
+				System.out.println("***"+cur+"***无数据！累计天数="+count);
 			}
 		}
 	}
