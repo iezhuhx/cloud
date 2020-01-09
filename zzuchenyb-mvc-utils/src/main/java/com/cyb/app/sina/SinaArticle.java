@@ -17,6 +17,7 @@ public class SinaArticle {
   public static void main(String[] args) {
 	  List<String> list = FileUtils.readFileToList(fileListPath);
 	  for(String u:list){
+		  System.out.println(u);
 		  HttpClientUtils.doGet(u);
 	  }
   }

@@ -1,0 +1,40 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 155 ciObject found
+ciMethod java/lang/Object <init> ()V 4097 1 26681 0 0
+ciMethod java/lang/String <init> ([CZ)V 2065 1 2572 0 0
+ciMethod java/lang/String length ()I 4097 1 45819 0 64
+ciMethod java/lang/String charAt (I)C 4097 1 207612 0 160
+ciMethod java/lang/String substring (II)Ljava/lang/String; 3913 1 3385 0 -1
+ciMethod java/lang/System arraycopy (Ljava/lang/Object;ILjava/lang/Object;II)V 23553 1 2944 0 -1
+ciMethod java/lang/StringBuffer <init> (I)V 1201 1 636 0 0
+ciMethod java/lang/StringBuffer length ()I 33 1 4 0 0
+ciMethod java/lang/StringBuffer charAt (I)C 0 0 1 0 0
+ciMethod java/lang/StringBuffer append (Ljava/lang/String;)Ljava/lang/StringBuffer; 1033 1 930 0 -1
+ciMethod java/lang/StringBuffer append (C)Ljava/lang/StringBuffer; 3769 1 22382 0 1440
+ciMethod java/lang/StringBuffer toString ()Ljava/lang/String; 1217 1 1055 0 0
+ciMethod java/lang/AbstractStringBuilder <init> (I)V 2841 1 3051 0 0
+ciMethod java/lang/AbstractStringBuilder ensureCapacityInternal (I)V 4097 1 30968 0 672
+ciMethod java/lang/AbstractStringBuilder newCapacity (I)I 3969 1 3168 0 0
+ciMethod java/lang/AbstractStringBuilder hugeCapacity (I)I 0 0 1 0 -1
+ciMethod java/lang/AbstractStringBuilder append (C)Ljava/lang/AbstractStringBuilder; 2465 1 24881 0 0
+ciMethod java/lang/StringBuilder <init> ()V 2833 1 1864 0 -1
+ciMethod java/lang/StringBuilder append (Ljava/lang/String;)Ljava/lang/StringBuilder; 4097 1 4631 0 -1
+ciMethod java/lang/StringBuilder append (I)Ljava/lang/StringBuilder; 0 0 117 0 -1
+ciMethod java/lang/StringBuilder toString ()Ljava/lang/String; 2833 1 1993 0 -1
+ciMethod java/lang/Math min (II)I 4097 1 24625 0 -1
+ciMethod java/util/Arrays copyOf ([CI)[C 4097 1 4021 0 0
+ciMethod java/util/Arrays copyOfRange ([CII)[C 4097 1 8362 0 512
+ciMethodData java/lang/String charAt (I)C 2 207620 orig 264 104 147 8 8 0 0 0 0 104 61 25 4 0 0 0 0 120 1 0 0 32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 33 72 25 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 80 0 0 0 255 255 255 255 7 0 1 0 0 0 0 0 data 10 0x10007 0x0 0x40 0x32904 0xa0007 0x32904 0x30 0x0 0x120002 0x0 oops 0
+ciMethodData java/lang/String length ()I 2 45828 orig 264 104 147 8 8 0 0 0 0 24 60 25 4 0 0 0 0 32 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 33 136 5 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 255 255 255 0 0 0 0 0 0 0 0 data 0 oops 0
+ciMethodData java/lang/Object <init> ()V 2 26681 orig 264 104 147 8 8 0 0 0 0 128 4 25 4 0 0 0 0 32 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 201 49 3 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 3 0 1 0 0 0 0 0 0 0 255 255 255 255 0 0 0 0 0 0 0 0 data 0 oops 0
+ciMethod java/io/WinNTFileSystem isSlash (C)Z 3713 1 23615 0 64
+ciMethod java/io/WinNTFileSystem isLetter (C)Z 4097 1 1318 0 0
+ciMethod java/io/WinNTFileSystem normalize (Ljava/lang/String;)Ljava/lang/String; 1665 114689 822 0 -1
+ciMethod java/io/WinNTFileSystem normalize (Ljava/lang/String;II)Ljava/lang/String; 1 1 329 0 0
+ciMethod java/io/WinNTFileSystem normalizePrefix (Ljava/lang/String;ILjava/lang/StringBuffer;)I 849 849 329 0 0
+ciMethod java/lang/IllegalArgumentException <init> (Ljava/lang/String;)V 0 0 2 0 -1
+ciMethodData java/util/Arrays copyOfRange ([CII)[C 2 8362 orig 264 104 147 8 8 0 0 0 0 232 159 42 4 0 0 0 0 120 2 0 0 240 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 81 245 0 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 9 0 2 0 0 0 32 1 0 0 255 255 255 255 7 0 5 0 0 0 0 0 data 36 0x50007 0x1eaa 0x100 0x0 0x100002 0x0 0x140005 0x0 0x0 0x0 0x0 0x0 0x190005 0x0 0x0 0x0 0x0 0x0 0x1d0005 0x0 0x0 0x0 0x0 0x0 0x200005 0x0 0x0 0x0 0x0 0x0 0x230002 0x0 0x360002 0x1eaa 0x390002 0x1eaa oops 0
+ciMethodData java/lang/AbstractStringBuilder ensureCapacityInternal (I)V 2 30968 orig 264 104 147 8 8 0 0 0 0 16 74 32 4 0 0 0 0 144 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 193 183 3 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 11 0 2 0 0 0 64 0 0 0 255 255 255 255 7 0 7 0 0 0 0 0 data 8 0x70007 0x6bc3 0x40 0xb35 0x110002 0xb35 0x140002 0xb35 oops 0
+ciMethodData java/io/WinNTFileSystem normalize (Ljava/lang/String;)Ljava/lang/String; 2 30743 orig 264 104 147 8 8 0 0 0 0 24 210 48 4 0 0 0 0 64 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 56 0 0 49 19 0 0 185 0 2 0 0 0 0 0 0 0 0 0 2 0 0 0 1 0 31 0 2 0 0 0 240 1 0 0 255 255 255 255 5 0 1 0 0 0 0 0 data 62 0x10005 0x59 0x4a6c650 0x20d 0x0 0x0 0x190007 0x11d 0x190 0x4140 0x1f0005 0x2020 0x4a6c650 0x2120 0x0 0x0 0x280007 0x40cc 0x68 0x74 0x310007 0x74 0x38 0x0 0x380003 0x0 0x18 0x3d0002 0x74 0x440007 0x3a9b 0x70 0x631 0x4a0007 0x631 0x50 0x0 0x500007 0x0 0x30 0x0 0x5a0002 0x0 0x620007 0x3f99 0x50 0x133 0x680007 0x5e 0x30 0xd5 0x6f0002 0xd5 0x7a0003 0x3ff7 0xfffffffffffffe88 0x800007 0x11d 0x30 0x0 0x890002 0x0 oops 2
