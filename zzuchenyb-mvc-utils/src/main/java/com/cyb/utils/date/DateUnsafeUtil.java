@@ -1,7 +1,6 @@
 package com.cyb.utils.date;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,8 +10,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-
-import org.springframework.util.StringUtils;
 
 import com.cyb.app.holiday.Holiday;
 import com.cyb.app.holiday.HolidayH2DbUtils;
@@ -41,7 +38,7 @@ public class DateUnsafeUtil {
 		String dateString = formatter.format(date);
 		return dateString;
 	}
-
+    //date=yyyymmddhhmmss
 	public static String format(String date, String model) {
 		formatter = new SimpleDateFormat(model);
 		String dateString = formatter.format(calendar(date).getTime());
@@ -534,6 +531,10 @@ public class DateUnsafeUtil {
 	public static void showMonthCal() throws SQLException{
 		GregorianCalendar d = new GregorianCalendar();
 		showMonthCal(d);
+	}
+	
+	public static String curYear(){
+		return date2long14().substring(0, 4);
 	}
 	/**
 	 * 

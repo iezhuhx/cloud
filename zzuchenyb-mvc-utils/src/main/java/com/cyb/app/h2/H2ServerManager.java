@@ -18,9 +18,7 @@ public class H2ServerManager {
 	private static Server server;
 	private static Server webServer;
 	Log log = LogFactory.getLog(H2ServerManager.class);
-	public static void start() {
-		start("8043");
-	}
+	
 	public static void start(String port) {
         try {
             System.out.println("正在启动h2...");
@@ -45,7 +43,9 @@ public class H2ServerManager {
             throw new RuntimeException(e);
         }
     }
-
+	public static void start() {
+		start(new H2DBInfor().getDefaultPort());
+	}
     public static void stop() {
         if (server != null) {
             System.out.println("正在关闭h2...");
@@ -62,8 +62,8 @@ public class H2ServerManager {
     public static void crudTest(H2DBInfor db) {
         try {
             Class.forName("org.h2.Driver");
-            Connection conn = DriverManager
-            		.getConnection("jdbc:h2:./h2db/sxaz42b4", "sa", "sa");
+            Connection conn = null;/*DriverManager
+            		.getConnection("jdbc:h2:./h2db/sxaz42b4", "sa", "sa");*/
             conn = H2DBConnectionPool.getJDBCConnectionPool(db).getConnection();
             Statement stat = conn.createStatement();
             stat.execute("CREATE TABLE TEST(NAME VARCHAR)");
@@ -87,10 +87,15 @@ public class H2ServerManager {
     }
     public static void h2Test() {
         start();
-        for(int i=0;i<=200;i++){
-	        H2DBInfor db = new H2DBInfor(""+i,"data/aa/","test"+i);
-	        crudTest(db);
-        }
+        H2DBInfor db = new H2DBInfor();//默认嵌入式
+        crudTest(db);
+        
+        db = new H2DBInfor(H2DBInfor.Embed);
+        crudTest(db);
+        
+        db = new H2DBInfor(H2DBInfor.Server);
+        crudTest(db);
+	        
         stop();
     }
     public static void main(String[] args) {

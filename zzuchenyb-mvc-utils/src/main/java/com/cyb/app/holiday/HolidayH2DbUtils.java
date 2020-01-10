@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.h2.jdbcx.JdbcConnectionPool;
 
 import com.cyb.app.commondb.ConnectionUtils;
-import com.cyb.app.commondb.DDLUtils;
+import com.cyb.app.h2.H2Common2DbUtils;
 import com.cyb.app.h2.H2DBConnectionPool;
 import com.cyb.app.h2.H2DBInfor;
 import com.cyb.utils.date.DateSafeUtil;
@@ -32,10 +32,8 @@ public class HolidayH2DbUtils {
 	static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
 
 	public static void main(String[] args) throws SQLException, IOException {
-		createTable(tableName);
-		 insertHoliday();
-		HolidayUtils.initHoliday();
-		//showHoliday();
+		H2Common2DbUtils.createTable(tableName,HolidaySQL.createSQL);
+		insertHolidayFromFile();//初始化到内存数据库（日期已经分好）
 	}
 	public static boolean isTradeDay() throws SQLException {
 		return isTradeDay(new Date());
@@ -48,7 +46,6 @@ public class HolidayH2DbUtils {
 		Map<String, Object> param = new HashMap<>();
 		param.put("rq", DateSafeUtil.date2long8(date).toString());
 		String sql = ELUtils.el(HolidaySQL.tradeSQL, param);
-		
 		Holiday h =  dbUtil.queryForObject(sql, Holiday.class);
 		dbUtil.close();
 		return h;
@@ -58,7 +55,7 @@ public class HolidayH2DbUtils {
 		Map<String, Object> param = new HashMap<>();
 		param.put("rq", DateSafeUtil.date2long8(date).toString());
 		String sql = ELUtils.el(HolidaySQL.tradeSQL, param);
-		return HolidayUtils.HOLIDAY_GOGZUORI.equals(dbUtil.queryForMap(sql).get("type").toString());
+		return GoseekHolidayUtils.HOLIDAY_GOGZUORI.equals(dbUtil.queryForMap(sql).get("type").toString());
 	}
 	private static void showHoliday() throws SQLException {
 		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
@@ -86,8 +83,9 @@ public class HolidayH2DbUtils {
 		return dbUtil.queryForMap(sql).get("rq").toString();
 	}
 
-	public static void insertHoliday() throws SQLException {
-		List<String> rqs = FileUtils.readFileToList(HolidayUtils.rqs);
+	//从文件中读取日期数据，然后进行插入
+	public static void insertHolidayFromFile() throws SQLException {
+		List<String> rqs = FileUtils.readFileToList(HolidayUtils.getCurYearFile());
 		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
 		for (String row : rqs) {
 			Holiday holiday = new Holiday(row);
@@ -100,7 +98,7 @@ public class HolidayH2DbUtils {
 		}
 	}
 
-	private static boolean createTable(String string) throws SQLException {
+	/*public static boolean createTable(String string) throws SQLException {
 		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
 		boolean hasTable = DDLUtils.isExist(pool.getConnection(), tableName);
 		if (!hasTable) {
@@ -110,5 +108,17 @@ public class HolidayH2DbUtils {
 			System.out.println("表已经存在！");
 		}
 		return true;
-	}
+	}*/
+	
+	/*public static boolean createTable(String name,String sql) throws SQLException {
+		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
+		boolean hasTable = DDLUtils.isExist(pool.getConnection(), name);
+		if (!hasTable) {
+			System.out.println("创建表...");
+			dbUtil.update(sql);
+		} else {
+			System.out.println("表已经存在！");
+		}
+		return true;
+	}*/
 }

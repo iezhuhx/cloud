@@ -23,7 +23,7 @@ public class H2UrlStratroy implements H2DBAware{
 	}
 	
 	public  String getUrl(String prix,H2DBInfor db){
-		return embeddedPrix+db.getPath()+"/"+db.getFileName();
+		return embeddedPrix+db.getDefaultH2dbPath()+"/"+db.getDefaultDBName();
 	}
 	
 }

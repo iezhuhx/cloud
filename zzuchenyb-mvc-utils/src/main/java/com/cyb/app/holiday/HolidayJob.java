@@ -18,7 +18,7 @@ public class HolidayJob implements Job{
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		try{
 			TimeContext.recordTimeStart();
-			HolidayUtils.initHoliday();//抓取当年的节假日
+			GoseekHolidayUtils.initHoliday();//抓取当年的节假日
 			TimeContext.calExecuteTime("任务执行结束！~~~~~~~~~~~~~~~~~~~");
 		}catch(Exception e){
 			System.out.println("错误被忽略！");

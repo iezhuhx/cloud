@@ -1,102 +1,90 @@
 package com.cyb.app.holiday;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.alibaba.fastjson.JSON;
-import com.cyb.app.reptile.ProxyRandomUtils;
+import com.cyb.app.holiday.imp.GenerSqlStrategy;
+import com.cyb.app.holiday.imp.HolidayStrategy;
+import com.cyb.app.holiday.imp.KiiikWorkDayStrategy;
 import com.cyb.utils.date.DateUnsafeUtil;
 import com.cyb.utils.file.FileUtils;
-import com.cyb.utils.http.MyHttpClient;
-import com.cyb.utils.text.ELUtils;
 /**
- *作者 : iechenyb<br>
- *类描述: 说点啥<br>
- *创建时间: 2019年1月22日
+ * 根据不同的策略，生产指定区间的日历
+ * @author Administrator
+ *
  */
-/*
- * {"code":10000,"data":1}
-1、接口地址：http://api.goseek.cn/Tools/holiday?date=数字日期，支持https协议。 
-2、返回数据：工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2 
-3、节假日数据说明：本接口包含2017年起的中国法定节假日数据，数据来源国务院发布的公告，每年更新1次，确保数据最新 
-*/
 public class HolidayUtils {
-	static Log log = LogFactory.getLog(HolidayUtils.class);
-	static Map<String,String> types = new HashMap<>();
-	public static String HOLIDAY_GOGZUORI="0";//工作日
-	public static String HOLIDAY_XIUXIRI="1";//休息日
-	public static String HOLIDAY_JIEJIARI="2";//节假日
-	static{
-		types = new HashMap<>();
-		types.put(HOLIDAY_GOGZUORI, "工作日");
-		types.put(HOLIDAY_XIUXIRI, "休息日");
-		types.put(HOLIDAY_JIEJIARI, "节假日");
+	static String calTxt="D:\\data\\calendar\\rqs.txt";
+	
+	//获取以当前年份为文件名的日历文件
+	public static String getCurYearFile(){
+		return calTxt.replace("rqs", DateUnsafeUtil.curYear());
 	}
-	public static String rqs="D:\\data\\calendar\\rqs.txt";
-	static String holidayUrl = "http://api.goseek.cn/Tools/holiday?date=${date}";
-	//抓取当年的节假日2019
-	public static void main(String[] args) throws IOException {
-		//initHoliday();
-		initHoliday("20180101","20171231");
-		//System.out.println(lastTradeDay());
+	public static File file() throws IOException{
+		File file = new File(getCurYearFile());
+		if(file.exists()){
+			file.delete();
+		}
+		file.createNewFile();
+		return file;
 	}
-	public static void initHoliday() throws IOException{
-		 initHoliday(DateUnsafeUtil.curYearStartDay(),DateUnsafeUtil.curYearEndDay());
-	}
-	public static void initHoliday(String start,String end) throws IOException{
+	/**
+	 * 指定区间、指定策略的节假日获取
+	 * @param yyyyMMdd_start
+	 * @param yyyyMMdd_end
+	 * @param strategy
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<Holiday> initHoliday(
+			String yyyyMMdd_start,
+			String yyyyMMdd_end,
+			HolidayStrategy strategy) 
+					throws IOException{
+		File curYearCalFile = file();
 		//计算两个日期之间的差值
-		int days = DateUnsafeUtil.daysBetween(start, end);
-		Date startDate = DateUnsafeUtil.calendar(start).getTime();
+		int days = DateUnsafeUtil.daysBetween(yyyyMMdd_start, yyyyMMdd_end);
+		Date startDate = DateUnsafeUtil.calendar(yyyyMMdd_start).getTime();
+		List<Holiday> list = new ArrayList<Holiday>();
 		for(int i=0;i<=days;i++){
 			Date date = DateUnsafeUtil.preDate(startDate,i);
-			String req = ELUtils.el(holidayUrl, 
-					"date"
-					,DateUnsafeUtil.date2long8(date).toString());
-			String holidayData=MyHttpClient.doGet(req);
-			HolidayStatus status = JSON.parseObject(holidayData,
-					HolidayStatus.class);
-			String row = DateUnsafeUtil.date2long8(date)+","+status.getData()+"\n";
-			FileUtils.append(rqs, row);
-			//log.info(new Holiday(date, status.getData()));
-			String isMarketDay = "0";
-			if(Integer.valueOf(status.getData()).intValue()==0){
-				isMarketDay="1";
-			}
-			
-			String sql = "insert into tb_calendar(day,is_market_day) values("+DateUnsafeUtil.date2long8(date).toString()+","+isMarketDay+");";
-			System.out.println(sql);
+			String a = DateUnsafeUtil.date2long8(date).toString();
+			String type =strategy
+					.holidayType(DateUnsafeUtil.str8to10(a, "-"));
+			String row = a+","+type+"\n";
+			Holiday holiday1 = new Holiday(date,type);
+			list.add(holiday1);
+			FileUtils.append(curYearCalFile
+					.getAbsolutePath(), row);
 		}
-	}
-	public static Holiday holiday(Date date){
-		String req = ELUtils.el(holidayUrl,"date"
-				,DateUnsafeUtil.date2long8(date).toString());
-		String holidayData=MyHttpClient.doGet(req,ProxyRandomUtils.findUseableProxyRandom());
-		HolidayStatus status = JSON.parseObject(holidayData,
-				HolidayStatus.class);
-		return new Holiday(date, status.getData());
+		System.out.println(list);
+		return list;
 	}
 	
-	public static Date lastTradeDay(){
-		return lastTradeDay(new Date());	
-	}
-	public static Date lastTradeDay(Date date){
-		for(int i=1;i<=360;i++){
-			Date d = DateUnsafeUtil.preDate(-1*i);
-			if(holiday(d).getType().equals(HOLIDAY_GOGZUORI)){
-				return d;
-			}
+	public static  List<Holiday> getHolidays(){
+		List<String> rqs = FileUtils.readFileToList(HolidayUtils.getCurYearFile());
+		List<Holiday> data = new ArrayList<Holiday>();
+		for(String rq:rqs){
+			Holiday d =new Holiday(rq);
+			data.add(d);
 		}
-		return null;
+		return data;
 	}
-	public static Holiday holiday(){
-		return holiday(new Date());
+	
+	
+	//生成当年的节假日维护sql
+	public static void generSql(){
+		List<Holiday> data  = getHolidays();
+		GenerSqlStrategy sty = new KiiikWorkDayStrategy();
+		for(Holiday d:data){
+			System.out.println(sty.genSql(d));
+		}
 	}
-	public static Holiday holiday(String yyyymmdd){
-		return holiday(DateUnsafeUtil.calendar(yyyymmdd).getTime());
+	public static void main(String[] args) {
+		//System.out.println(getHolidays());
+		generSql();
 	}
 }
-

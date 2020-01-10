@@ -16,14 +16,19 @@ public class Holiday {
 		this.rq = rq;
 		this.type = type;
 	}
-	public boolean isWeekDay(){
+	public boolean isWeekDay(){//周六周日
 		return type.equals("1");
 	}
 	public boolean isTradeDay(){
-		return type.equals("0");
+		return type.equals("0");//工作日
 	}
 	public boolean isJIJIARI(){
-		return type.equals("2");
+		return type.equals("2");//节假日
+	}
+	
+	public String isKiiikTradeDay(){
+		if(isWeekDay()||isJIJIARI()){ return "1";}
+		else{ return "0";}
 	}
 	public Holiday(){};
 	Holiday(String row){
@@ -45,7 +50,7 @@ public class Holiday {
 	
 	public String toString(){
 		return DateUnsafeUtil.date2long8(rq)+"  "
-				+HolidayUtils.types.get(type)+"\t"
+				+GoseekHolidayUtils.types.get(type)+"\t"
 				+DateUnsafeUtil.getChineaseNameDayOfWeek(DateUnsafeUtil.calendar(rq));
 	}
 }
