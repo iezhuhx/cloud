@@ -13,8 +13,11 @@ public class TimorHolidayUtils {
 	//date yyyy-mm-dd
 	public static void main(String[] args) {
 		try {//20201231
-			HolidayUtils.initHoliday("20200101",
-					"20201231", new TimorHolidayStrategy());
+			// HolidayUtils.initHoliday("20200101","20201231", new TimorHolidayStrategy());
+			for(int i=2013;i>=2000;i--){
+				HolidayUtils.initHoliday(i+"",new TimorHolidayStrategy());
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

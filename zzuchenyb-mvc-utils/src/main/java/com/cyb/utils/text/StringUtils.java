@@ -20,4 +20,17 @@ public class StringUtils {
 		if(org.springframework.util.StringUtils.isEmpty(value)) return "";
 		return value.replaceAll("^\\s+|\\s+$", ""); 
 	}
+	
+	public static void main(String[] args) {
+		System.out.printf("%8s","12345678");
+		System.out.println();
+		System.out.printf("%8s","1234");
+		System.out.println();
+		System.out.printf("%8s","中国");
+		System.out.println();
+		System.out.printf("%-8s","5678");
+		System.out.println();
+		System.out.printf("%-8s","中国");
+		System.out.println();
+	}
 }

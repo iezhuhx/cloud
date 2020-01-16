@@ -23,6 +23,9 @@ public class HolidayUtils {
 	public static String getCurYearFile(){
 		return calTxt.replace("rqs", DateUnsafeUtil.curYear());
 	}
+	public static String getYearFile(String year){
+		return calTxt.replace("rqs", year);
+	}
 	public static File file() throws IOException{
 		File file = new File(getCurYearFile());
 		if(file.exists()){
@@ -30,6 +33,33 @@ public class HolidayUtils {
 		}
 		file.createNewFile();
 		return file;
+	}
+	public static File file(String year) throws IOException{
+		File file = new File(getYearFile(year));
+		if(file.exists()){
+			file.delete();
+		}
+		file.createNewFile();
+		return file;
+	}
+	//根据年份 生成指定年份全年的节假日
+	public static List<Holiday> initHoliday(
+			String yyyy,
+			HolidayStrategy strategy) throws IOException {
+		return initHoliday(yyyy+"0101",
+				yyyy+"1231", 
+				strategy,
+				file(yyyy));
+	}
+	
+	public static List<Holiday> initHoliday(
+			String yyyyMMdd_start,
+			String yyyyMMdd_end,
+			HolidayStrategy strategy) throws IOException {
+		return initHoliday(yyyyMMdd_start,
+				yyyyMMdd_end, 
+				strategy,
+				file(yyyyMMdd_start.substring(0, 4)));
 	}
 	/**
 	 * 指定区间、指定策略的节假日获取
@@ -42,9 +72,9 @@ public class HolidayUtils {
 	public static List<Holiday> initHoliday(
 			String yyyyMMdd_start,
 			String yyyyMMdd_end,
-			HolidayStrategy strategy) 
+			HolidayStrategy strategy,File file) 
 					throws IOException{
-		File curYearCalFile = file();
+		//File curYearCalFile = file();
 		//计算两个日期之间的差值
 		int days = DateUnsafeUtil.daysBetween(yyyyMMdd_start, yyyyMMdd_end);
 		Date startDate = DateUnsafeUtil.calendar(yyyyMMdd_start).getTime();
@@ -57,8 +87,7 @@ public class HolidayUtils {
 			String row = a+","+type+"\n";
 			Holiday holiday1 = new Holiday(date,type);
 			list.add(holiday1);
-			FileUtils.append(curYearCalFile
-					.getAbsolutePath(), row);
+			FileUtils.append(file.getAbsolutePath(), row);
 		}
 		System.out.println(list);
 		return list;

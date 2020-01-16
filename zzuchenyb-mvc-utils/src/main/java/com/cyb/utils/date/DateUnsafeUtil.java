@@ -526,11 +526,21 @@ public class DateUnsafeUtil {
 		}
 		GregorianCalendar d = new GregorianCalendar();
 		d.set(Calendar.MONTH, month-1);
-		showMonthCal(d);
+		showEnMonthCal(d);
+	}
+	public static void showMonthCal(Date date) throws SQLException{
+		GregorianCalendar d = new GregorianCalendar();
+		d.setTime(date);
+		showEnMonthCal(d);
 	}
 	public static void showMonthCal() throws SQLException{
 		GregorianCalendar d = new GregorianCalendar();
-		showMonthCal(d);
+		showEnMonthCal(d);
+	}
+	
+	public static void showEnCurMonthCal() throws SQLException{
+		GregorianCalendar d = new GregorianCalendar();
+		showEnMonthCal(d);
 	}
 	
 	public static String curYear(){
@@ -543,29 +553,78 @@ public class DateUnsafeUtil {
 	 *创建时间: 2017年7月15日
 	 *@throws SQLException
 	 */
+	public static void showEnMonthCal(GregorianCalendar d) throws SQLException {
+		Locale.setDefault(Locale.ENGLISH);
+		int month = d.get(Calendar.MONTH); // 用于循环打印当前月份的月历__月份判断
+		String cellLen="%6s";
+		String split="\n-------------------------------------------";
+		String weekdays[] = new DateFormatSymbols().getShortWeekdays(); // 保存7个星期名
+		String curMonth =DateUnsafeUtil.format(d.getTime(), "yyyy-MM");
+		System.out.println(curMonth+"月份,HD:节假日，TD:交易日，WD:周六|周日,CD:今天");
+		System.out.println(split.substring(2));
+		for (int i = 1; i < 8; ++i) {
+			System.out.print(String.format(cellLen, weekdays[i]));
+		}
+		System.out.println(split);
+		d.set(Calendar.DAY_OF_MONTH, 1); // 设置d的日期为当月1号
+		int weeknameofFirstday = d.get(Calendar.DAY_OF_WEEK);// 获得当月1号的星期名
+		int cnt = 1;
+		while (weekdays[cnt] != weekdays[weeknameofFirstday]) // 打印日历第一行，判断当月1号从第一行的哪里开始打印
+		{
+			System.out.printf(cellLen," ");
+			++cnt;
+		}
+		do {
+			int day = d.get(Calendar.DAY_OF_MONTH);
+			Holiday holiday = HolidayH2DbUtils.getSomeDay(d.getTime());
+			String tip = holiday.getCalEnDesc();
+			String showDay="";
+			if(day<10) showDay="0"+day;
+			else showDay = ""+day;
+			if(holiday.isTradeDay()){
+				System.out.printf(cellLen,showDay+tip);
+			}else{
+				System.out.printf(cellLen,"*"+showDay+tip);
+			}
+			if (weekdays[d.get(Calendar.DAY_OF_WEEK)] == weekdays[7]) // 判断是否需要换行打印
+			{	
+				System.out.println(split);   
+			}
+			d.add(Calendar.DAY_OF_MONTH, 1);
+		} while (d.get(Calendar.MONTH) == month);
+		System.out.println(split);
+	}
+	/**
+	 * 英文版
+	 * @param d
+	 * @throws SQLException
+	 */
 	public static void showMonthCal(GregorianCalendar d) throws SQLException {
 		Locale.setDefault(Locale.ENGLISH);
 		int month = d.get(Calendar.MONTH); // 用于循环打印当前月份的月历__月份判断
 		long today = DateUnsafeUtil.date2long8();// 用于给当前日期后面加"*"
 		String[] weekdaysName = new String[]{"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
+		//weekdaysName = new String[]{"日","一","二","三","四","五","六"};
 		String weekdays[] = new DateFormatSymbols().getShortWeekdays(); // 保存7个星期名
 		long todayStr=DateUnsafeUtil.date2long8(d.getTime());
-		System.out.println("\t今日："+todayStr+",*代表工作日");
+		System.out.println("\t今日："+todayStr+"");
 		for (int i = 0; i < weekdaysName.length; ++i) {
-			System.out.print(String.format("%12s", weekdaysName[i]));
+			//System.out.printf(String.format("%4s", weekdaysName[i]));
+			//System.out.printf("%8s",weekdaysName[i]);
+			
 		}//System.out.print("\t"+weekdaysName[i]); // 打印月历头部，7个星期名
 		System.out.println();
 		
 		for (int i = 1; i < 8; ++i) {
-			System.out.print(String.format("%15s", weekdays[i]));
+			System.out.printf("%8s", weekdays[i]);
 		}//System.out.print("\t"+weekdays[i]); // 打印月历头部，7个星期名
 		System.out.println();
 		d.set(Calendar.DAY_OF_MONTH, 1); // 设置d的日期为当月1号
 		int weeknameofFirstday = d.get(Calendar.DAY_OF_WEEK);// 获得当月1号的星期名
 		int cnt = 1;
 		while (weekdays[cnt] != weekdays[weeknameofFirstday]) // 打印日历第一行，判断当月1号从第一行的哪里开始打印
-		{
-			System.out.print(String.format("%15s","*"));
+		{//String.format("%6s","--")
+			System.out.printf("%6s","*");
 			++cnt;
 		}
 		do {
@@ -576,20 +635,27 @@ public class DateUnsafeUtil {
 			if(holiday.isJIJIARI()){
 				tip="休";
 			}else if(holiday.isTradeDay()){
-				tip="*";
+				tip="班";
 			}else if(holiday.isWeekDay()){
 				tip="休";
 			}
 			if (curDayStr == today){
 				tip="今";
 			}
-			//System.out.print("\t"+day+tip);
-			System.out.print(String.format("%15s",day+tip));
+			String showDay="";
+			if(day<10) showDay="0"+day;
+			else showDay = ""+day;//String.format("%6s",showDay+tip)
+			System.out.printf("%6s",showDay+tip);
 			if (weekdays[d.get(Calendar.DAY_OF_WEEK)] == weekdays[7]) // 判断是否需要换行打印
 				System.out.println();
 			d.add(Calendar.DAY_OF_MONTH, 1);
 		} while (d.get(Calendar.MONTH) == month);
 		System.out.println();
-
+	}
+	//判断是否是当日
+	public static boolean isToday(Date rq) {
+		String targetDate = date2long8(rq).toString();
+		String today = date2long8().toString();
+		return targetDate.equals(today);
 	}
 }

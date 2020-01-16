@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cyb</groupId>
 	<artifactId>mvc40</artifactId>
-	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<modules>
+	<packaging>jar</packaging>
+	<version>40</version>
+	<!-- <modules>
 		<module>fink</module>
-	</modules>
+	</modules> -->
 	<name>mvc40 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>  
