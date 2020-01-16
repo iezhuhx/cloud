@@ -17,8 +17,9 @@ import static org.quartz.CronScheduleBuilder.*;
  */
 public class QuartzManager {
 	Log log = LogFactory.getLog(QuartzManager.class);
-	 private static String JOB_GROUP_NAME = "JOB_GROUP_SYSTEM";  
-	    private static String TRIGGER_GROUP_NAME = "TRIGGER_GROUP_SYSTEM";  
+	 public final static String JOB_GROUP_NAME = "JOB_GROUP_SYSTEM";  
+	 public final static String TRIGGER_NAME="TRIGGER_NAME";
+	 public final static String TRIGGER_GROUP_NAME = "TRIGGER_GROUP_SYSTEM";  
 	  
 	    /** 
 	     * @Description: 添加一个定时任务，使用默认的任务组名，触发器名，触发器组名 

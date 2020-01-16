@@ -13,8 +13,8 @@ import org.apache.commons.logging.LogFactory;
  * 类描述: 说点啥<br>
  * 创建时间: 2018年12月13日
  */
-public class TaskFactory {
-	Log log = LogFactory.getLog(TaskFactory.class);
+public class SpringBeanTaskTEST {
+	Log log = LogFactory.getLog(SpringBeanTaskTEST.class);
 	public static List<TaskInfor> tasks = new ArrayList<>();
 	static {
 		/**

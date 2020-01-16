@@ -244,4 +244,14 @@ public class QuartzManagerBean {
 	            throw new RuntimeException(e);  
 	        }  
 	    } 
+	    
+	    public  void pauseAllJobs(Scheduler sched) {  
+	        try {  
+	            if (!sched.isStarted()) {  
+	                sched.pauseAll();  
+	            }  
+	        } catch (Exception e) {  
+	            throw new RuntimeException(e);  
+	        }  
+	    }
 }

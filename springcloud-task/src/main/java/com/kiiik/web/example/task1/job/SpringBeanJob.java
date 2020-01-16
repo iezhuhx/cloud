@@ -1,4 +1,4 @@
-package com.kiiik.web.example.task1;
+package com.kiiik.web.example.task1.job;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,6 +10,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Service;
 
 import com.kiiik.web.example.service.TestService;
+import com.kiiik.web.example.task1.ann.KiiikTask;
 
 /**
  * 作者 : iechenyb<br>
@@ -17,7 +18,8 @@ import com.kiiik.web.example.service.TestService;
  * 创建时间: 2018年12月12日
  */
 @Service
-public class SftpJob extends QuartzJobBean {
+@KiiikTask(cron="*/10 * * * * ?",startJobOnStartUp=true)
+public class SpringBeanJob extends QuartzJobBean {
    Log log = LogFactory.getLog(getClass());
 
 	@Autowired
@@ -25,8 +27,10 @@ public class SftpJob extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+		//通过this.getClass();获取注解信息。
 		// 传入的参数
 		JobDataMap params = context.getJobDetail().getJobDataMap();
-		System.err.println(params.get("task")+",service=" + service);
+		log.info(params.get("task")+",service=" + service);
+		//读取是否允许并发的标记，然后进行判断，如果不允许并发，则需要需要判断是否有正在执行的任务。
 	}
 }
