@@ -1,4 +1,4 @@
-package com.cyb.utils.bean;
+package com.cyb.utils.returnBean;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
  * 创建时间: 2018年1月10日
  */
 @ApiModel(value="统一返回对象",description="统一的返回值定义方式")
-public class R2<T> implements Serializable {
+public class RThis<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,51 +26,51 @@ public class R2<T> implements Serializable {
 	@ApiModelProperty(value="数据体")
 	protected  T d;
 
-	public R2() {
+	public RThis() {
 		ec = ResponseStatus.SUCCESS;
 	}
 
-	public R2(T d) {
+	public RThis(T d) {
 		ec = ResponseStatus.SUCCESS;
 		this.d = d;
 	}
 
-	public R2(Throwable e) {
+	public RThis(Throwable e) {
 		super();
 		this.es = e.toString();
 		this.ec = ResponseStatus.FAIL;
 	}
-	public R2<T> success() {
+	public RThis<T> success() {
 		this.ec = ResponseStatus.SUCCESS;
 		return this;
 	}
-	public R2<T> success(String msg) {
+	public RThis<T> success(String msg) {
 		this.ec = ResponseStatus.SUCCESS;
 		this.es = msg;
 		return this;
 	}
-	public R2<T> data(T data) {
+	public RThis<T> data(T data) {
 		this.d = data;
 		return this;
 	}
 
-	public R2<T> fail() {
+	public RThis<T> fail() {
 		this.ec = ResponseStatus.FAIL;
 		return this;
 	}
-	public R2<T> fail(String msg) {
+	public RThis<T> fail(String msg) {
 		this.ec = ResponseStatus.FAIL;
 		this.es = msg;
 		return this;
 	}
 
-	public R2<T> fail(Throwable e) {
+	public RThis<T> fail(Throwable e) {
 		this.ec = ResponseStatus.FAIL;
 		this.es = e.toString();
 		return this;
 	}
 	
-	public  R2<T> msg(String msg) {
+	public  RThis<T> msg(String msg) {
 		this.es = msg;
 		return this;
 	}
@@ -79,32 +79,32 @@ public class R2<T> implements Serializable {
 		return ResponseStatus.NO_PERMISSION;
 	}
 	
-	public R2<T> refuse(){
+	public RThis<T> refuse(){
 		this.ec = ResponseStatus.NO_PERMISSION;
 		return this;
 	}
-	public R2<T> sessionTimeOut(String msg){
+	public RThis<T> sessionTimeOut(String msg){
 		this.ec = ResponseStatus.SESSION_TIME_OUT;
 		this.es=msg;
 		return this;
 	}
-	public R2<T> sessionTimeOut(){
+	public RThis<T> sessionTimeOut(){
 		this.ec = ResponseStatus.SESSION_TIME_OUT;
 		return this;
 	}
 	
-	public R2<T> refuse(String msg){
+	public RThis<T> refuse(String msg){
 		this.ec = ResponseStatus.NO_PERMISSION;
 		this.es = msg;
 		return this;
 	}
 	
-	public R2<T> needToModifyPassword(){
+	public RThis<T> needToModifyPassword(){
 		this.ec = ResponseStatus.USE_DEFAULT_PASSWORD;
 		return this;
 	}
 	
-	public R2<T> needToModifyPassword(String msg){
+	public RThis<T> needToModifyPassword(String msg){
 		this.ec = ResponseStatus.USE_DEFAULT_PASSWORD;
 		this.es = msg;
 		return this;
@@ -135,7 +135,8 @@ public class R2<T> implements Serializable {
 	}
 	
 	public static void main(String[] args) {
-		R2<String> r2= new R2<String>("data").success("测试！");
+		RThis<String> r2= new RThis<String>("data")
+				.success("测试！");
 		System.out.println(r2);
 	}
 	

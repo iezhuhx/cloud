@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.cyb.utils.bean.RMeta;
+import com.cyb.utils.returnBean.RMeta;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>

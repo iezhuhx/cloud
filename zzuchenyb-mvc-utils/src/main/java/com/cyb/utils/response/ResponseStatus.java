@@ -16,6 +16,8 @@ public class ResponseStatus {
 	public final  static  String NEED_CACHEABLE = "3";//需要缓存数据
 	public final  static  String SESSION_TIME_OUT = "4";//会话过期状态
 	public final  static  String USE_DEFAULT_PASSWORD="5";//使用默认密码状态
+	public final  static String DEFAULT_SUCCESS_MSG = "执行成功！";
+	public final  static String DEFAULT_FAIL_MSG = "执行失败！";
 	private static Map<String,String>messageMap = Maps.newHashMap();//模板编写
     //初始化状态码与文字说明
     static {

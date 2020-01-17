@@ -1,4 +1,4 @@
-package com.cyb.utils.bean;
+package com.cyb.utils.returnBean;
 
 import java.util.HashMap;
 
@@ -32,6 +32,6 @@ public class ParamMap extends HashMap<String, Object> {
 				.build()//静态方法
 				.put("a", "a")//非静态方法
 				.put("b", "b");//非静态方法
-		System.out.println(r);//构造时有限制 必须先调用error或者ok
+		System.out.println(r);//构造时有限制 必须调用error或者ok
 	}
 }

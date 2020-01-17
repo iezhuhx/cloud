@@ -40,6 +40,14 @@ public class TimeContext {
 		start.set(System.currentTimeMillis());
 	}
 	
+	public static void start(){
+		recordTimeStart();
+	}
+	
+	public static void begin(){
+		recordTimeStart();
+	}
+	
 	public static long calExecuteTime(){
 		long millis = System.currentTimeMillis() -  start.get();
 		System.err.println("用时("+millis+"毫秒)："+formatTime(millis));

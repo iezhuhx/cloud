@@ -47,8 +47,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import com.cyb.app.reptile.ProxyInfor;
-import com.cyb.utils.bean.RThis;
 import com.cyb.utils.file.FileUtils;
+import com.cyb.utils.returnBean.RThis;
 
 @SuppressWarnings("deprecation")
 public class MyHttpClient {

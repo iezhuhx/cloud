@@ -29,8 +29,8 @@ import org.springframework.beans.BeanUtils;
 import com.cyb.app.h2.H2DBConnectionPool;
 import com.cyb.app.h2.H2DBInfor;
 import com.cyb.app.holiday.HolidaySQL;
-import com.cyb.utils.bean.ParamMap;
 import com.cyb.utils.date.DateSafeUtil;
+import com.cyb.utils.returnBean.ParamMap;
 import com.cyb.utils.text.ELUtils;
 
 public class ConnectionUtils extends QueryRunner {

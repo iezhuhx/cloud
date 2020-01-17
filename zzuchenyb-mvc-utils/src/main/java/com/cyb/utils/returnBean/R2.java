@@ -1,7 +1,6 @@
-package com.cyb.utils.bean;
+package com.cyb.utils.returnBean;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 import com.cyb.utils.response.ResponseStatus;
 import com.wordnik.swagger.annotations.ApiModel;
@@ -11,10 +10,11 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 /**
  * 作者 : iechenyb<br>
  * 类描述:返回实体信息<br>
+ * 默认成功
  * 创建时间: 2018年1月10日
  */
 @ApiModel(value="统一返回对象",description="统一的返回值定义方式")
-public class R3<T> implements Serializable {
+public class R2<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,49 +27,51 @@ public class R3<T> implements Serializable {
 	@ApiModelProperty(value="数据体")
 	protected  T d;
 
-	public R3() {
+	public R2() {
 		ec = ResponseStatus.SUCCESS;
 	}
 
-	public R3(T d) {
+	public R2(T d) {
 		ec = ResponseStatus.SUCCESS;
 		this.d = d;
 	}
 
-	public R3(Throwable e) {
+	public R2(Throwable e) {
 		super();
 		this.es = e.toString();
 		this.ec = ResponseStatus.FAIL;
 	}
-	public R3<T> success() {
+	public R2<T> success() {
 		this.ec = ResponseStatus.SUCCESS;
 		return this;
 	}
-	public R3<T> success(String msg) {
+	public R2<T> success(String msg) {
 		this.ec = ResponseStatus.SUCCESS;
 		this.es = msg;
 		return this;
 	}
-	public R3<T> data(T data) {
+	public R2<T> data(T data) {
 		this.d = data;
 		return this;
 	}
 
-	public static <T> R3<T> fail() {
-		return fail("");
+	public R2<T> fail() {
+		this.ec = ResponseStatus.FAIL;
+		return this;
 	}
-	public static <T> R3<T> fail(String msg) {
-		R3<T> r = new R3<T>();
-		r.ec = ResponseStatus.FAIL;
-		r.es = msg;
-		return r;
+	public R2<T> fail(String msg) {
+		this.ec = ResponseStatus.FAIL;
+		this.es = msg;
+		return this;
 	}
 
-	public static <T> R3<T> fail(Throwable e) {
-		return fail(e.toString());
+	public R2<T> fail(Throwable e) {
+		this.ec = ResponseStatus.FAIL;
+		this.es = e.toString();
+		return this;
 	}
 	
-	public R3<T> msg(String msg) {
+	public  R2<T> msg(String msg) {
 		this.es = msg;
 		return this;
 	}
@@ -78,37 +80,35 @@ public class R3<T> implements Serializable {
 		return ResponseStatus.NO_PERMISSION;
 	}
 	
-	public static <T> R3<T> refuse(){
-		R3<T> r = new R3<T>();
-		r.ec = ResponseStatus.NO_PERMISSION;
-		return r;
+	public R2<T> refuse(){
+		this.ec = ResponseStatus.NO_PERMISSION;
+		return this;
 	}
-	public static <T> R3<T> sessionTimeOut(String msg){
-		R3<T> r = new R3<T>();
-		r.ec = ResponseStatus.SESSION_TIME_OUT;
-		r.es=msg;
-		return r;
+	public R2<T> sessionTimeOut(String msg){
+		this.ec = ResponseStatus.SESSION_TIME_OUT;
+		this.es=msg;
+		return this;
 	}
-	public  static <T> R3<T> sessionTimeOut(){
-		return sessionTimeOut("");
-	}
-	
-	public static <T> R3<T> refuse(String msg){
-		R3<T> r = new R3<T>();
-		r.ec = ResponseStatus.NO_PERMISSION;
-		r.es = msg;
-		return r;
+	public R2<T> sessionTimeOut(){
+		this.ec = ResponseStatus.SESSION_TIME_OUT;
+		return this;
 	}
 	
-	public static <T> R3<T> needToModifyPassword(){
-		return needToModifyPassword("");
+	public R2<T> refuse(String msg){
+		this.ec = ResponseStatus.NO_PERMISSION;
+		this.es = msg;
+		return this;
 	}
 	
-	public static <T1> R3<T1> needToModifyPassword(String msg){
-		R3<T1> r = new R3<T1>();
-		r.ec = ResponseStatus.USE_DEFAULT_PASSWORD;
-		r.es = msg;
-		return r;
+	public R2<T> needToModifyPassword(){
+		this.ec = ResponseStatus.USE_DEFAULT_PASSWORD;
+		return this;
+	}
+	
+	public R2<T> needToModifyPassword(String msg){
+		this.ec = ResponseStatus.USE_DEFAULT_PASSWORD;
+		this.es = msg;
+		return this;
 	}
 
 	public String getEs() {
@@ -136,13 +136,9 @@ public class R3<T> implements Serializable {
 	}
 	
 	public static void main(String[] args) {
-		R3<?> r3 = R3.//? 改成指定的类型不行
-				needToModifyPassword("修改密码")
-				.data("aaaaa");
-		System.out.println(r3);
-		R3.//? 改成指定的类型不行
-				needToModifyPassword("修改密码")
-				.data(new HashMap<String,String>());
+		R2<String> r2= new R2<String>("data")
+				.success("测试！");
+		System.out.println(r2);
 	}
 	
 	public String toString(){

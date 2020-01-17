@@ -1,4 +1,4 @@
-package com.cyb.utils.bean;
+package com.cyb.utils.returnBean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

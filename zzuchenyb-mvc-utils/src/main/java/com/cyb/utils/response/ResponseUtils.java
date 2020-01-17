@@ -18,9 +18,9 @@ import org.springframework.web.method.HandlerMethod;
 
 import com.alibaba.fastjson.JSON;
 import com.cyb.contant.Contants;
-import com.cyb.utils.bean.RThis;
 import com.cyb.utils.exception.UserSessionTimeoutException;
 import com.cyb.utils.file.FileUtils;
+import com.cyb.utils.returnBean.RThis;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>

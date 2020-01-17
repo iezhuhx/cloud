@@ -34,7 +34,9 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
-public class FileUtils {
+import com.cyb.utils.superutil.MyFileCopyUtils;
+
+public class FileUtils  extends MyFileCopyUtils{
 	public void pathInfo() throws IOException {
 		@SuppressWarnings("unused")
 		int million = 1_000_000;

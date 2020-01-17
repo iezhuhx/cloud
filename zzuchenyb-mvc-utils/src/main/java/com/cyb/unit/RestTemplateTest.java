@@ -1,10 +1,11 @@
 package com.cyb.unit;
-import com.cyb.utils.bean.RMap;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.cyb.utils.http.HttpClientUtils;
+import com.cyb.utils.returnBean.RMap;
+
 import org.apache.poi.util.SystemOutLogger;
 import org.junit.jupiter.api.Test;
 

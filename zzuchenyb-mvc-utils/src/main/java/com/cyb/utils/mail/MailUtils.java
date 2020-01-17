@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.cyb.utils.bean.RThis;
+import com.cyb.utils.returnBean.RThis;
 import com.sun.mail.util.MailSSLSocketFactory;
 /**
  *作者 : iechenyb<br>

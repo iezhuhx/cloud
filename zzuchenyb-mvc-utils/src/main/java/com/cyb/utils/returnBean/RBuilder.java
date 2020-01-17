@@ -1,4 +1,4 @@
-package com.cyb.utils.bean;
+package com.cyb.utils.returnBean;
 
 import com.cyb.utils.response.ResponseStatus;
 import com.wordnik.swagger.annotations.ApiModelProperty;
