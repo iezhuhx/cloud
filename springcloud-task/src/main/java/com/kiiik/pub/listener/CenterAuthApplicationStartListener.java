@@ -18,7 +18,8 @@ import com.kiiik.web.example.task1.ann.KiiikTask;
  * 启动监听
  */
 @Component
-public class CenterAuthApplicationStartListener implements ApplicationListener<ContextRefreshedEvent> {
+public class CenterAuthApplicationStartListener 
+implements ApplicationListener<ContextRefreshedEvent> {
 	@Autowired
 	Environment env;
 	
