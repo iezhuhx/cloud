@@ -1,0 +1,88 @@
+http://localhost:7777/cyb/dev
+{
+name: "cyb",
+profiles: [
+"dev"
+],
+label: null,
+version: null,
+state: null,
+propertySources: [
+{
+name: "file:E:/data/config/native/properties/cyb-dev.properties",
+source: {
+from: "local-dev"
+}
+}
+]
+}
+
+
+http://localhost:7777/cyb/prod
+
+{
+name: "cyb",
+profiles: [
+"prod"
+],
+label: null,
+version: null,
+state: null,
+propertySources: [
+{
+name: "file:E:/data/config/native/properties/cyb-prod.properties",
+source: {
+from: "local-prod"
+}
+}
+]
+}
+
+
+
+---------------
+新增配置文件无需重启配置服务，直接读取即可。
+http://localhost:7777/cyb0/prod
+
+{
+name: "cyb0",
+profiles: [
+"prod"
+],
+label: null,
+version: null,
+state: null,
+propertySources: [
+{
+name: "file:E:/data/config/native/properties/cyb0-prod.properties",
+source: {
+from: "local-prod-0"
+}
+}
+]
+}
+
+
+====刷新参数=============可以看后台
+C:\Users\Administrator>curl -i -X POST localhost:7775/refresh
+HTTP/1.1 200
+X-Application-Context: cyb:url:7775
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Wed, 01 Apr 2020 14:30:40 GMT
+
+[]
+C:\Users\Administrator>curl -i -X POST localhost:7776/refresh
+HTTP/1.1 200
+X-Application-Context: cyb:url:7776
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Wed, 01 Apr 2020 14:39:24 GMT
+
+["from"]
+
+
+
+
+
+http://localhost:7777/cyb/cyb-test.properties  直接根据相对目录访问文件内容
