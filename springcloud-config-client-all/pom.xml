@@ -14,8 +14,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>1.5.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository1.4.5 -->
 	</parent>
 
 	<properties>
@@ -39,6 +39,14 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
+        <dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>

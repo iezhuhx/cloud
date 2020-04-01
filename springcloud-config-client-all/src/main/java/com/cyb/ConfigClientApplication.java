@@ -3,12 +3,14 @@ package com.cyb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 @SpringBootApplication
 @EnableEurekaClient
+@EnableDiscoveryClient
 public class ConfigClientApplication  {
 	public static void main(String[] args) {
 		SpringApplication.
@@ -17,7 +19,7 @@ public class ConfigClientApplication  {
      //项目启动时，读取配置文件参数做初始化使用
 	@Autowired
 	void setEnvironment(Environment env) {
-		System.out.println("param from env: "
+		System.err.println("param from env: "
 				+ env.getProperty("from"));
 	}
 	/**

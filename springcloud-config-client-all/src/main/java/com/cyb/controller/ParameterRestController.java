@@ -1,8 +1,10 @@
 package com.cyb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 /*
      解决方案，请看启动类
@@ -16,8 +18,16 @@ public class ParameterRestController {
 	@Value("${from}")
 	private String from;
 	
-	@RequestMapping("getConfigFromConfigServer")
+	@GetMapping("getFromByValueAnnotation")
 	public String getConfigFromConfigServer() {
 		return from;
+	}
+	
+	@Autowired
+	Environment env;
+	
+	@GetMapping("getFromByEnv")
+	public String getFromByEnv() {
+		return env.getProperty("from");
 	}
 }
