@@ -1,0 +1,1 @@
+curl -i -X POST localhost:9999/refresh
