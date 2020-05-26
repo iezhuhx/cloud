@@ -10,6 +10,7 @@
 <h2>模型列表</h2>
 <hr>
 <a href="javascript: AJAX.POST('/models/newModel')">绘制模型</a>
+<a href="http://localhost/model-list.html">刷新</a>
 <table border="1" id="model-list">
     <tr>
         <td>模型编号</td>
@@ -41,7 +42,7 @@
         {{/each}}
     </script>
 </table>
-
+<a href="http://localhost/model-list.html">刷新</a>
 <hr>
 <h2>流程列表</h2>
 <hr>
@@ -69,24 +70,24 @@
         </tr>
         {{each rows.list}}
         <tr>
-            <td>{{$value.id}}</td>
-            <td>{{$value.key}}</td>
+            <td>{{$value.id}}<a href="javascript: AJAX.GET('activit5/a1/startById/process?lcid={{$value.id}}')">根据id启动</a></td>
+            <td>{{$value.key}}<a href="javascript: AJAX.GET('activit5/a1/startByKey/process?bpmnName={{$value.key}}')">根据Key启动</a></td>
             <td>{{$value.version}}</td>
             <td>{{$value.deploymentId}}</td>
             <td><a target="_blank" href="/process/show?did={{$value.deploymentId}}&ext=.bpmn">{{$value.resourceName}}</a></td>
             <td><a target="_blank" href="/process/show?did={{$value.deploymentId}}&ext=.png">{{$value.dgrmResourceName}}</a></td>
             <td>{{$value.description}}</td>
-            <td>
-                <a href="javascript: AJAX.DELETE('/deployments/{{$value.deploymentId}}')">删除</a>
+            <td> 
+                <a href="javascript: AJAX.GET('/activit5/deploye/delete?cascade=true&deployeId={{$value.deploymentId}}')">删除</a>
             </td>
         </tr>
         {{/each}}
     </script>
 </table>
 
-
-<!--<hr>
-<h2>执行列表</h2>
+<a href="http://localhost/model-list.html">刷新</a>
+<hr>
+<h2>执行列表 执行结束之后 消失</h2>
 <hr>
 <table border="1" id="run-process-list">
     <tr>
@@ -124,10 +125,10 @@
         </tr>
         {{/each}}
     </script>
-</table>-->
-
+</table>
+<a href="http://localhost/model-list.html">刷新</a>
 <hr>
-<h2>节点列表</h2>
+<h2>节点列表 执行结束之后消失</h2>
 <hr>
 <table border="1" id="task-list">
     <tr>
@@ -167,7 +168,10 @@
         <tr>
             <td>{{$value.id}}</td>
             <td>{{$value.executionId}}</td>
-            <td>{{$value.procInstId}}</td>
+            <td>
+<img src="activit5/procview/procId/{{$value.procInstId}}" ></img>
+  <a href="javascript: AJAX.GET('activit5/procview/procId/{{$value.procInstId}}')">查看流程图（f12查看控制台）</a>
+<href a="activit5/procview/procId/{{$value.procInstId}}" target="_blank">{{$value.procInstId}}</a></td>
             <td>{{$value.procDefId}}</td>
             <td>{{$value.name}}</td>
             <td>{{$value.parentTaskId}}</td>

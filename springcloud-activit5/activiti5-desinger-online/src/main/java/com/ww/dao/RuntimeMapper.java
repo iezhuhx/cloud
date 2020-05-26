@@ -43,4 +43,7 @@ public interface RuntimeMapper {
 
     int addRuIdentitylink(@Param("id") String nextId,@Param("taskId") String runTaskId, @Param("gId") String gId,
                           @Param("type") String typ,@Param("uId") String uId);
+    
+    
+       Map<String, Object> newlyComment(String proInsId);
 }
