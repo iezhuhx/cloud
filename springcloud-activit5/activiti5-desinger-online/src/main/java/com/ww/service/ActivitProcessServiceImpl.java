@@ -74,6 +74,8 @@ import com.ww.activiti.controller.R;
 		@Autowired
 		protected FormService formService;
 		
+		
+		
 		/*@Autowired
 		Activiti5Mapper activitiMapper;*/
 
@@ -338,11 +340,24 @@ import com.ww.activiti.controller.R;
 			taskService.complete(taskId, variables);
 		}
 
+		
+		public void setValuesByExeId(String exeId,Map<String, Object> variables){
+			runtimeService.setVariables(exeId, variables);
+		}
+		
+		public Map<String, Object> getValuesByExeId(String exeId){
+			return runtimeService.getVariables(exeId);
+		}
 		public void completeByProcId(String processId, Map<String, Object> variables) {
 			Task task = getTask(processId);
-			taskService.setVariables(task.getId(), variables);
-			taskService.complete(task.getId(), variables);
-		}
+			/*taskService.setVariables(task.getId(), variables);
+			taskService.setVariable(task.getId(), "setSingle", "回家养病，大概一周把！");//绑定变量 任务结束了 么有用了
+*/			setVariableByTaskId(task.getId(), true, variables);
+			taskService.complete(task.getId());
+			/*Task task1= getTask(processId);
+			taskService.setVariables(task1.getId(), variables);
+			taskService.setVariable(task1.getId(), "setSingle", "回家养病，大概一周把！");//绑定变量 任务结束了 么有用了
+*/		}
 
 		public void completeByProcId(String processId) {
 			Task task = getTask(processId);
@@ -379,7 +394,7 @@ import com.ww.activiti.controller.R;
 			return taskService.createTaskQuery().taskAssignee(assigne).list();
 		}
 
-		public boolean setVariableByTaskId(String taskId, boolean isLocal, HashMap<String, Object> map) {
+		public boolean setVariableByTaskId(String taskId, boolean isLocal, Map<String, Object> map) {
 			/*
 			 * taskService.setVariable(taskId, variableName, value);
 			 *
@@ -558,7 +573,7 @@ import com.ww.activiti.controller.R;
 		public ProcessInstance startProcessInstanceByKey(String name, Map<String, Object> map) {
 			return runtimeService.startProcessInstanceByKey(name, map);
 		}
-		
+		//在Activiti中总共有三种表单，动态表单，普通表单和外置表单。
 		public ProcessInstance startProcessInstanceById(String id, Map<String, Object> map) {
 			return runtimeService.startProcessInstanceById(id,map);
 		}
@@ -708,4 +723,19 @@ import com.ww.activiti.controller.R;
 			return historyService.createHistoricProcessInstanceQuery().finished()
 					.processInstanceId(processInstanceId).count() > 0;
 		}
+		
+		/**
+		 * 流程历史表单查询
+		 *@Author iechenyb<br>
+		 *@Desc 说点啥<br>
+		 *@CreateTime 2020年11月6日 下午3:35:25
+		 *@param procId
+		 *@return
+		 */
+		public List<org.activiti.engine.history.HistoricDetail> historicDetail(String procId) {
+			List<org.activiti.engine.history.HistoricDetail> list = historyService.createHistoricDetailQuery().processInstanceId(procId).formProperties().list();
+	         return list;
+		}
+		
+		
 }

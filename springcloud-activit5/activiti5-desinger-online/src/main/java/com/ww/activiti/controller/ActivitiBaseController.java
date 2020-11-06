@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
@@ -44,6 +45,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ww.dao.RuntimeMapper;
 import com.ww.service.ActivitProcessServiceImpl;
 
+
+
 /*import com.cyb.freemarker.mvc.base.BaseController;
 import com.cyb.utils.response.R;
 import com.ww.service.ActivitProcessServiceImpl;*/
@@ -51,6 +54,7 @@ import com.ww.service.ActivitProcessServiceImpl;*/
 import io.swagger.annotations.ApiOperation;
 @Controller
 @RequestMapping("activit5")
+
 public class ActivitiBaseController{
 	
 	
@@ -63,6 +67,8 @@ public class ActivitiBaseController{
 	/*@Autowired
 	SpringProcessEngineConfiguration dm;//获取部署管理类
 	*/	
+	
+	
 	
 	@GetMapping("a0/isFinish")
 	@ResponseBody
@@ -267,7 +273,29 @@ public class ActivitiBaseController{
 	@ApiOperation(value = "启动流程", httpMethod = "GET", notes = "根据流程key启动流程。")
 	public String startProcessByKey(String bpmnName) {
 		//同一个key可能会对应多个部署id和版本，启动的时候应该是根据最新的版本进行启动的？
-		ProcessInstance pi = activitProcessServiceImpl.startProcessInstanceByKey(bpmnName, new HashMap<String,Object>());
+	/*	Map<String,Object> startParams = new HashMap<String,Object>() ;
+		startParams.put("name", "陈振林chenyb");//启动参数
+		startParams.put("age",1000);//启动参数
+		startParams.put("object", new EnumObjectParam("cyb","99"));*/
+		ProcessInstance pi = activitProcessServiceImpl.startProcessInstanceByKey(bpmnName,getStartParam() );
+		
+		activitProcessServiceImpl.setValuesByExeId(pi.getProcessInstanceId(), getStartParam());
+		System.out.println("查询流程id参数绑定："+activitProcessServiceImpl.getValuesByExeId(pi.getProcessInstanceId()));
+		
+		//绑定参数
+		/*Map<String,Object> param = activitProcessServiceImpl.getTask(pi.getProcessInstanceId()).getProcessVariables();
+		System.out.println("task启动传递参数："+param);
+		param = activitProcessServiceImpl.getTask(pi.getProcessInstanceId()).getTaskLocalVariables();
+		System.out.println("task启动传递参数-LOCAL："+param);*/
+		
+		try{
+			String taskId = activitProcessServiceImpl.getTask(pi.getProcessInstanceId()).getId();
+			activitProcessServiceImpl.setVariableByTaskId(taskId, true,  getStartParam());//绑定到当前任务节点上
+			Map<String,Object> paramD = activitProcessServiceImpl.getVariableByTaskId(taskId, true);
+			System.out.println("task流程参数绑定-start："+paramD);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return  pi.getProcessInstanceId();
 	}
 	
@@ -276,8 +304,17 @@ public class ActivitiBaseController{
 	@ApiOperation(value = "启动流程", httpMethod = "GET", notes = " <流程列表 >的ID。")
 	public String startProcessByKey1(String lcid) {
 		//同一个key可能会对应多个部署id和版本，启动的时候应该是根据最新的版本进行启动的？
-		ProcessInstance pi = activitProcessServiceImpl.startProcessInstanceById(lcid, new HashMap<String,Object>());
+		
+		ProcessInstance pi = activitProcessServiceImpl.startProcessInstanceById(lcid, getStartParam());//启动参数传递到表单
+		
 		return  pi.getProcessInstanceId();
+	}
+	Map<String,Object> getStartParam(){
+		Map<String,Object> startParams = new HashMap<String,Object>() ;
+		startParams.put("name", "陈振林chenyb");//启动参数
+		startParams.put("age",1000);//启动参数
+		//startParams.put("object", new EnumObjectParam("cyb","99"));
+		return startParams;
 	}
 
 	@GetMapping("taskVars/{taskId}")
@@ -293,6 +330,30 @@ public class ActivitiBaseController{
 	}
 	
 	
+	@GetMapping("process/hisFormDetails/{procId}")
+	@ResponseBody
+	public List<HistoricDetail> hisFormDetails(@PathVariable(value = "procId") String procId) {
+		return activitProcessServiceImpl.historicDetail(procId);
+	}
+	
+	@GetMapping("process/nextStep/{procId}")
+	@ResponseBody
+	public Map<String,Object> nextStep(@PathVariable(value = "procId") String procId) {
+		//Map<String,Object> paramD = activitProcessServiceImpl.getVariableByTaskId(activitProcessServiceImpl.getTask(procId).getId(), true);
+		System.out.println("查询执行id参数绑定："+activitProcessServiceImpl.getValuesByExeId(procId));//流程参数可以查看到，但是task参数目前看不到。
+		if(activitProcessServiceImpl.isFinished(procId)){
+			activitProcessServiceImpl.completeByProcId(procId);//先执行完成
+			String taskId = activitProcessServiceImpl.getTask(procId).getId();
+			activitProcessServiceImpl.setVariableByTaskId(taskId, true,  getStartParam());//绑定到当前任务节点上
+			Map<String,Object> paramD = activitProcessServiceImpl.getVariableByTaskId(taskId, true);
+			System.out.println("流程参数："+paramD);
+			paramD.put("remark", "下一个流程节点的参数");
+			return paramD;
+		}
+		return null;
+	}
+	
+	
 	@GetMapping("process/{processId}")
 	@ResponseBody
 	public String procTaskLastly(@PathVariable(value = "processId") String processId) {
@@ -300,6 +361,7 @@ public class ActivitiBaseController{
 		return task == null ? "" : task.getId();
 	}
 
+	
 	/**
 	 * 流程当前的任务id
 	 * 
@@ -329,6 +391,7 @@ public class ActivitiBaseController{
 		StringBuilder sb = new StringBuilder();
 		sb.append(tfd.getDeploymentId() + ",").append(tfd.getFormKey() + ",").append(tfd.getTask().getName() + ",");
 		StringBuilder ps = new StringBuilder();
+		//78ffbb9181784179a1e1507d651798b1,null,表单提交测试,t1/name/陈振林chenyb/class org.activiti.engine.impl.form.FormPropertyImpl/org.activiti.e
 		for (FormProperty p : a) {
 			ps.append(
 					p.getId() + "/" + p.getName() + "/" + p.getValue() + "/" + p.getClass() + "/" + p.getType() + ",");

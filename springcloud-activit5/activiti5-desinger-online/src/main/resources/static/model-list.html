@@ -11,6 +11,7 @@
 <hr>
 <a href="javascript: AJAX.POST('/models/newModel')">绘制模型</a>
 <a href="http://localhost/model-list.html">刷新</a>
+<a href="http://localhost/swagger-ui.html">接口文档</a>
 <table border="1" id="model-list">
     <tr>
         <td>模型编号</td>
@@ -87,12 +88,12 @@
 
 <a href="http://localhost/model-list.html">刷新</a>
 <hr>
-<h2>执行列表 执行结束之后 消失</h2>
+<h2>正在执行的任务列表（ 执行结束之后 消失）</h2>
 <hr>
 <table border="1" id="run-process-list">
     <tr>
-        <td>执行ID</td>
-        <td>流程实例ID</td>
+         <td>执行ID(=流程实例ID)</td>
+        <td>流程实例ID(=执行ID)</td>
         <td>流程定义ID</td>
         <td>当前节点定义KEY</td>
         <td>tenantId</td>
@@ -133,8 +134,8 @@
 <table border="1" id="task-list">
     <tr>
         <td>ID</td>
-        <td>执行ID</td>
-        <td>流程实例ID</td>
+        <td>执行ID(=流程实例ID)</td>
+        <td>流程实例ID(=执行ID)</td>
         <td>流程定义ID</td>
         <td>节点名称</td>
         <td>父节点ID</td>
@@ -149,9 +150,9 @@
     </tr>
     <script id="tasks" type="text/html">
         <tr>
-            <td>ID</td>
-            <td>执行ID</td>
-            <td>流程实例ID</td>
+            <td>任务ID</td>
+            <td>执行ID(=流程实例ID)</td>
+            <td>流程实例ID(=执行ID)</td>
             <td>流程定义ID</td>
             <td>节点名称</td>
             <td>父节点ID</td>
