@@ -37,5 +37,5 @@ CREATE TABLE `sys_zuul_route` (
 -- ----------------------------
 -- Records of sys_zuul_route
 -- ----------------------------
-INSERT INTO `sys_zuul_route` VALUES ('1', '/test/x/**', 'a-service', null, '1', '1', '1', null, '2020-11-10 12:51:22', '2020-11-10 13:04:12', '0');
-INSERT INTO `sys_zuul_route` VALUES ('2', '/test/y/**', 'b-SERVICE', null, '1', '1', '1', null, '2020-11-10 12:52:01', '2020-11-10 13:04:18', '0');
+INSERT INTO `sys_zuul_route` VALUES ('1', '/test/cdc/**', 'CLIENTDATACENTER', null, '1', '1', '1', null, '2020-11-10 12:51:22', '2020-11-10 13:04:12', '0');
+INSERT INTO `sys_zuul_route` VALUES ('2', '/test/ctp/**', 'CTP-SERVICE', null, '1', '1', '1', null, '2020-11-10 12:52:01', '2020-11-10 13:04:18', '0');
