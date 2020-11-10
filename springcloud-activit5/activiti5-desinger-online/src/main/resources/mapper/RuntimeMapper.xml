@@ -95,5 +95,8 @@
         values(#{id,jdbcType=VARCHAR},0,#{gId,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{uId,jdbcType=VARCHAR},
           #{taskId,jdbcType=VARCHAR})
     </insert>
-
+    <select  id="newlyComment" resultType="java.util.Map">
+	select *  FROM activiti5.act_hi_comment  where id_ =(
+	SELECT max(id_) FROM activiti5.act_hi_comment where PROC_INST_ID_=#{proInsId,jdbcType=VARCHAR})
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.ww.activiti.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zaxxer.hikari.HikariDataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +17,7 @@ public class Cfg_Util {
     //jackson xml util
     @Bean
     public ObjectMapper objectMapper(){
+    	HikariDataSource x;
         return new ObjectMapper();
     }
 }

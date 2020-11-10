@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="corporation" xmlns="http://jbpm.org/4.4/jpdl">
+   <start name="start1" g="63,94,48,48">
+      <transition name="to 客户支持中心前台岗提交" to="客户支持中心前台岗提交" g="-104,33"/>
+   </start>
+   <task name="客户支持中心前台岗提交" g="151,91,156,52">
+      <transition name="to 客户支持中心前台岗提交" to="客户支持中心前台岗复核" g="-78,-45"/>
+   </task>
+   <task name="部门经理复核" g="665,90,92,52">
+      <transition name="to exclusive3" to="exclusive3" g="21,-42"/>
+   </task>
+   <task name="客户支持中心前台岗复核" g="334,88,170,52">
+      <transition name="to 部门经理复核" to="exclusive1" g="-35,-28"/>
+   </task>
+   <task name="风控结算操作" g="539,344,99,52">
+      <transition name="to exclusive4" to="exclusive4" g="-79,-36"/>
+   </task>
+   <task name="客户支持中心后台岗复核" g="773,347,170,52">
+      <transition name="to exclusive5" to="exclusive5" g="-76,23"/>
+   </task>
+   <task name="客户支持中心后台岗审核" g="774,189,174,52">
+      <transition name="to exclusive2" to="exclusive2" g="18,33"/>
+   </task>
+   <task name="风控结算复核" g="335,348,92,52">
+      <transition name="to exclusive6" to="exclusive6" g="-167,19"/>
+   </task>
+   <task name="客服回访" g="137,345,92,52">
+      <transition name="to 账户通知" to="账户通知" g="-27,-49"/>
+   </task>
+   <task name="账户通知" g="3,344,113,52">
+      <transition name="to 财务部印鉴预留" to="财务部印鉴预留" g="-51,-8"/>
+   </task>
+   <task name="财务部印鉴预留" g="5,451,113,52">
+      <transition name="to end1" to="end1" g="24,-4"/>
+   </task>
+   <decision name="exclusive1" g="566,92,48,48">
+      <transition name="to 部门经理复核" to="部门经理复核" g="-42,23"/>
+      <transition name="to 客户支持中心前台岗提交" to="客户支持中心前台岗提交" g="589,42;228,42:-153,-22"/>
+   </decision>
+   <decision name="exclusive2" g="833,270,48,48">
+      <transition name="to 客户支持中心后台岗复核" to="客户支持中心后台岗复核" g="-94,-14"/>
+      <transition name="to 部门经理复核" to="部门经理复核" g="710,293:-75,-87"/>
+   </decision>
+   <decision name="exclusive3" g="834,92,48,48">
+      <transition name="to 客户支持中心后台岗审核" to="客户支持中心后台岗审核" g="-82,-17"/>
+      <transition name="to 客户支持中心前台岗复核" to="客户支持中心前台岗复核" g="858,43;418,42:-153,-22"/>
+   </decision>
+   <decision name="exclusive4" g="455,347,48,48">
+      <transition name="to 风控结算复核" to="风控结算复核" g="-114,-40"/>
+      <transition name="to 客户支持中心后台岗复核" to="客户支持中心后台岗复核" g="480,451;861,455:-5,-18"/>
+   </decision>
+   <decision name="exclusive5" g="684,347,48,48">
+      <transition name="to 风控结算操作" to="风控结算操作" g="-54,-40"/>
+   </decision>
+   <decision name="exclusive6" g="256,350,48,48">
+      <transition name="to 客服回访" to="客服回访" g="-9,-39"/>
+      <transition name="to 风控结算复核" to="风控结算操作" g="280,450;589,452:-93,-22"/>
+   </decision>
+   <end name="end1" g="39,536,48,48"/>
+</process>
