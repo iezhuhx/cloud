@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kiiik.web.system.mapper.MenuMapper" >
+    <cache></cache>
+    <resultMap id="RolMenueVo" type="com.kiiik.web.system.vo.RoleMenuVo" ></resultMap>
+    <select id="systemRoleMenus" resultMap="RolMenueVo" flushCache="true">
+       select rolename,url 
+       from t_sys_role_menu rm 
+       ,t_sys_role r,t_sys_menu m 
+       where rm.menuid=m.id 
+       and rm.roleId=r.id
+       order by m.ordor asc
+    </select>
+</mapper>

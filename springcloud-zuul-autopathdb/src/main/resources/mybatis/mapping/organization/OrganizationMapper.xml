@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kiiik.web.system.mapper.OrganizationMapper" >
+    <cache></cache>
+    <resultMap id="treeNode" type="com.kiiik.web.system.utils.TreeNode" ></resultMap>
+    <select id="getCompanyList" resultMap="treeNode" flushCache="true">
+	       SELECT
+	        "1" type,
+			id,
+			subcompanyname NAME,
+			supsubcomid pid
+		FROM
+			t_sys_company
+		ORDER BY
+			showorder ASC
+    </select>
+    
+    <select id="getDepartmentList" resultMap="treeNode" flushCache="true">
+	        SELECT
+	        "2"  type,
+			id,
+			subcompanyid1 reservedField,
+			departmentname name,
+			t.supdepid pid
+		FROM
+			t_sys_department t
+		ORDER BY
+			showorder ASC
+    </select>
+</mapper>

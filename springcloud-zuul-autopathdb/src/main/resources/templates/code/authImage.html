@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>验证码</title>
+<meta charset="UTF-8" />
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<table id="app-6">
+		<tr>
+			<td width="437"></td>
+			<td><img id="img" src="/code/getImage" /> <a href='#'
+				onclick="javascript:changeImg()" style="color: white;"> <label
+					style="color: black;">看不清？</label></a></td>
+			<td>输入验证码：<input v-model="message" /> <!-- 你的输入：<p>{{ message }}</p> -->
+				<button v-on:click="greet">提交验证</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">{{tip}}</td>
+		</tr> 
+	</table>
+	<!-- 触发JS刷新-->
+	<script type="text/javascript">
+    function changeImg(){
+        var img = document.getElementById("img"); 
+        img.src = "/code/getImage?date=" + new Date();
+    }
+		var app6 = new Vue({
+			el : '#app-6',
+			data : {
+				message : '' ,
+				tip:''
+			},
+			methods : {
+				greet : function(event) {
+					// `this` 在方法里指向当前 Vue 实例
+					//alert(this.message);
+					// `event` 是原生 DOM 事件
+					/* if (event) {
+					  alert(event.target.tagName)
+					} */
+					//console.log("code="+this.message);
+					 /*axios.post("api/validImage","code="+this.message);
+					 .then(function (response) {
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    }); */
+					  //axios.post('server.php',{"code":this.message,"age":19});
+                    
+					//1.get通过直接发字符串拼接
+					//Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+                    axios.get("validImage?code="+this.message)
+                      .then(function (response) {
+                        console.log(response.data);
+						alert(response.data.es);
+						if(response.data.ec=="0"){
+							changeImg();
+						}
+						this.tip=response.data.es;
+						//this.message=response.data;//如何将值回显示在页面上
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                    });
+				}
+			}
+		});
+	</script>
+</body>
+</html>
