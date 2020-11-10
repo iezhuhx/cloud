@@ -1,0 +1,41 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 10.70.66.155
+Source Server Version : 50721
+Source Host           : 10.70.66.155:3306
+Source Database       : centralized_auth
+
+Target Server Type    : MYSQL
+Target Server Version : 50721
+File Encoding         : 65001
+
+Date: 2020-11-10 13:10:39
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for sys_zuul_route
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_zuul_route`;
+CREATE TABLE `sys_zuul_route` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'router Id',
+  `path` varchar(255) NOT NULL COMMENT '路由路径',
+  `service_id` varchar(255) NOT NULL COMMENT '服务名称',
+  `url` varchar(255) DEFAULT NULL COMMENT 'url代理',
+  `strip_prefix` char(1) DEFAULT '1' COMMENT '转发去掉前缀',
+  `retryable` char(1) DEFAULT '1' COMMENT '是否重试',
+  `enabled` char(1) DEFAULT '1' COMMENT '是否启用',
+  `sensitiveHeaders_list` varchar(255) DEFAULT NULL COMMENT '敏感请求头',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `del_flag` char(1) DEFAULT '0' COMMENT '删除标识（0-正常,1-删除）',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='动态路由配置表';
+
+-- ----------------------------
+-- Records of sys_zuul_route
+-- ----------------------------
+INSERT INTO `sys_zuul_route` VALUES ('1', '/test/x/**', 'a-service', null, '1', '1', '1', null, '2020-11-10 12:51:22', '2020-11-10 13:04:12', '0');
+INSERT INTO `sys_zuul_route` VALUES ('2', '/test/y/**', 'b-SERVICE', null, '1', '1', '1', null, '2020-11-10 12:52:01', '2020-11-10 13:04:18', '0');

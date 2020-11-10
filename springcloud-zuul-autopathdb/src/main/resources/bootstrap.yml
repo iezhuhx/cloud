@@ -1,0 +1,75 @@
+server:
+  port: 9084
+
+spring:
+  datasource:
+    type: com.mysql.cj.jdbc.MysqlDataSource
+    username: root
+    password: root
+    url: jdbc:mysql://114.67.105.74:3308/cloud_xlr?characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false
+  profiles:
+    active: test
+  application:
+    name: gateway-zuul-server
+  cloud:
+    sentinel:
+      datasource.ds2.file:
+        file: "classpath: gateway.json"
+        ruleType: gw-flow
+      datasource.ds1.file:
+        file: "classpath: api.json"
+        ruleType: gw-api-group
+      transport:
+        dashboard: localhost:8890
+      filter:
+        enabled: false
+    nacos:
+      config:
+        server-addr: nacos.xianliru.com
+        file-extension: yaml
+      discovery:
+        server-addr: nacos.xianliru.com
+
+zuul:
+  host:
+    # 目标主机的最大连接数，默认值为200
+    max-total-connections: 500
+    # 每个主机的初始连接数，默认值为20
+    max-per-route-connections: 100
+  routes:
+    discovery-server:
+      path: /server/**
+      serviceId: cloud-discovery-server
+#    client-common:
+#      path: /client/**
+#      serviceId: cloud-discovery-client
+#      sensitiveHeaders: X-ABC,X-Foo
+  # 所有路由的默认Hystrix隔离模式（ExecutionIsolationStrategy）为SEMAPHORE。如果此隔离模式是首选，则zuul.ribbonIsolationStrategy可以更改为THREAD
+  ribbon-isolation-strategy: thread
+  # 这个属性意思，* 忽略未指定的服务列表 有具体服务名称 忽略指定的服务
+  ignored-services: "*"
+  # 忽略指定的url 路径
+  ignored—patterns:
+  # 忽略指定的header 头部信息
+  ignored-headers: Authorization
+  # 字段比较敏感，不希望传递给下游微服务。 设置空没有要忽略的敏感字段。全部传给下游服务
+  sensitive-headers: X-ABC
+  ribbon:
+    eager-load:
+      # 强制加载，不设置会进行懒加载。spring 第一次请求会非常慢
+      enabled: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+feign:
+  sentinel:
+    # 开启sentinel fegin 支持
+    enabled: true
