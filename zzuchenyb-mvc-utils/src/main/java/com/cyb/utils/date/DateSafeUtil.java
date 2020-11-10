@@ -36,8 +36,17 @@ public class DateSafeUtil {
 		formattor.remove();
 		return dateString;
 	}
+	public static String timeToMilis19(Date date) {
+		formattor.set(new SimpleDateFormat("yyyyMMddHHmmssSSS"));
+		String dateString = formattor.get().format(date);
+		formattor.remove();
+		return dateString;
+	}
 	public static String timeToMilis() {
 		return timeToMilis(new Date());
+	}
+	public static String timeToMilis19() {
+		return timeToMilis19(new Date());
 	}
 	public static String timeToSec(Date date) {
 		formattor.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));

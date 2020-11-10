@@ -42,7 +42,16 @@ public class H2DBInfor {
 	public boolean isMemery(H2DBInfor db){
 		return Memery.equals(db.getType());
 	}
-	
+	public static String getTcpUrl(String server,String port,String path,String dbName){
+		String url = "jdbc:h2:tcp://${server}:${port}/${h2dbPath}/${dbName};IFEXISTS=true;MV_STORE=FALSE;MVCC=FALSE";
+		Map<String, Object> param = new HashMap<>();
+		param.put("port",port );
+		param.put("h2dbPath",path );
+		param.put("dbName",dbName );
+		param.put("server",server );
+		System.out.println(param);
+		return ELUtils.el(url, param);
+	}
 	public String getDefaultTcpUrl(){
 		String url = "jdbc:h2:tcp://${server}:${port}/${h2dbPath}/${dbName};";
 		Map<String, Object> param = new HashMap<>();

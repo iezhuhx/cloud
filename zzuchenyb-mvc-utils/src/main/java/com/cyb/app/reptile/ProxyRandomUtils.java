@@ -30,12 +30,13 @@ public class ProxyRandomUtils {
 		boolean find = false;
 		int idx=0;
 		while(!find){
+			System.out.println("find proxy....");
 			idx = RandomUtils.getNum(0,proxy.size()-1);
 			if(CmdUtils.telnet(new ProxyInfor(proxy.get(idx)))){
 				find = true;
 			}
 		}
-		System.out.println("可用代理个数:"+proxy.size()+",随机索引序号:"+idx+",是否可用："+CmdUtils.telnet(new ProxyInfor(proxy.get(idx))));
+		System.out.println("可用代理个数:"+proxy.size()+",随机索引序号:"+idx+",是否可用("+proxy.get(idx)+")："+CmdUtils.telnet(new ProxyInfor(proxy.get(idx))));
 		return new ProxyInfor(proxy.get(idx));
 	}
 }

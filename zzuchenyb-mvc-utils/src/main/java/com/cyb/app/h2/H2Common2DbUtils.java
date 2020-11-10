@@ -20,7 +20,10 @@ public class H2Common2DbUtils {
 	Log log = LogFactory.getLog(H2Common2DbUtils.class);
 	static H2DBInfor dbInfo = new H2DBInfor();
 	static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
-
+	
+	public H2Common2DbUtils(JdbcConnectionPool pool){
+		H2Common2DbUtils.pool = pool;
+	}
 	public static void main(String[] args) throws SQLException, IOException {
 	
 	}
@@ -58,7 +61,7 @@ public class H2Common2DbUtils {
 	//指定的连接池创建表
 	public static boolean createTable(JdbcConnectionPool pool,String name,String sql) throws SQLException {
 		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
-		if (!exists(name)) {
+		if (!exists(pool,name)) {
 			System.out.println("创建表...");
 			dbUtil.update(sql);
 		} else {

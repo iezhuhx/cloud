@@ -27,7 +27,7 @@ public class H2DBConnectionPool {
 	}
 	
 	//获取连接池
-	public  JdbcConnectionPool getJDBCConnectionPool(String url,String name,String password){  
+	public static JdbcConnectionPool getJDBCConnectionPool(String url,String name,String password){  
 		JdbcConnectionPool pool=JdbcConnectionPool.create(url, name, password);
 		pool.setLoginTimeout(10000);//建立连接超时时间  
         pool.setMaxConnections(100);//建立连接最大个数

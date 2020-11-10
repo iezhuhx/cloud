@@ -882,6 +882,33 @@ public class FileUtils  extends MyFileCopyUtils{
 	public static boolean append(String filePath, String fileContent) throws IOException {
 		boolean result = false;
 		File f = new File(filePath);
+		if(!f.exists()){
+			f.createNewFile();
+			f.setExecutable(true);
+			f.setReadable(true);
+		}
+		if (f.exists()) {
+			RandomAccessFile rFile = new RandomAccessFile(f, "rw");
+			byte[] b = fileContent.getBytes();
+			long originLen = f.length();
+			rFile.setLength(originLen + b.length);
+			rFile.seek(originLen);
+			rFile.write(b);
+			rFile.close();
+		}
+		result = true;
+		return result;
+	}
+	
+	public static boolean appendEnter(String filePath, String fileContent) throws IOException {
+		boolean result = false;
+		File f = new File(filePath);
+		if(!f.exists()){
+			f.createNewFile();
+			f.setExecutable(true);
+			f.setReadable(true);
+		}
+		fileContent=fileContent+"\n";//默认待换行
 		if (f.exists()) {
 			RandomAccessFile rFile = new RandomAccessFile(f, "rw");
 			byte[] b = fileContent.getBytes();

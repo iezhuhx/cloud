@@ -13,7 +13,7 @@ import com.cyb.utils.page.Pagination;
 import com.cyb.utils.uuid.UUIDUtils;
 /**
  *作者 : iechenyb<br>
- *类描述: 说点啥<br>
+ *类描述: 1 股票代码存入数据库 2 读取行情到数据库  3 写sql分析<br>
  *创建时间: 2017年7月24日
  */
 public class DrawCodesUtils {

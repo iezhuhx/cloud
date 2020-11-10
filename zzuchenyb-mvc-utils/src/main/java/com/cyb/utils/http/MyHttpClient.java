@@ -45,6 +45,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.cyb.app.reptile.ProxyInfor;
 import com.cyb.utils.file.FileUtils;
@@ -59,11 +61,35 @@ public class MyHttpClient {
 	public static void main(String[] args) throws Exception {
 		doPost("http://localhost:8080");
 		postBody("http://localhost:8080", "body content is here!");
+	
+	}
+	
+	public static String jsoupGet(String url,ProxyInfor proxy){
+		 System.setProperty("https.proxySet", "true");
+			System.getProperties().put("https.proxyHost", proxy.getIp());
+			System.getProperties().put("https.proxyPort", proxy.getPort());
+			Document doc = null;
+			String  agent="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)"
+					+ "  Chrome/56.0.2924.87 Safari/537.36" ;
+			try {
+				doc = Jsoup.connect(url)
+						.ignoreContentType(true)
+						.userAgent(agent)
+						// ignoreHttpErrors 
+						//这个很重要 否则会报HTTP error fetching URL. Status=404
+						.ignoreHttpErrors(true)  //这个很重要
+						.timeout(3000).get();
+			} catch (IOException e) {
+				System.out.println(e.getMessage()+"  **************** get");
+			}
+			if (doc!=null) {
+				return doc.body().text();
+			}
+		return null;
 	}
 
 	public static void downLoadContent(String url, String toDir) {
 		try {
-			System.out.println(url);
 			@SuppressWarnings("resource")
 			HttpClient hc = new DefaultHttpClient();
 			HttpGet hg = new HttpGet(url);

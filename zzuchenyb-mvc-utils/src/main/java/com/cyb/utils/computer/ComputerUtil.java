@@ -36,7 +36,30 @@ public class ComputerUtil {
 		String computerName = addr.getHostName().toString();// 获得本机IP
 		return computerName;
 	}
-
+	//获取本机mac地址
+	private static String getMacAddress() throws Exception {
+		Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+		while (networkInterfaces.hasMoreElements()) {
+			NetworkInterface networkInterface = networkInterfaces.nextElement();
+			if (null == networkInterface) {
+				continue;
+			}
+			byte[] macBytes = networkInterface.getHardwareAddress();
+			if (networkInterface.isUp() && !networkInterface.isLoopback() && null != macBytes && macBytes.length == 6) {
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0, nLen = macBytes.length; i < nLen; i++) {
+					byte b = macBytes[i];
+					sb.append(Integer.toHexString((b & 240) >> 4));
+					sb.append(Integer.toHexString(b & 15));
+					if (i < nLen - 1) {
+						sb.append("-");
+					}
+				}
+				return sb.toString().toUpperCase();
+			}
+		}
+		return null;
+	}
 	/**
 	 * 
 	 * 作者 : iechenyb<br>

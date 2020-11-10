@@ -1,7 +1,6 @@
 package com.test.controller;
 
 import java.util.Map;
-import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,11 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.zhuozhengsoft.pageoffice.*;
 
 /**
  * @author Administrator
@@ -40,7 +38,7 @@ public class DemoController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/word", method=RequestMethod.GET)
+	/*@RequestMapping(value="/word", method=RequestMethod.GET)
 	public ModelAndView showWord(HttpServletRequest request, Map<String,Object> map){
 		
 		PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
@@ -64,10 +62,10 @@ public class DemoController {
 	}
 	
 	
-	/**
+	*//**
 	 * 添加PageOffice的服务器端授权程序Servlet（必须）
 	 * @return
-	 */
+	 *//*
 	@Bean
     public ServletRegistrationBean servletRegistrationBean() {
 		com.zhuozhengsoft.pageoffice.poserver.Server poserver = new com.zhuozhengsoft.pageoffice.poserver.Server();
@@ -82,10 +80,10 @@ public class DemoController {
         return srb;// 
     }
 	
-	/**
+	*//**
 	 * 添加印章管理程序Servlet（可选）
 	 * @return
-	 */
+	 *//*
 	@Bean
     public ServletRegistrationBean servletRegistrationBean2() {
 		com.zhuozhengsoft.pageoffice.poserver.AdminSeal adminSeal = new com.zhuozhengsoft.pageoffice.poserver.AdminSeal();
@@ -96,5 +94,5 @@ public class DemoController {
 		srb.addUrlMappings("/sealimage.zz");
 		srb.addUrlMappings("/loginseal.zz");
         return srb;// 
-    }
+    }*/
 }
