@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
  *创建时间: 2018年12月21日
  */
 public class Contants {
+	public static final String dir="d://";
 	public static final String BLANK = "";
 	public static final String UTF8 = "UTF-8";
 	Log log = LogFactory.getLog(Contants.class);

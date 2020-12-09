@@ -1,6 +1,7 @@
 package com.cyb.app.holiday;
 import java.util.Date;
 
+import com.cyb.app.holiday.util.GoseekHolidayUtils;
 import com.cyb.utils.date.DateSafeUtil;
 import com.cyb.utils.date.DateUnsafeUtil;
 /**
@@ -16,8 +17,8 @@ public class Holiday {
 	final String WEEKDAY="1";
 	final String JIJIARI="2";
 	
-	String[] desc = new String[]{"工作日","休息日","节假日"};
-	Holiday(Date rq,String type){
+	String[] desc = new String[]{"工作日","休息日","节假日"};//0,1,2
+	public Holiday(Date rq,String type){
 		this.rq = rq;
 		this.type = type;
 	}
@@ -58,7 +59,7 @@ public class Holiday {
 		}
 	}
 	public Holiday(){};
-	Holiday(String row){
+	public Holiday(String row){
 		this.rq = DateSafeUtil.calendar(row.split(",")[0]).getTime();
 		this.type = row.split(",")[1];
 	}

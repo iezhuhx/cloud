@@ -9,7 +9,7 @@ import org.quartz.SchedulerException;
 
 import com.cyb.app.bms.BMSJob;
 import com.cyb.app.csdn.CsdnJob;
-import com.cyb.app.holiday.HolidayJob;
+import com.cyb.app.holiday.main.HolidayJob;
 import com.cyb.app.sina.SinaJob;
 import com.cyb.app.stock.StockJob;
 import com.cyb.utils.random.RandomUtils;

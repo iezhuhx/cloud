@@ -8,6 +8,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.h2.tools.Server;
 
+import com.cyb.app.h2.usecase.H2URL;
+import com.cyb.utils.computer.CmdUtils;
+
 /**
  *作者 : iechenyb<br>
  *类描述: 程序启动与关闭h2<br>
@@ -18,32 +21,44 @@ public class H2ServerManager {
 	private static Server webServer;
 	Log log = LogFactory.getLog(H2ServerManager.class);
 	
-	public static void start(String port) {
+	public static boolean start(String port) {
+		boolean needStart = false;
         try {
-            System.out.println("正在启动h2...");
-            server = Server.createTcpServer(
+        	if(CmdUtils.telnet(H2URL.server, H2URL.port)){
+        		System.out.println("TCP端口服务"+H2URL.port+"已经启动！");
+        	}else{
+        		System.out.println("正在启动h2 TCP服务...");
+        		server = Server.createTcpServer(
                     new String[] { 
                     		"-tcp", 
                     		"-tcpAllowOthers",
                     		"-tcpPort",
                              port }).start();
-            webServer = Server.createWebServer(new String[] { 
-            		"-web", 
-            		"-webPort",
-            		"8095",
-                    "-browser",
-                    "-webAllowOthers"}).start();
-            System.out.println("启动h2server成功：" + server.getStatus());
-            System.out.println("启动webserver成功：" + webServer.getStatus());
+        		System.out.println("启动h2server成功：" + server.getStatus());
+        		needStart = true;
+            }
+            if(CmdUtils.telnet(H2URL.server, H2URL.webPort)){
+        		System.out.println("WEB端口服务"+H2URL.webPort+"已经启动！");
+        	}else{
+        		System.out.println("正在启动h2 web服务...");
+        		webServer = Server.createWebServer(new String[] { 
+                		"-web", 
+                		"-webPort",
+                		"8095",
+                        "-browser",
+                        "-webAllowOthers"}).start();
+        		 System.out.println("启动webserver成功：" + webServer.getStatus());
+        		 needStart = true;
+            }
         } catch (SQLException e) {
             System.out.println("启动h2出错：" + e.toString());
-
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+        return needStart;
     }
-	public static void start() {
-		start(new H2DBInfor().getDefaultPort());
+	public static boolean start() {
+		return start(H2URL.port);
 	}
     public static void stop() {
         if (server != null) {
@@ -58,12 +73,12 @@ public class H2ServerManager {
         }
     }
 
-    public static void crudTest(H2DBInfor db) {
+    public static void crudTcpTest() {
         try {
             Class.forName("org.h2.Driver");
             Connection conn = null;/*DriverManager
             		.getConnection("jdbc:h2:./h2db/sxaz42b4", "sa", "sa");*/
-            conn = H2DBConnectionPool.getJDBCConnectionPool(db).getConnection();
+            conn = H2DBConnectionPool.getJDBCConnectionPool().getConnection();
             Statement stat = conn.createStatement();
             stat.execute("CREATE TABLE TEST(NAME VARCHAR)");
             stat.execute("INSERT INTO TEST VALUES('菩提树下的杨过')");
@@ -85,15 +100,12 @@ public class H2ServerManager {
         }
     }
     public static void h2Test() {
-        start();
-        H2DBInfor db = new H2DBInfor();//默认嵌入式
-        crudTest(db);
+       // start();
+    	crudTcpTest();
         
-        db = new H2DBInfor(H2DBInfor.Embed);
-        crudTest(db);
+       /* crudTest(db);
         
-        db = new H2DBInfor(H2DBInfor.Server);
-        crudTest(db);
+        crudTest(db);*/
 	        
         stop();
     }

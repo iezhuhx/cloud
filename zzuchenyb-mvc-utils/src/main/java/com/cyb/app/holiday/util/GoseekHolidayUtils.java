@@ -1,4 +1,4 @@
-package com.cyb.app.holiday;
+package com.cyb.app.holiday.util;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +8,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.cyb.app.holiday.Holiday;
+import com.cyb.app.holiday.HolidayStatus;
 import com.cyb.app.reptile.ProxyRandomUtils;
 import com.cyb.utils.date.DateUnsafeUtil;
 import com.cyb.utils.file.FileUtils;
@@ -26,7 +28,7 @@ import com.cyb.utils.text.ELUtils;
 */
 public class GoseekHolidayUtils {
 	static Log log = LogFactory.getLog(GoseekHolidayUtils.class);
-	static Map<String,String> types = new HashMap<>();
+	public static Map<String,String> types = new HashMap<>();
 	public static String HOLIDAY_GOGZUORI="0";//工作日
 	public static String HOLIDAY_XIUXIRI="1";//休息日
 	public static String HOLIDAY_JIEJIARI="2";//节假日
@@ -36,21 +38,29 @@ public class GoseekHolidayUtils {
 		types.put(HOLIDAY_XIUXIRI, "休息日");
 		types.put(HOLIDAY_JIEJIARI, "节假日");
 	}
-	public static String rqs="D:\\data\\calendar\\rqs.txt";
+	public static String rqs="D:\\data\\calendar\\${year}.txt";
 	static String holidayUrl = "http://api.goseek.cn/Tools/holiday?date=${date}";
 	//抓取当年的节假日2019
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		//initHoliday();
-		initHoliday("20200101","20201231");
+		//initHoliday("20200101","20201231");
 		//System.out.println(lastTradeDay());
+	}*/
+	//初始化指定年节假日
+	public static void initHoliday(int year) throws IOException{
+		 initHoliday(year+"0101",year+"1231");
 	}
+	
+	//初始化当年节假日
 	public static void initHoliday() throws IOException{
 		 initHoliday(DateUnsafeUtil.curYearStartDay(),DateUnsafeUtil.curYearEndDay());
 	}
+	//初始化任意区间节假日
 	public static void initHoliday(String start,String end) throws IOException{
 		//计算两个日期之间的差值
 		int days = DateUnsafeUtil.daysBetween(start, end);
 		Date startDate = DateUnsafeUtil.calendar(start).getTime();
+		rqs = ELUtils.el(rqs, "year",start.substring(0, 4));
 		for(int i=0;i<=days;i++){
 			Date date = DateUnsafeUtil.preDate(startDate,i);
 			String req = ELUtils.el(holidayUrl, 

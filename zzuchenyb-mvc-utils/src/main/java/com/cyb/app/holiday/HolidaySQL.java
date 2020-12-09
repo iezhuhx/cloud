@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HolidaySQL {
 	Log log = LogFactory.getLog(HolidaySQL.class);
+	public static String tableName="holiday";
 	public static String createSQL="create table holiday(rq varchar,type varchar)";
 	public static String insertSQL="insert into holiday values('${rq}','${type}')";
 	public static String preTradeSQL="select max(rq) rq from holiday where rq<${rq} and type=0";

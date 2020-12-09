@@ -8,7 +8,7 @@ public class TimorHolidayStrategy implements HolidayStrategy
 {
 	public static String holidayUrl = "http://timor.tech/api/holiday/info/${date}";
 	/**
-	 * yyyy-mm-dd
+	 * yyyy-mm-dd type=0 工作日 type=1 周六周日  type=2 法定节假日
 	 * {"code":0,"type":{"type":0,"name":"周五","week":5},"holiday":null}
 	 * {"code":0,"type":{"type":1,"name":"周六","week":6},"holiday":null}
 	 * {"code":0,"type":{"type":2,"name":"元旦","week":3},"holiday":{"holiday":true,"name":"元旦","wage":3,"date":"2020-01-01"}}

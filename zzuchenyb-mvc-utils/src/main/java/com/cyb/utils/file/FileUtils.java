@@ -722,6 +722,24 @@ public class FileUtils  extends MyFileCopyUtils{
 		}
 		return result;
 	}
+	public static boolean deleteDir(String dirName) {
+		return deleteDir(new File(dirName));
+	}
+	public static boolean deleteDir(File dir) {
+		if (dir.isDirectory()) {
+            String[] children = dir.list();
+            //递归删除目录中的子目录下
+            for (int i=0; i<children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        // 目录此时为空，可以删除
+        return dir.delete();
+	}
+
 
 	/***
 	 * 递归获取指定目录下的所有的文件

@@ -24,10 +24,15 @@ public class H2CRUDSql {
     public static String QUERYSQL="select count(1) as total from "+tName+"  where rq='20120202'";
     public static String DELETESQL="DELETE FROM "+tName+" ";
     public static String INSERTSQL ="insert into "+tName+"  values('20120202','23212')";
-    static H2DBInfor dbInfo = new H2DBInfor();
-    static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
+    static H2DBInfor dbInfo = new H2DBInfor();//不好用
+    
+    static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool();
+    //H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
+    
     static ConnectionUtils dbUtil =null;
+    
     public static void main(String[] args) throws SQLException {
+    	H2ServerManager.start();
     	dbUtil = new ConnectionUtils(pool.getConnection());
     	createTable();
     	H2ServerManager.h2Test();//各种初始化连接测试

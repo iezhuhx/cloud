@@ -6,7 +6,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.cyb.app.holiday.HolidayH2DbUtils;
+import com.cyb.app.holiday.util.HolidayH2DbUtils;
 import com.cyb.utils.date.DateRangeUtil;
 /**
  *作者 : iechenyb<br>

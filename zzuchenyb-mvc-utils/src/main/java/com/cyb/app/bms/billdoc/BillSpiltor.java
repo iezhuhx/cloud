@@ -38,7 +38,6 @@ public class BillSpiltor {
 		new BillSpiltor().dbfClassification();
 	}
 	public void dbfClassification() {
-			String message = "{\"message\":'success'}";
 		  try{
 			 // String path = basePath+"CTPDataUpload";
 			 /* DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -149,7 +148,6 @@ public class BillSpiltor {
 			//InputStream fis = new BufferedInputStream(new FileInputStream(path+File.separatorChar+"dbf.zip"));
 		  }catch (Exception ex) {
 				ex.printStackTrace();
-				message = "{\"message\":'error'}";
 			}
 		}
 	
@@ -609,13 +607,13 @@ public class BillSpiltor {
 	            // 一条条的写入记录 
 	            Object[] rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "上一交易日实有货币资金余额";  
+	            rowData[1] = new String("上一交易日实有货币资金余额");  
 	            rowData[2] = cusfund7;  
 	            writer.addRecord(rowData);  
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "加：当日收入资金";  
+	            rowData[1] = "加:当日收入资金";  
 	            rowData[2] = fundchgPlus3;  
 	            writer.addRecord(rowData);  
 	            
@@ -627,7 +625,7 @@ public class BillSpiltor {
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "减：当日付出资金";  
+	            rowData[1] = "减:当日付出资金";  
 	            rowData[2] = fundchgNeg3;  
 	            writer.addRecord(rowData); 
 	            
@@ -639,7 +637,7 @@ public class BillSpiltor {
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "其中：交易手续费";  
+	            rowData[1] = "其中:交易手续费";  
 	            rowData[2] = temp;  
 	            writer.addRecord(rowData); 
 	            
@@ -669,7 +667,7 @@ public class BillSpiltor {
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "其中：交易保证金";  
+	            rowData[1] = "其中:交易保证金";  
 	            rowData[2] = holddataTotal7;  
 	            writer.addRecord(rowData);
 	            
@@ -681,7 +679,7 @@ public class BillSpiltor {
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "减：交易保证金";  
+	            rowData[1] = "减:交易保证金";  
 	            rowData[2] = holddataTotal7;  
 	            writer.addRecord(rowData);
 	            
@@ -693,13 +691,13 @@ public class BillSpiltor {
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "加：申报划入金额";  
+	            rowData[1] = "加:申报划入金额";  
 	            rowData[2] = temp;  
 	            writer.addRecord(rowData);
 	            
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "减：申报划出金额";  
+	            rowData[1] = "减:申报划出金额";  
 	            rowData[2] = temp;  
 	            writer.addRecord(rowData);
 	            
@@ -735,7 +733,7 @@ public class BillSpiltor {
 	            //change=Double.parseDouble(holddataTotal7)-Double.parseDouble(befHolddataTotal7);
 	            rowData = new Object[3];  
 	            rowData[0] = account;  
-	            rowData[1] = "其中：交易保证金变动";  
+	            rowData[1] = "其中:交易保证金变动";  
 	            rowData[2] = "-";  
 	            writer.addRecord(rowData);
 	            

@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class SendLogService {
     static H2DBInfor dbInfo = new H2DBInfor();
-    static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
+    static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool("");
     public static void  insertLog() throws SQLException {
         ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
         dbUtil.update(BMSSql.INSERTSQL);

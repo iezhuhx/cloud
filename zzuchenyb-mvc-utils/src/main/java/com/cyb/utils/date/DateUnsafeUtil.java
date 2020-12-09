@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 import com.cyb.app.holiday.Holiday;
-import com.cyb.app.holiday.HolidayH2DbUtils;
+import com.cyb.app.holiday.util.HolidayH2DbUtils;
 
 /**
  * 
@@ -528,6 +528,16 @@ public class DateUnsafeUtil {
 		d.set(Calendar.MONTH, month-1);
 		showEnMonthCal(d);
 	}
+	
+	public static void showYearMonthCal(int year,int month) throws Exception{
+		if(month<1||month>12){
+			throw new Exception("月份错误！1-12");
+		}
+		GregorianCalendar d = new GregorianCalendar();
+		d.set(Calendar.MONTH, month-1);
+		d.set(Calendar.YEAR, year);
+		showEnMonthCal(d);
+	}
 	public static void showMonthCal(Date date) throws SQLException{
 		GregorianCalendar d = new GregorianCalendar();
 		d.setTime(date);
@@ -624,7 +634,7 @@ public class DateUnsafeUtil {
 		int cnt = 1;
 		while (weekdays[cnt] != weekdays[weeknameofFirstday]) // 打印日历第一行，判断当月1号从第一行的哪里开始打印
 		{//String.format("%6s","--")
-			System.out.printf("%6s","*");
+			System.err.format("%6s","*");
 			++cnt;
 		}
 		do {

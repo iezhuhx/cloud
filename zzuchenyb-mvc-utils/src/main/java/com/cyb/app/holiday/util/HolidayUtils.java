@@ -1,4 +1,4 @@
-package com.cyb.app.holiday;
+package com.cyb.app.holiday.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,25 +6,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cyb.app.holiday.Holiday;
 import com.cyb.app.holiday.imp.GenerSqlStrategy;
 import com.cyb.app.holiday.imp.HolidayStrategy;
-import com.cyb.app.holiday.imp.KiiikWorkDayStrategy;
+import com.cyb.app.holiday.imp.KiiikWorkDaySQLStrategy;
 import com.cyb.utils.date.DateUnsafeUtil;
 import com.cyb.utils.file.FileUtils;
+import com.cyb.utils.text.ELUtils;
 /**
  * 根据不同的策略，生产指定区间的日历
  * @author Administrator
  *
  */
 public class HolidayUtils {
-	static String calTxt="D:\\data\\calendar\\rqs.txt";
+	static String calTxt="D:\\data\\calendar\\${year}.txt";
 	
 	//获取以当前年份为文件名的日历文件
 	public static String getCurYearFile(){
-		return calTxt.replace("rqs", DateUnsafeUtil.curYear());
+		return ELUtils.el(calTxt,"year", DateUnsafeUtil.curYear());
 	}
 	public static String getYearFile(String year){
-		return calTxt.replace("rqs", year);
+		return ELUtils.el(calTxt,"year", year);
 	}
 	public static File file() throws IOException{
 		File file = new File(getCurYearFile());
@@ -105,15 +107,15 @@ public class HolidayUtils {
 	
 	
 	//生成当年的节假日维护sql
-	public static void generSql(){
+	public static void kiiikWorkDayStrategyGenerSql(){
 		List<Holiday> data  = getHolidays();
-		GenerSqlStrategy sty = new KiiikWorkDayStrategy();
+		GenerSqlStrategy sty = new KiiikWorkDaySQLStrategy();
 		for(Holiday d:data){
 			System.out.println(sty.genSql(d));
 		}
 	}
 	public static void main(String[] args) {
 		//System.out.println(getHolidays());
-		generSql();
+		kiiikWorkDayStrategyGenerSql();
 	}
 }

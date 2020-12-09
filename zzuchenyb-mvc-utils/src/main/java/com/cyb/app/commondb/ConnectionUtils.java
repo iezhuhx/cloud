@@ -16,9 +16,9 @@ import javax.sql.DataSource;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
@@ -27,7 +27,6 @@ import org.h2.jdbcx.JdbcConnectionPool;
 import org.springframework.beans.BeanUtils;
 
 import com.cyb.app.h2.H2DBConnectionPool;
-import com.cyb.app.h2.H2DBInfor;
 import com.cyb.app.holiday.HolidaySQL;
 import com.cyb.utils.date.DateSafeUtil;
 import com.cyb.utils.returnBean.ParamMap;
@@ -51,8 +50,7 @@ public class ConnectionUtils extends QueryRunner {
 	}
 
 	public static void main(String[] args) throws SQLException, InstantiationException, IllegalAccessException {
-		H2DBInfor dbInfo = new H2DBInfor();
-		JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
+		JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool();
 		ConnectionUtils dbUtil = new ConnectionUtils(pool.getConnection());
 		String sql = ELUtils.el(HolidaySQL.preTradeSQL, 
 				ParamMap

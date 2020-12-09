@@ -18,8 +18,7 @@ import com.cyb.app.commondb.DDLUtils;
  */
 public class H2Common2DbUtils {
 	Log log = LogFactory.getLog(H2Common2DbUtils.class);
-	static H2DBInfor dbInfo = new H2DBInfor();
-	static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
+	static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool();
 	
 	public H2Common2DbUtils(JdbcConnectionPool pool){
 		H2Common2DbUtils.pool = pool;
@@ -65,7 +64,7 @@ public class H2Common2DbUtils {
 			System.out.println("创建表...");
 			dbUtil.update(sql);
 		} else {
-			System.out.println("表已经存在！");
+			System.out.println("表"+name+"已经存在！");
 		}
 		return true;
 	}

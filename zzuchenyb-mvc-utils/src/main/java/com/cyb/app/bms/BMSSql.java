@@ -20,8 +20,7 @@ public class BMSSql {
     public static String QUERYSQL="select count(1) as total from "+tName+"  where rq='20120202'";
     public static String DELETESQL="DELETE FROM "+tName+" ";
     public static String INSERTSQL ="insert into "+tName+"  values('20120202','23212')";
-    static H2DBInfor dbInfo = new H2DBInfor();
-    static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool(dbInfo);
+    static JdbcConnectionPool pool = H2DBConnectionPool.getJDBCConnectionPool();
     public static void main(String[] args) throws SQLException {
         H2Common2DbUtils.createTable("sendlog", CREATESQL);
     }

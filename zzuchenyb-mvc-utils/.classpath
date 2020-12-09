@@ -36,5 +36,14 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/zzuch/.m2/repository/com/github/albfernandez/javadbf/1.9.2/javadbf-1.9.2.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.github.albfernandez"/>
+			<attribute name="maven.artifactId" value="javadbf"/>
+			<attribute name="maven.version" value="1.9.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.h2.jdbcx.JdbcConnectionPool;
+
+import com.cyb.app.h2.usecase.H2URL;
 /**
  *作者 : iechenyb<br>
  *类描述: 说点啥<br>
@@ -14,8 +16,15 @@ public class H2DBConnectionPool {
 	Log log = LogFactory.getLog(H2DBConnectionPool.class);
 	private  JdbcConnectionPool pool=null;
 	
+	public H2DBConnectionPool(String dbName){
+		//pool=JdbcConnectionPool.create("jdbc:h2:~/test1","sa","");
+		pool = JdbcConnectionPool.create(H2URL.getTcpUrl(dbName), "", "");
+		pool.setLoginTimeout(10000);//建立连接超时时间  
+        pool.setMaxConnections(100);//建立连接最大个数  
+	}
 	public H2DBConnectionPool(){
-		pool=JdbcConnectionPool.create("jdbc:h2:~/test1","sa","");
+		//pool=JdbcConnectionPool.create("jdbc:h2:~/test1","sa","");
+		pool = JdbcConnectionPool.create(H2URL.getTcpUrl(""), "", "");
 		pool.setLoginTimeout(10000);//建立连接超时时间  
         pool.setMaxConnections(100);//建立连接最大个数  
 	}
@@ -27,12 +36,12 @@ public class H2DBConnectionPool {
 	}
 	
 	//获取连接池
-	public static JdbcConnectionPool getJDBCConnectionPool(String url,String name,String password){  
+	/*public static JdbcConnectionPool getJDBCConnectionPool(String url,String name,String password){  
 		JdbcConnectionPool pool=JdbcConnectionPool.create(url, name, password);
 		pool.setLoginTimeout(10000);//建立连接超时时间  
         pool.setMaxConnections(100);//建立连接最大个数
         return pool;
-    }
+    }*/
 	//获取连接池
 	@SuppressWarnings("unused")
 	public  static JdbcConnectionPool getJDBCConnectionPool(H2DBInfor db){  
@@ -44,9 +53,20 @@ public class H2DBConnectionPool {
         pool.setMaxConnections(100);//建立连接最大个数
         return pool;
     }
-    public  JdbcConnectionPool getJDBCConnectionPool(){  
+	
+	public  static JdbcConnectionPool getJDBCConnectionPool(){  
+		return getJDBCConnectionPool("");
+	}
+	public  static JdbcConnectionPool getJDBCConnectionPool(String dbName){  
+		JdbcConnectionPool pool=JdbcConnectionPool.create(H2URL.getTcpUrl(dbName), "","");
+		pool.setLoginTimeout(10000);//建立连接超时时间  
+        pool.setMaxConnections(100);//建立连接最大个数
+        return pool;
+    }
+	
+   /* public  JdbcConnectionPool getJDBCConnectionPool(){  
         return pool;  
-    }  
+    }  */
       
     public  Connection getConnection(){  
         try {  

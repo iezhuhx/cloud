@@ -103,6 +103,12 @@ public class CmdUtils {
 	public static boolean telnet(ProxyInfor proxy){
 		return telnet(proxy.getIp(),proxy.getPort());
 	}
+	
+	
+	public static boolean telnet(String ip, String port) {
+		return telnet(ip,Integer.valueOf(port));
+	}
+	
 	@SuppressWarnings("unused")
 	public static boolean telnet(String ip, int port) {
 		TelnetClient telnet = new TelnetClient();
