@@ -1,4 +1,4 @@
-package com.cyb.app.stock.pub;
+package com.cyb.app.stock;
 
 import java.util.List;
 import java.util.Map;

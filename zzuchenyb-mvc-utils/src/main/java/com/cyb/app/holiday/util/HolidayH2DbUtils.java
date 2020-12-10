@@ -49,7 +49,7 @@ public class HolidayH2DbUtils {
 		Map<String, Object> param = new HashMap<>();
 		param.put("rq", DateSafeUtil.date2long8(date).toString());
 		
-		String sql = ELUtils.el(HolidaySQL.tradeSQL, param);
+		String sql = ELUtils.el(HolidaySQL.calSQL, param);
 		//System.out.println("sql:"+sql);
 		Holiday h =  dbUtil.queryForObject(sql, Holiday.class);
 		h.setRq(date);
@@ -60,6 +60,41 @@ public class HolidayH2DbUtils {
 	public static Holiday getToday() throws SQLException{
 		return getSomeDay(new Date());
 	}
+	
+	/**
+	 * 当日是否为交易日
+	 *@Author iechenyb<br>
+	 *@Desc 说点啥<br>
+	 *@CreateTime 2020年12月9日 下午3:28:51
+	 *@return
+	 */
+	public static boolean isTradeDay(){
+		try {
+			Holiday h = getToday();
+			return h.isTradeDay();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	/**
+	 * 判断指定日期是否为交易日
+	 *@Author iechenyb<br>
+	 *@Desc 说点啥<br>
+	 *@CreateTime 2020年12月9日 下午3:30:32
+	 *@param yyyymmdd
+	 *@return
+	 */
+	public static boolean isTradeDay(String yyyymmdd){
+		try {
+			Holiday h = getSomeDay(DateUnsafeUtil.calendar(yyyymmdd).getTime());
+			return h.isTradeDay();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	
 	//上一个交易日
 	public static String preTradeDay(String yyyymmddDate) throws SQLException {

@@ -119,6 +119,9 @@ public class Pagination implements Serializable{
     public int getPageCount() {
         return pageCount;
     }
+    public int getPages() {
+        return pageCount;
+    }
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
@@ -162,6 +165,12 @@ public class Pagination implements Serializable{
         int total = 150;
     	Pagination p = new Pagination(1,pageSize,total);
     	//不到一页 pagesize=total 否则等于固定页数
+    	for(int i=1;i<=p.getPageCount();i++){
+    		Pagination p_ = p.getPage(i);
+    		System.out.println(p_.getOffset()+","
+    		+(p_.getPageEnd()+1));//适合list分页 不包含结尾
+    	}
+    	System.out.println("============-1开始============");
     	//边界值 如果最后一页一条数据
     	for(int i=1;i<=p.getPageCount();i++){
     		Pagination p_ = p.getPage(i);

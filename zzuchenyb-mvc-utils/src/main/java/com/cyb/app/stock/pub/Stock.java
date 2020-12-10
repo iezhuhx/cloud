@@ -11,21 +11,28 @@ public class Stock implements Serializable{
 	/**
 	 * 
 	 */
-	public String id;
-	public String name;
-	public String code;
+	public Long id;
+	public String name;//
+	public String code;//sh00001
 	public String exchange;
 	public String classify;//分类  农业 金融等
 	public String province;//省份
 	public String industry;//A股 B股等
 	public String timeOfMarket;//上市时间
-	public String code_;
+	public String codeNum;
+	public Stock(){}
+	public Stock(String code,String name,String exchange){
+		this.code = code;
+		this.name = name;
+		this.exchange = exchange;
+		this.codeNum = code.substring(2);//不带sh或者sz
+	}
 	//A股总股本,A股流通股本
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -87,19 +94,19 @@ public class Stock implements Serializable{
 
 	public Stock mapRow(ResultSet rs, int arg1) throws SQLException {
 		    Stock userInfo = new Stock();
-	        userInfo.setId(rs.getString("id"));
+	        userInfo.setId(Long.valueOf(rs.getString("id")));
 	        userInfo.setName(rs.getString("name"));
 	        userInfo.setCode(rs.getString("code"));
 	        userInfo.setExchange(rs.getString("exchange3"));
 	        return userInfo;
 	}
 	
-	public String getCode_() {
-		return code_;
+	public String getCodeNum() {
+		return codeNum;
 	}
 
-	public void setCode_(String code_) {
-		this.code_ = code_;
+	public void setCodeNum(String codeNum) {
+		this.codeNum = codeNum;
 	}
 
 	public String toString(){

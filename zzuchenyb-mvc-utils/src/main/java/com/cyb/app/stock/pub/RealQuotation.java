@@ -6,19 +6,19 @@ package com.cyb.app.stock.pub;
  *创建时间: 2017年7月25日
  */
 public class RealQuotation {
-	private String id;
+	private Long id;
 	private String code;//sh600868
 	private String name;
-	private String open;
-	private String high;
-	private String low;
-	private String close;
-	private String preclose;
-	private String price;
+	private Double open;
+	private Double high;
+	private Double low;
+	private Double close;
+	private Double preclose;
+	private Double price;
 	private String day;
 	private String time;
-	private String cash;
-	private String volumn;
+	private Double cje;//成交额
+	private Long cjl;//成交量
 	private String recordTime;
 	public String getCode() {
 		return code;
@@ -26,40 +26,52 @@ public class RealQuotation {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getOpen() {
+	public Double getOpen() {
 		return open;
 	}
-	public void setOpen(String open) {
+	public void setOpen(Double open) {
 		this.open = open;
 	}
-	public String getHigh() {
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Double getHigh() {
 		return high;
 	}
-	public void setHigh(String high) {
+	public void setHigh(Double high) {
 		this.high = high;
 	}
-	public String getLow() {
+	public Double getLow() {
 		return low;
 	}
-	public void setLow(String low) {
+	public void setLow(Double low) {
 		this.low = low;
 	}
-	public String getClose() {
+	public Double getClose() {
 		return close;
 	}
-	public void setClose(String close) {
+	public void setClose(Double close) {
 		this.close = close;
 	}
-	public String getPreclose() {
+	public Double getPreclose() {
 		return preclose;
 	}
-	public void setPreclose(String preclose) {
+	public void setPreclose(Double preclose) {
 		this.preclose = preclose;
 	}
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getDay() {
@@ -74,17 +86,17 @@ public class RealQuotation {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public String getCash() {
-		return cash;
+	public Double getCje() {
+		return cje;
 	}
-	public void setCash(String cash) {
-		this.cash = cash;
+	public void setCje(Double cje) {
+		this.cje = cje;
 	}
-	public String getVolumn() {
-		return volumn;
+	public Long getCjl() {
+		return cjl;
 	}
-	public void setVolumn(String volumn) {
-		this.volumn = volumn;
+	public void setCjl(Long cjl) {
+		this.cjl = cjl;
 	}
 	public String getRecordTime() {
 		return recordTime;
@@ -92,17 +104,6 @@ public class RealQuotation {
 	public void setRecordTime(String recordTime) {
 		this.recordTime = recordTime;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	
 }

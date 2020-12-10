@@ -13,5 +13,5 @@ public class HolidaySQL {
 	public static String insertSQL="insert into holiday values('${rq}','${type}')";
 	public static String preTradeSQL="select max(rq) rq from holiday where rq<${rq} and type=0";
 	public static String nextTradeSQL="select min(rq) rq from holiday where rq>${rq} and type=0";
-	public static String tradeSQL="select type from holiday where rq=${rq}";
+	public static String calSQL="select type from holiday where rq=${rq}";
 }

@@ -256,6 +256,7 @@ public class ConnectionUtils extends QueryRunner {
 		try {
 			return super.update(conn, sql);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
