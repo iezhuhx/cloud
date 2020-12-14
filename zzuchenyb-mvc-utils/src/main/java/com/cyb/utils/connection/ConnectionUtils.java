@@ -93,7 +93,7 @@ public class ConnectionUtils {
                 return null;
             }
         } catch (Exception e) {
-            log.error("数据源连接失败",e);
+           System.err.println("数据源连接失败");
             return null;
         }
 
@@ -122,7 +122,7 @@ public class ConnectionUtils {
             //连接失败
 //            logger.debug("initOra："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
             //System.exit(0);
-            log.error("ORACLE连接失败",se);
+           System.err.println("ORACLE连接失败");
             return null;
         }
         return conn;
@@ -148,7 +148,7 @@ public class ConnectionUtils {
 //            logger.info("db2 DATABASE:" + jdbcurl + " Connection success!");
         }catch(Exception se) {
 //            logger.debug("initDB2："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
-            log.error("DB2连接失败",se);
+           System.err.println("DB2连接失败");
             return null;
         }
         return conn;
@@ -177,7 +177,7 @@ public class ConnectionUtils {
             //连接失败
             conn = null;
 //            logger.debug("initMYSQL："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
-            log.error("MYSQL连接失败",se);
+           System.err.println("MYSQL连接失败");
             return null;
         }
         return conn;
@@ -206,7 +206,7 @@ public class ConnectionUtils {
             // 连接失败
 //            logger.debug("initSQLServer："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
 //            System.exit(0);
-            log.error("SQLSERVER连接失败",se);
+           System.err.println("SQLSERVER连接失败");
             return null;
         }
         return conn;
@@ -233,7 +233,7 @@ public class ConnectionUtils {
         } catch (Exception se) {
             // 连接失败
 //            logger.debug("GreenPlum："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
-            log.error("GREENPLUM连接失败",se);
+           System.err.println("GREENPLUM连接失败");
             return null;
         }
         return conn;
@@ -259,7 +259,7 @@ public class ConnectionUtils {
         } catch (Exception se) {
             // 连接失败
 //            logger.debug("HIVE："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
-            log.error("HIVE连接失败",se);
+           System.err.println("HIVE连接失败");
             return null;
         }
         return conn;
@@ -288,7 +288,7 @@ public class ConnectionUtils {
             // 连接失败
 //            logger.debug("initSQLServer："+jdbcurl + "\r\n" + " Connection failed! " + se.getMessage());
 //            System.exit(0);
-            log.error("连接失败",se);
+           System.err.println("连接失败");
             return null;
         }
         return conn;
@@ -317,7 +317,7 @@ public class ConnectionUtils {
             }
             conn = null;
         } catch (Exception ee) {
-            log.error("数据源关闭失败",ee);
+           System.err.println("数据源关闭失败");
         }
     }
 }

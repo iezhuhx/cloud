@@ -1,6 +1,6 @@
 package com.cyb.utils.superutil.ObjectCopy;
 
-import net.sf.cglib.beans.BeanCopier;
+import org.springframework.cglib.beans.BeanCopier;
 
 public class StaticCglibBeanCopierPropertiesCopier implements PropertiesCopier
 {

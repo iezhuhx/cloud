@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="com/cyb/app/spider/|com/cyb/app/spider/" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -42,6 +42,15 @@
 			<attribute name="maven.groupId" value="com.github.albfernandez"/>
 			<attribute name="maven.artifactId" value="javadbf"/>
 			<attribute name="maven.version" value="1.9.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/zzuch/.m2/repository/cn/hutool/hutool-all/5.5.2/hutool-all-5.5.2.jar" sourcepath="C:/Users/zzuch/.m2/repository/cn/hutool/hutool-all/5.5.2/hutool-all-5.5.2-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="cn.hutool"/>
+			<attribute name="maven.artifactId" value="hutool-all"/>
+			<attribute name="maven.version" value="5.5.2"/>
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>

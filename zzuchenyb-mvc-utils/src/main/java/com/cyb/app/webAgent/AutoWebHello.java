@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.cyb.app.bms.zuul.ReportChecker;
+import com.cyb.app.h2.usecase.H2Starter;
 /**
  *@Author iechenyb<br>
  *@Desc 配置chromedriver.exe的path，然后引入
@@ -43,6 +44,7 @@ import com.cyb.app.bms.zuul.ReportChecker;
 public class AutoWebHello {
 	Log log = LogFactory.getLog(AutoWebHello.class);
 	public static void main(String[] args) {
+		H2Starter.startTcpAndWebServer();
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();       //将浏览器最大化
 		driver.get("http://zuul.cesfutures.com:8000/index.html#/");//打开一个浏览器
